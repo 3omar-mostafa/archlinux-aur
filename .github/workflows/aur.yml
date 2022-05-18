@@ -18,15 +18,16 @@ jobs:
         - name: Set Output packages
           id: set-packages
           run: |
-            cat packages_aur.json | jq "{include: .}" > packages_aur_matrix.json
-            echo "::set-output name=matrix::$(cat packages_aur_matrix.json)"
+            # cat packages_aur.json | jq "{include: .}" > packages_aur_matrix.json
+            echo "::set-output name=matrix::$(cat packages_aur.json)"
 
 
         - name: View Packages
-          run: cat packages_aur_matrix.json | jq
+          run: cat packages_aur.json | jq
 
       outputs:
-          matrix: ${{ steps.set-packages.outputs.matrix }}
+          matrix: 
+            include: ${{ steps.set-packages.outputs.matrix }}
 
   build:
     name: "Build ${{ matrix.name }}"
