@@ -13,8 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install base-devel
-      run: pacman -Sy --noconfirm base-devel git
+    - name: Install dependencies
+      run: pacman -Sy --noconfirm --needed base-devel git pamac sha*sum
 
     - name: List installed packages
       run: pamac list --installed
