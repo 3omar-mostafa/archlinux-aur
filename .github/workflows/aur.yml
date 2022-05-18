@@ -1,0 +1,30 @@
+name: AUR
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    container: "manjarolinux/base"
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install base-devel
+      run: pacman -S base-devel
+
+    - name: List installed packages
+      run: pamac list --installed
+
+    - name: Download aur
+      run: git clone https://aur.archlinux.org/gdm-settings.git
+      
+    - name: Build
+      run: cd gdm-settings && makepkg -s
+    
+    - run: ls -lRh
+
+    - run: cat /etc/makepkg.conf
+    
