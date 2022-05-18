@@ -21,10 +21,9 @@ jobs:
 
     - name: Create non root user
       run: |
-          useradd --create-home user
           # Wheel group is the sudo group in Arch Linux
-          usermod --append --groups wheel user
-          echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+          useradd --create-home --groups wheel  user
+          echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           
           echo "PWD: $PWD"
           cat /etc/passwd
