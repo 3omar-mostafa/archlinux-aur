@@ -52,8 +52,9 @@ jobs:
 
     - name: Build
       run: |
-        sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
-        cd gdm-settings
+        package=blueprint-compiler-git
+        sudo -u user git clone https://aur.archlinux.org/$package.git
+        cd $package
         sudo -u user makepkg --noconfirm -s
 
     - run: cat /etc/makepkg.conf
