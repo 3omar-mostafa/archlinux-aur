@@ -19,18 +19,21 @@ jobs:
     - name: List installed packages
       run: pamac list --installed
 
-    - name: Create non root user
-      run: |
-          # Wheel group is the sudo group in Arch Linux
-          useradd --create-home --groups wheel  user
-          echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+#     - name: Create non root user
+#       run: |
+#           # Wheel group is the sudo group in Arch Linux
+#           useradd --create-home --groups wheel  user
+#           echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           
-          echo "PWD: $PWD"
-          cat /etc/passwd
+#           echo "PWD: $PWD"
+#           cat /etc/passwd
 
     - name: Build
       run: |
-        sudo pamac build --keep gdm-settings 
+        echo "" > /etc/pamac.conf
+        echo "EnableAUR" > /etc/pamac.conf
+        
+        pamac build --keep --no-confirm --builddir . gdm-settings 
         ls -lRh
         
         sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
