@@ -38,9 +38,13 @@ jobs:
 #       continue-on-error: true
 #       run: pamac build --no-confirm gdm-settings
 
-#     - name: Build
-#       continue-on-error: true
-#       run: yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
+    - name: Build
+      continue-on-error: true
+      run: yay -Sy --noconfirm --needed --builddir build --verbose --pacman $(which pacman) gdm-settings
+
+    - name: Build
+      continue-on-error: true
+      run: sudo -u user yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
 
     - name: Build
       run: |
