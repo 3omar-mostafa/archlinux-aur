@@ -36,7 +36,7 @@ jobs:
 
     - name: Build
       continue-on-error: true
-      run: pamac build gdm-settings
+      run: pamac build --no-confirm gdm-settings
 
     - name: Build
       continue-on-error: true
@@ -44,7 +44,7 @@ jobs:
 
     - name: Build
       continue-on-error: true
-      run: pamac build blueprint-compiler-git
+      run: pamac build --no-confirm blueprint-compiler-git
 
     - name: Build
       continue-on-error: true
