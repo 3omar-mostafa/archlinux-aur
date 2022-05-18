@@ -22,8 +22,9 @@ jobs:
     - name: Create non root user
       run: |
           useradd --create-home user
-          usermod --append --groups sudoers user
-          echo "%sudoers ALL=(ALL) ALL" >> /etc/sudoers
+          # Wheel group is the sudo group in Arch Linux
+          usermod --append --groups wheel user
+          echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
           
           echo "PWD: $PWD"
           cat /etc/passwd
