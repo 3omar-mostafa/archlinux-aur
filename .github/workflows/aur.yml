@@ -9,12 +9,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    container: "manjarolinux/base"
+    container:
+      image: "manjarolinux/base"
+      options: "--privileged=true"
     steps:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: pacman -Sy --noconfirm --needed base-devel git pamac-cli sudo yay
+      run: pacman -Sy --noconfirm --needed base-devel git pamac-cli sudo yay man-pages
 
     - name: List installed packages
       run: pamac list --installed
@@ -45,6 +47,9 @@ jobs:
     - run: man yay
       if: always()
 
+    - run: ps aux
+      if: always()
+      
     - run: pamac build --help
       if: always()
 
