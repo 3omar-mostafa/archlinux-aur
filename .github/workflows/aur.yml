@@ -40,27 +40,23 @@ jobs:
 
     - name: Build
       continue-on-error: true
-      run: yay -Sy --noconfirm --needed --builddir build --verbose --pacman $(which pacman) gdm-settings
+      run: sudo -u user yay -Sy --noconfirm --needed --builddir . --verbose gdm-settings
 
-    - name: Build
-      continue-on-error: true
-      run: sudo -u user yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
-
-    - name: Build
-      run: |
-        package=blueprint-compiler-git
-        sudo -u user git clone https://aur.archlinux.org/$package.git
-        cd $package
-        sudo -u user makepkg --noconfirm -si
-        mv *.pkg.tar.zst ..
+#     - name: Build
+#       run: |
+#         package=blueprint-compiler-git
+#         sudo -u user git clone https://aur.archlinux.org/$package.git
+#         cd $package
+#         sudo -u user makepkg --noconfirm -si
+#         mv *.pkg.tar.zst ..
         
-    - name: Build
-      run: |
-        package=gdm-settings
-        sudo -u user git clone https://aur.archlinux.org/$package.git
-        cd $package
-        sudo -u user makepkg --noconfirm -si
-        mv *.pkg.tar.zst ..
+#     - name: Build
+#       run: |
+#         package=gdm-settings
+#         sudo -u user git clone https://aur.archlinux.org/$package.git
+#         cd $package
+#         sudo -u user makepkg --noconfirm -si
+#         mv *.pkg.tar.zst ..
         
     - run: cat /etc/makepkg.conf
       if: always()
