@@ -30,7 +30,7 @@ jobs:
 
     - name: Build
       run: |
-        yay -Sy --noconfirm --needed gdm-settings
+        yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
         
         sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
         cd gdm-settings
@@ -39,7 +39,10 @@ jobs:
     - run: cat /etc/makepkg.conf
       if: always()
 
-    - run: cat /etc/pamac.conf
+    - run: yay --help
+      if: always()
+
+    - run: man yay
       if: always()
 
     - run: pamac build --help
