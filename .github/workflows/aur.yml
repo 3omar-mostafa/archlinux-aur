@@ -14,18 +14,27 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: pacman -Sy --noconfirm --needed base-devel git pamac
+      run: pacman -Sy --noconfirm --needed base-devel git pamac sudo
 
     - name: List installed packages
       run: pamac list --installed
 
-    - name: Download aur
-      run: git clone https://aur.archlinux.org/gdm-settings.git
+    - name: Create non root user
+      run: |
+          useradd --create-home user
+          usermod --append --groups sudoers user
+          echo "%sudoers ALL=(ALL) ALL" >> /etc/sudoers
+          
+          echo "PWD: $PWD"
+          cat /etc/passwd
 
-    - run: ls -lRh
+    - name: Download aur
+      run: sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
+
+    - name: Build
+      run: cd gdm-settings && sudo -u user makepkg -s
 
     - run: cat /etc/makepkg.conf
 
-    - name: Build
-      run: cd gdm-settings && makepkg --asroot -s
+    - run: ls -lRh
     
