@@ -12,7 +12,7 @@ jobs:
 
     container:
       image: "manjarolinux/base"
-      options: "-d --privileged=true --tmpfs /tmp --tmpfs /run"
+      options: "--privileged=true --tmpfs /tmp --tmpfs /run"
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
 
