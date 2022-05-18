@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/base"
-      options: "--privileged=true"
+      options: "-d --privileged=true"
     steps:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: pacman -Sy --noconfirm --needed base-devel git pamac-cli sudo yay man-pages
+      run: pacman -Sy --noconfirm --needed base-devel git pamac-cli sudo yay man-pages man-db procps-ng
 
     - name: List installed packages
       run: pamac list --installed
