@@ -14,25 +14,24 @@ jobs:
         - name: Set Output packages
           id: set-packages
           run: |
-            jq -R -n -c '[inputs|split("\n")|.] | add' packages_aur.txt > packages_aur.json
-            echo "::set-output name=matrix::$(cat packages_aur.json)"
+            cat packages_aur.json | jq "{include: .}" > packages_aur_matrix.json
+            echo "::set-output name=matrix::$(cat packages_aur_matrix.json)"
+
 
         - name: View Packages
-          run: |
-            cat packages_aur.json | jq
+          run: cat packages_aur.json | jq
 
       outputs:
           matrix: ${{ steps.set-packages.outputs.matrix }}
 
   build:
-    name: "Build ${{ matrix.package }}"
+    name: "Build ${{ matrix.name }}"
     needs: load_balancer
     runs-on: ubuntu-latest
     
     strategy:
         fail-fast: false
-        matrix:
-            package: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+        matrix: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
 
     container:
       image: "manjarolinux/base"
@@ -51,12 +50,12 @@ jobs:
           # Wheel group is the sudo group in Arch Linux
           useradd --create-home --groups wheel  user
           echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-          
-          echo "PWD: $PWD"
-          cat /etc/passwd
 
-    - name: Build ${{ matrix.package }}
-      run: sudo -u user yay -Sy --noconfirm --needed --builddir . ${{ matrix.package }}
+    - name: Build ${{ matrix.name }}
+      run: |
+        pacman -Sy --noconfirm --needed ${{ matrix.depends }} || echo ""
+        sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} || echo ""
+        sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
 
 #     - name: Build
 #       run: |

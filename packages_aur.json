@@ -1,0 +1,142 @@
+[
+  {
+    "name": "010editor",
+    "description": "",
+    "depends": "qt5-tools tcl"
+  },
+  {
+    "name": "android-apktool",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "android-sdk-build-tools",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "binfmt-java",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "brave-bin",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "bulky",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "gdm-settings",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "github-desktop",
+    "description": "",
+    "depends": "gconf gnome-keyring"
+  },
+  {
+    "name": "gobuster",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "guiscrcpy",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "icoextract",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "insomnia",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "megatools",
+    "description": "",
+    "depends": ["nodejs"]
+  },
+  {
+    "name": "mongodb-bin",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "mongodb-compass",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "mongodb-tools-bin",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "nemo-compare",
+    "description": "Compare Files with Meld",
+    "depends": "meld"
+  },
+  {
+    "name": "nemo-media-columns",
+    "description": "View media information in list view",
+    "depends": ""
+  },
+  {
+    "name": "nemo-mediainfo-tab",
+    "description": "View media information in properties window",
+    "depends": ""
+  },
+  {
+    "name": "nordvpn-bin",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "opensnitch",
+    "description": "",
+    "depends": "hicolor-icon-theme python-qt-material python-pyasn"
+  },
+  {
+    "name": "rustscan",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "system-monitoring-center",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "tenacity-git",
+    "description": "Open source version of audacity without telemetry",
+    "depends": "wxgtk3"
+  },
+  {
+    "name": "xapp-appimage-thumbnailer",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "xapp-epub-thumbnailer",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "xapp-mp3-thumbnailer",
+    "description": "",
+    "depends": ""
+  },
+  {
+    "name": "xapp-raw-thumbnailer",
+    "description": "",
+    "depends": ""
+  }
+]
