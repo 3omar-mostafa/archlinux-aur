@@ -26,8 +26,7 @@ jobs:
           run: cat packages_aur.json | jq
 
       outputs:
-          matrix: 
-            include: ${{ steps.set-packages.outputs.matrix }}
+          matrix: ${{ steps.set-packages.outputs.matrix }}
 
   build:
     name: "Build ${{ matrix.name }}"
@@ -36,7 +35,8 @@ jobs:
     
     strategy:
         fail-fast: false
-        matrix: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+        matrix:
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
 
     container:
       image: "manjarolinux/base"
