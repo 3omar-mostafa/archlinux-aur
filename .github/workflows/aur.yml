@@ -12,7 +12,7 @@ jobs:
 
     container:
       image: "manjarolinux/base"
-      options: "--privileged=true --tmpfs /tmp --tmpfs /run --entrypoint /sbin/init"
+      options: "--privileged=true --tmpfs /tmp --tmpfs /run"
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
 
@@ -20,10 +20,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: pacman -Sy --noconfirm --needed base-devel git pamac-cli sudo yay man-pages man-db procps-ng
-
-    - name: List installed packages
-      run: pamac list --installed
+      run: pacman -Sy --noconfirm --needed base-devel git sudo yay # man-pages man-db procps-ng
 
     - name: Create non root user
       run: |
@@ -34,13 +31,8 @@ jobs:
           echo "PWD: $PWD"
           cat /etc/passwd
 
-#     - name: Build
-#       continue-on-error: true
-#       run: pamac build --no-confirm gdm-settings
-
     - name: Build
-      continue-on-error: true
-      run: sudo -u user yay -Sy --noconfirm --needed --builddir . --verbose gdm-settings
+      run: sudo -u user yay -Sy --noconfirm --needed --builddir . gdm-settings
 
 #     - name: Build
 #       run: |
@@ -49,29 +41,6 @@ jobs:
 #         cd $package
 #         sudo -u user makepkg --noconfirm -si
 #         mv *.pkg.tar.zst ..
-        
-#     - name: Build
-#       run: |
-#         package=gdm-settings
-#         sudo -u user git clone https://aur.archlinux.org/$package.git
-#         cd $package
-#         sudo -u user makepkg --noconfirm -si
-#         mv *.pkg.tar.zst ..
-        
-    - run: cat /etc/makepkg.conf
-      if: always()
-
-    - run: yay --help
-      if: always()
-
-    - run: man yay
-      if: always()
-
-    - run: ps aux
-      if: always()
-      
-    - run: pamac build --help
-      if: always()
 
     - run: ls -lRh
       if: always()
