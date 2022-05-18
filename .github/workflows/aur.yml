@@ -31,7 +31,11 @@ jobs:
     
     strategy:
         fail-fast: false
-        matrix: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+        matrix:
+          include:
+          - name: 010editor
+            description: ''
+            depends: qt5-tools tcl
 
     container:
       image: "manjarolinux/base"
