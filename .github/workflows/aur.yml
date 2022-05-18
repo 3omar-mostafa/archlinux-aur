@@ -54,7 +54,9 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Add colors to pacman
-      run: echo "Color" >> /etc/pacman.conf
+      run: |
+        sed 's/#Color/Color/g' /etc/pacman.conf
+        cat /etc/pacman.conf
     
     - name: Install basic dependencies
       run: pacman -Sy --noconfirm --needed base-devel git sudo yay # man-pages man-db procps-ng
