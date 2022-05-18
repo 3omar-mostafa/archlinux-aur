@@ -32,7 +32,7 @@ jobs:
       run: sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
 
     - name: Build
-      run: cd gdm-settings && sudo -u user makepkg -s
+      run: cd gdm-settings && sudo -u user makepkg --noconfirm -s
 
     - run: cat /etc/makepkg.conf
 
