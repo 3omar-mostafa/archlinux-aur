@@ -23,7 +23,7 @@ jobs:
 
 
         - name: View Packages
-          run: cat packages_aur.json | jq
+          run: cat packages_aur_matrix.json | jq
 
       outputs:
           matrix: ${{ steps.set-packages.outputs.matrix }}
