@@ -25,17 +25,18 @@ jobs:
     - name: List installed packages
       run: pamac list --installed
 
-#     - name: Create non root user
-#       run: |
-#           # Wheel group is the sudo group in Arch Linux
-#           useradd --create-home --groups wheel  user
-#           echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+    - name: Create non root user
+      run: |
+          # Wheel group is the sudo group in Arch Linux
+          useradd --create-home --groups wheel  user
+          echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           
-#           echo "PWD: $PWD"
-#           cat /etc/passwd
+          echo "PWD: $PWD"
+          cat /etc/passwd
+
     - name: Build
       continue-on-error: true
-      run: pamac install -a gdm-settings
+      run: pamac build gdm-settings
 
     - name: Build
       continue-on-error: true
@@ -43,7 +44,7 @@ jobs:
 
     - name: Build
       continue-on-error: true
-      run: pamac install -a blueprint-compiler-git
+      run: pamac build blueprint-compiler-git
 
     - name: Build
       continue-on-error: true
