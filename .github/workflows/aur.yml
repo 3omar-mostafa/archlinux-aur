@@ -33,11 +33,24 @@ jobs:
           
 #           echo "PWD: $PWD"
 #           cat /etc/passwd
+    - name: Build
+      continue-on-error: true
+      run: pamac install -a gdm-settings
+
+    - name: Build
+      continue-on-error: true
+      run: yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
+
+    - name: Build
+      continue-on-error: true
+      run: pamac install -a blueprint-compiler-git
+
+    - name: Build
+      continue-on-error: true
+      run: yay -Sy --noconfirm --needed --builddir build --verbose blueprint-compiler-git
 
     - name: Build
       run: |
-        yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
-        
         sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
         cd gdm-settings
         sudo -u user makepkg --noconfirm -s
