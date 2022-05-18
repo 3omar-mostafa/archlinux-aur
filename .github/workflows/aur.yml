@@ -7,7 +7,11 @@ on:
 env:
   FORCE_COLOR : 'true' # Force colors in console output
   TERM: 'xterm-256color'  
-  
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   load_balancer:
       runs-on: ubuntu-latest
@@ -18,13 +22,14 @@ jobs:
         - name: Set Output packages
           id: set-packages
           run: |
-            # cat packages_aur.json | jq "{include: .}" > packages_aur_matrix.json
+            # Note: jq -c does not work well with `fromJson` as its outtput contains spaces
+            #       Python json works well as it removes spaces
             python3 -c "import json; json.dump(json.load(open('packages_aur.json', 'r')), open('packages_aur.json', 'w'))"
             echo "::set-output name=matrix::$(cat packages_aur.json)"
 
 
         - name: View Packages
-          run: cat packages_aur.json | jq
+          run: cat packages_aur.json | jq --color-output
 
       outputs:
           matrix: ${{ steps.set-packages.outputs.matrix }}
@@ -49,7 +54,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Add colors to pacman
-      run: echo "Colors" >> /etc/pacman.conf
+      run: echo "Color" >> /etc/pacman.conf
     
     - name: Install basic dependencies
       run: pacman -Sy --noconfirm --needed base-devel git sudo yay # man-pages man-db procps-ng
