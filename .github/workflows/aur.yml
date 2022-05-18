@@ -5,10 +5,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  load_balancer:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Set Output packages
+          id: set-packages
+          run: |
+            jq -R -n -c '[inputs|split("\n")|.] | add' packages_aur.txt > packages_aur.json
+            echo "::set-output name=matrix::$(cat packages_aur.json)"
+
+        - name: View Packages
+          run: |
+            cat packages_aur.json | jq
+
+      outputs:
+          matrix: ${{ steps.set-packages.outputs.matrix }}
 
   build:
-
+    name: "Build ${{ matrix.package }}"
+    needs: load_balancer
     runs-on: ubuntu-latest
+    
+    strategy:
+        fail-fast: false
+        matrix:
+            package: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
 
     container:
       image: "manjarolinux/base"
@@ -19,7 +43,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install dependencies
+    - name: Install basic dependencies
       run: pacman -Sy --noconfirm --needed base-devel git sudo yay # man-pages man-db procps-ng
 
     - name: Create non root user
@@ -31,8 +55,8 @@ jobs:
           echo "PWD: $PWD"
           cat /etc/passwd
 
-    - name: Build
-      run: sudo -u user yay -Sy --noconfirm --needed --builddir . gdm-settings
+    - name: Build ${{ matrix.package }}
+      run: sudo -u user yay -Sy --noconfirm --needed --builddir . ${{ matrix.package }}
 
 #     - name: Build
 #       run: |
