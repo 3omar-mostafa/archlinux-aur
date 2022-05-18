@@ -9,9 +9,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
     container:
       image: "manjarolinux/base"
-      options: "-d --privileged=true"
+      options: "-d --privileged=true --tmpfs /tmp --tmpfs /run"
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+
     steps:
     - uses: actions/checkout@v3
 
