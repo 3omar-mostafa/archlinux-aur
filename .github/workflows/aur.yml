@@ -30,11 +30,11 @@ jobs:
 
     - name: Build
       run: |
-        echo "" >> /etc/pamac.conf
-        echo "EnableAUR" >> /etc/pamac.conf
+        pamac checkupdates -a
+        pamac upgrade -a
         pamac search gdm-settings
+        
         pamac build --keep --no-confirm --builddir . gdm-settings
-        ls -lRh
         
         sudo -u user git clone https://aur.archlinux.org/gdm-settings.git
         cd gdm-settings
