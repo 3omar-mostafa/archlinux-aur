@@ -34,29 +34,30 @@ jobs:
           echo "PWD: $PWD"
           cat /etc/passwd
 
-    - name: Build
-      continue-on-error: true
-      run: pamac build --no-confirm gdm-settings
+#     - name: Build
+#       continue-on-error: true
+#       run: pamac build --no-confirm gdm-settings
 
-    - name: Build
-      continue-on-error: true
-      run: yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
-
-    - name: Build
-      continue-on-error: true
-      run: pamac build --no-confirm blueprint-compiler-git
-
-    - name: Build
-      continue-on-error: true
-      run: yay -Sy --noconfirm --needed --builddir build --verbose blueprint-compiler-git
+#     - name: Build
+#       continue-on-error: true
+#       run: yay -Sy --noconfirm --needed --builddir build --verbose gdm-settings
 
     - name: Build
       run: |
         package=blueprint-compiler-git
         sudo -u user git clone https://aur.archlinux.org/$package.git
         cd $package
-        sudo -u user makepkg --noconfirm -s
-
+        sudo -u user makepkg --noconfirm -si
+        mv *.pkg.tar.zst ..
+        
+    - name: Build
+      run: |
+        package=gdm-settings
+        sudo -u user git clone https://aur.archlinux.org/$package.git
+        cd $package
+        sudo -u user makepkg --noconfirm -si
+        mv *.pkg.tar.zst ..
+        
     - run: cat /etc/makepkg.conf
       if: always()
 
@@ -74,4 +75,4 @@ jobs:
 
     - run: ls -lRh
       if: always()
-    
+
