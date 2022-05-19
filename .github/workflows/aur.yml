@@ -54,9 +54,7 @@ jobs:
 
     container:
       image: "manjarolinux/base"
-      options: "--privileged=true --tmpfs /tmp --tmpfs /run"
-      volumes:
-        - /sys/fs/cgroup:/sys/fs/cgroup
+      options: "--privileged --tty"
 
     steps:
     - uses: actions/checkout@v3
@@ -90,8 +88,5 @@ jobs:
 #         mv *.pkg.tar.zst ..
 
     - run: ls -lRh
-      if: always()
-
-    - run: env
       if: always()
 
