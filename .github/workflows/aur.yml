@@ -11,7 +11,7 @@ env:
   CLICOLOR: 1
   force_color_prompt: 'yes'
   color_prompt: 'yes'
-  TERM: 'xterm-256color'
+  TERM: 'xterm'
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
 
@@ -54,7 +54,7 @@ jobs:
 
     container:
       image: "manjarolinux/base"
-      options: "--privileged --tty"
+      options: "--privileged=true --tty=true"
 
     steps:
     - uses: actions/checkout@v3
