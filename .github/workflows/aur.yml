@@ -79,12 +79,12 @@ jobs:
         run: |
           pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
           || \
-          sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --editmenu --answeredit All --print ${{ matrix.depends }} \
+          sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --print ${{ matrix.depends }} \
           || \
           ( echo "[Error] Can not install dependencies" && exit 1 )
 
       - name: Build ${{ matrix.name }}
-        run: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --print --aur ${{ matrix.name }}
+        run: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --print --aur ${{ matrix.name }}
 
   #     - name: Build
   #       run: |
@@ -94,7 +94,12 @@ jobs:
   #         sudo -u user makepkg --noconfirm -si
   #         mv *.pkg.tar.zst ..
 
-      - run: find . -iname *.pkg.tar.zst -exec cp {} . \;
+      - name: "Fix File Names [Replace : with - ]"
+        run: |
+          find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
+          
+          # copy all packages to root folder
+          find . -iname *.pkg.tar.zst -exec cp {} . \;
 
       - run: ls -lRh
         if: always()
