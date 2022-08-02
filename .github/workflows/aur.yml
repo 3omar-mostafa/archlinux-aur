@@ -50,6 +50,9 @@ jobs:
       outputs:
           matrix: ${{ steps.set-packages.outputs.matrix }}
 
+
+
+
   build:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
@@ -73,7 +76,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm base-devel coreutils xterm git sudo yay manjaro-tools-base manjaro-tools-pkg # man-pages man-db procps-ng
+        run: pacman -Sy --noconfirm base-devel coreutils xterm git sudo yay # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -125,13 +128,32 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    container:
+      image: "manjarolinux/base"
+      options: "--privileged=true --tty=true"
+
     env:
       REPO: my-aur-repo
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
+
+      - name: Add colors to pacman
+        run: |
+          sed 's/#Color/Color/g' /etc/pacman.conf
+          cat /etc/pacman.conf
+
+      - name: Install basic dependencies
+        run: pacman -Sy --noconfirm base-devel coreutils xterm git wget p7zip sudo manjaro-tools-base manjaro-tools-pkg
+
+      - name: Create non root user
+        run: |
+            # Wheel group is the sudo group in Arch Linux
+            useradd --create-home --groups wheel  user
+            echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
       - name: Create Version Env
         run: |
             version=$(date --utc '+%Y%H%M%S')
