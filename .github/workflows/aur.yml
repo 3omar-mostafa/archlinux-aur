@@ -196,7 +196,7 @@ jobs:
           cd apindex-2.2
           
           # Patch file to allow custom title
-          sed -i 's/IndexWriter.writeIndex(sys.argv[1])/IndexWriter.writeIndex(sys.argv[1], sys.argv[2])/g' apindex.py
+          sed -Ei 's/.*IndexWriter.writeIndex\(sys.argv\[1\]\)/    IndexWriter.writeIndex(sys.argv[1], sys.argv[2])/g' apindex.py
           tail apindex.py
           
           cmake . -DCMAKE_INSTALL_PREFIX=/usr
@@ -243,11 +243,28 @@ jobs:
         with:
           name: deploy_files
 
+      - name: Generate artifact
+        run: tar --dereference --hard-dereference --directory '.' -cvf artifact.tar --exclude=.git --exclude=.github .
+      
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          name: github-pages
+          path: artifact.tar
+
+#     Due to a bug in actions/deploy-pages@main, it download the first artifact in alphabetical order, not `github-pages` as the docs
+#     When this is fixed, remove this code
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: '!!!!!!!!!github-pages'
+          path: artifact.tar
+
+#       - name: Upload artifact
+#         uses: actions/upload-pages-artifact@v1
+#         with:
+#           path: '.'
+          
           
       - name: Deploy to GitHub Pages
         id: deployment
