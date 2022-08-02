@@ -76,7 +76,7 @@ jobs:
 
       - name: yay conf
         run: |
-          yay --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'"
+          yay --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --save
           yay --show --currentconfig
 
       - name: Install/Build Dependencies of ${{ matrix.name }}
