@@ -15,6 +15,13 @@ env:
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
 
 defaults:
   run:
@@ -74,8 +81,10 @@ jobs:
             useradd --create-home --groups wheel  user
             echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-      - name: yay conf
+      - name: yay configuration to disable epoch versions
         run: |
+          Epoch Version label is not prefered and causes error while uploading because files contains ':'
+          
           yay --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --save
           yay --show --currentconfig
 
@@ -99,11 +108,10 @@ jobs:
   #         mv *.pkg.tar.zst ..
 
 #       - name: "Fix File Names [Replace : with - ]"
-#         run: |
-#           find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
-          
-#           # copy all packages to root folder
-#           find . -iname *.pkg.tar.zst -exec cp {} . \;
+#         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
+
+      - name: "Copy all packages to root folder"
+        run: find . -iname *.pkg.tar.zst -exec cp {} . \;
 
       - run: ls -lRh
         if: always()
@@ -117,6 +125,9 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
       - name: Create Version Env
@@ -129,6 +140,9 @@ jobs:
       - name: Download All Packages
         uses: actions/download-artifact@v3
 
+      - name: "Copy all packages to root folder"
+        run: find . -iname *.pkg.tar.zst -exec cp {} . \;
+
       - name: Release Packages Files
         uses: softprops/action-gh-release@v1
         if: always()
@@ -136,7 +150,40 @@ jobs:
           tag_name: "${{ env.VERSION }}"
           name: "Release ${{ env.VERSION }}"
           files: |
-            ./*/*.pkg.tar.zst
             *.pkg.tar.zst
-          env:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Install apindex
+        run: |
+          wget "https://github.com/libthinkpad/apindex/archive/refs/tags/2.2.zip"
+          7z x 2.2.zip
+          cd apindex-2.2
+          cmake . -DCMAKE_INSTALL_PREFIX=/usr
+          sudo make install
+          
+          cd ..
+          rm -r apindex-2.2 2.2.zip
+
+      - name: Generate index.html
+        run: apindex .
+
+
+      - run: ls -lRh
+        if: always()
+
+
+################### Deploying to github pages ###################
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: '.'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@main
