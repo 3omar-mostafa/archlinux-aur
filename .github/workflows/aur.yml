@@ -91,10 +91,10 @@ jobs:
           attempt_limit: 3
           attempt_delay: "10000" # 10 seconds
           command: |
-            pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
-            || \
-            sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
-            || \
+            pacman -Sy --noconfirm --needed ${{ matrix.depends }} 
+            || 
+            sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} 
+            || 
             ( echo "[Error] Can not install dependencies" && exit 1 )
 
       - name: Build ${{ matrix.name }}
