@@ -55,11 +55,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-#           include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "android-apktool"
-              depends: ""
-          
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
 
     container:
       image: "manjarolinux/base"
@@ -230,15 +226,29 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v1
       
-      - name: Generate artifact
-        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}/" -cvf artifact.tar --exclude=.git --exclude=.github .
+#       - name: Generate artifact
+#         run: tar --dereference --hard-dereference --directory "${{ env.REPO }}/" -cvf artifact.tar --exclude=.git --exclude=.github .
       
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: github-pages
+#           path: artifact.tar
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages
-          path: artifact.tar
+          # Upload entire repository
+          path: "."
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@main
+        
+      - name: Repo details
+        run: |
+          echo "=========================================================================="
+          echo "[${REPO}]"
+          echo "SigLevel = Never"
+          echo "Server = ${{ steps.deployment.outputs.page_url }}"
+          echo "=========================================================================="
