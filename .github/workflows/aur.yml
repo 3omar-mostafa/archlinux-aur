@@ -79,7 +79,7 @@ jobs:
         run: |
           pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
           || \
-          sudo -u user yay -Sy --noconfirm --needed --builddir . ${{ matrix.depends }} \
+          sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
           || \
           echo "[Error] Can not install dependencies"
 
