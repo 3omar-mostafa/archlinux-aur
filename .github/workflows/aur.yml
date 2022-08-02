@@ -55,7 +55,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+#           include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "android-apktool"
+              depends: ""
 
     container:
       image: "manjarolinux/base"
