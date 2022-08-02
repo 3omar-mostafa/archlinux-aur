@@ -188,7 +188,7 @@ jobs:
         with:
           tag_name: "${{ env.VERSION }}"
           name: "Release v${{ env.VERSION }}"
-          body: "./${REPO}/checksums.sha256"
+          body_path: "./${REPO}/checksums.sha256"
           files: |
             ./${REPO}/*
         env:
