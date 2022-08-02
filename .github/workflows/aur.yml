@@ -186,13 +186,15 @@ jobs:
         run: |
           cd "${REPO}"
           sha256sum * > checksums.sha256
+          cat checksums.sha256
 
       - name: Release Packages Files
         uses: softprops/action-gh-release@v1
         if: always()
         with:
           tag_name: "${{ env.VERSION }}"
-          name: "Release ${{ env.VERSION }}"
+          name: "Release v${{ env.VERSION }}"
+          body: "./${REPO}/checksums.sha256"
           files: |
             ./${REPO}/*
         env:
@@ -228,12 +230,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v1
       
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: "./${{ env.REPO }}/"
+      - name: Generate artifact
+        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}/" -cvf artifact.tar --exclude=.git --exclude=.github
       
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: artifact.tar
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@main
