@@ -14,7 +14,7 @@ env:
   TERM: 'xterm'
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
-  REPO: my-aur-repo
+  REPO: aur-repo
 
 
 defaults:
@@ -55,10 +55,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-#           include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "android-apktool"
-              depends: ""
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
 
     container:
       image: "manjarolinux/base"
@@ -89,15 +86,23 @@ jobs:
 #           yay --show --currentconfig
 
       - name: Install/Build Dependencies of ${{ matrix.name }}
-        run: |
-          pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
-          || \
-          sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
-          || \
-          ( echo "[Error] Can not install dependencies" && exit 1 )
+        uses: Wandalen/wretry.action@v1.0.25
+        with:
+          attempt_limit: 3
+          attempt_delay: "10000" # 10 seconds
+          command: |
+            pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
+            || \
+            sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
+            || \
+            ( echo "[Error] Can not install dependencies" && exit 1 )
 
       - name: Build ${{ matrix.name }}
-        run: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
+        uses: Wandalen/wretry.action@v1.0.25
+        with:
+          attempt_limit: 3
+          attempt_delay: "10000" # 10 seconds
+          command: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
 
   #     - name: Build
   #       run: |
@@ -149,7 +154,7 @@ jobs:
 
       - name: Create Version Env
         run: |
-            version=$(date --utc '+%Y%H%M%S')
+            version=$(date --utc '+%Y%m%d-%H%M')
             echo "VERSION=${version}" >> $GITHUB_ENV
 
             echo "Version: ${version}"
@@ -196,8 +201,12 @@ jobs:
           cd apindex-2.2
           
           # Patch file to allow custom title
+          echo -e "\n================ Patching ================\n"
           sed -Ei 's/.*IndexWriter.writeIndex\(sys.argv\[1\]\)/    IndexWriter.writeIndex(sys.argv[1], sys.argv[2])/g' apindex.py
           tail apindex.py
+          echo -e "\n\n=====================================================\n\n"
+          sed -i 's|<h1>Index of #DIR</h1>|<h1>#TITLE - Index of #DIR</h1>|g' share/apindex/index.template.html
+          tail share/apindex/index.template.html
           
           cmake . -DCMAKE_INSTALL_PREFIX=/usr
           sudo make install
