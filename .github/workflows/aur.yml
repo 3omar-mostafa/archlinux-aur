@@ -55,7 +55,11 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+#           include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "android-apktool"
+              depends: ""
+          
 
     container:
       image: "manjarolinux/base"
@@ -166,13 +170,22 @@ jobs:
         with:
           path: "${{ env.REPO }}"
 
-      - name: "Copy all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec cp {} "./${REPO}" \;
+      - name: "Move all packages to root folder"
+        run: find . -iname *.pkg.tar.zst -exec mv {} "./${REPO}" \;
+
+      - name: "Delete Empty Directories"
+        continue-on-error: true
+        run: find . -type d -exec rmdir -v {} \;
 
       - name: Generate database files
         run: |
           cd "${REPO}"
           repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
+
+      - name: Generate Checksum for packages
+        run: |
+          cd "${REPO}"
+          sha256sum * > checksums.sha256
 
       - name: Release Packages Files
         uses: softprops/action-gh-release@v1
@@ -181,7 +194,7 @@ jobs:
           tag_name: "${{ env.VERSION }}"
           name: "Release ${{ env.VERSION }}"
           files: |
-            ./*/*.pkg.tar.zst
+            ./${REPO}/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
@@ -219,7 +232,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: "${{ env.REPO }}"
+          path: "./${{ env.REPO }}/"
       
       - name: Deploy to GitHub Pages
         id: deployment
