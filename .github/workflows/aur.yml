@@ -73,7 +73,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm --needed base-devel coreutils xterm git sudo yay # man-pages man-db procps-ng
+        run: pacman -Sy --noconfirm base-devel coreutils xterm git sudo yay manjaro-tools-base manjaro-tools-pkg # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -125,6 +125,8 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    env:
+      REPO: my-aur-repo
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -139,9 +141,16 @@ jobs:
 
       - name: Download All Packages
         uses: actions/download-artifact@v3
+        with:
+          path: "${{ env.REPO }}"
 
       - name: "Copy all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec cp {} . \;
+        run: find . -iname *.pkg.tar.zst -exec cp {} "./${REPO}" \;
+
+      - name: Generate database files
+        run:
+          cd "${REPO}"
+          repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
 
       - name: Release Packages Files
         uses: softprops/action-gh-release@v1
@@ -166,8 +175,9 @@ jobs:
           rm -r apindex-2.2 2.2.zip
 
       - name: Generate index.html
-        run: apindex .
-
+        run: |
+          cd "${REPO}"
+          apindex .
 
       - run: ls -lRh
         if: always()
@@ -182,7 +192,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: '.'
+          path: "${{ env.REPO }}"
       
       - name: Deploy to GitHub Pages
         id: deployment
