@@ -1,8 +1,8 @@
 name: AUR
 
 on:
-#   schedule:
-#     - cron: '0 0 * * 6' # Runs at 00:00 UTC on Sat.
+  schedule:
+    - cron: '0 0 * * 6' # Runs at 00:00 UTC on Sat.
   push:
   workflow_dispatch:
 
@@ -14,12 +14,6 @@ env:
   TERM: 'xterm'
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 
 
@@ -138,6 +132,12 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: write # For creating releases
+      pages: write # For creating github pages
+      id-token: write
+
     steps:
 
       - name: Add colors to pacman
@@ -181,7 +181,7 @@ jobs:
           tag_name: "${{ env.VERSION }}"
           name: "Release ${{ env.VERSION }}"
           files: |
-            *.pkg.tar.zst
+            ./*/*.pkg.tar.zst
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
@@ -190,6 +190,11 @@ jobs:
           wget "https://github.com/libthinkpad/apindex/archive/refs/tags/2.2.zip"
           7z x 2.2.zip
           cd apindex-2.2
+          
+          # Patch file to allow custom title
+          sed -i 's/IndexWriter.writeIndex(sys.argv[1])/IndexWriter.writeIndex(sys.argv[1], sys.argv[2])/g' apindex.py
+          tail apindex.py
+          
           cmake . -DCMAKE_INSTALL_PREFIX=/usr
           sudo make install
           
@@ -199,7 +204,7 @@ jobs:
       - name: Generate index.html
         run: |
           cd "${REPO}"
-          apindex .
+          apindex . "My AUR Repository v${VERSION}"
 
       - run: ls -lRh
         if: always()
