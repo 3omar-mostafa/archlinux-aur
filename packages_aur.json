@@ -19,16 +19,21 @@
     "description": "",
     "depends": ""
   },
-  {
-    "name": "brave-bin",
-    "description": "",
-    "depends": ""
-  },
-  {
-    "name": "bulky",
-    "description": "",
-    "depends": ""
-  },
+
+//   Brave is provided by manjaro `brave-browser`
+//   {
+//     "name": "brave-bin",
+//     "description": "",
+//     "depends": ""
+//   },
+
+//   Bulky is provided by manjaro as `bulky`
+//   {
+//     "name": "bulky",
+//     "description": "",
+//     "depends": ""
+//   },
+
   {
     "name": "gdm-settings",
     "description": "",
@@ -37,7 +42,8 @@
   {
     "name": "github-desktop",
     "description": "",
-    "depends": "gconf gnome-keyring"
+    // add `nodejs-lts-gallium` to solve inner conflicts
+    "depends": "nodejs-lts-gallium gconf gnome-keyring"
   },
   {
     "name": "gobuster",
@@ -62,7 +68,7 @@
   {
     "name": "megatools",
     "description": "",
-    "depends": "nodejs"
+    "depends": "nodejs-lts-gallium"
   },
   {
     "name": "mongodb-bin",
@@ -104,11 +110,14 @@
     "description": "",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn"
   },
-  {
-    "name": "rustscan",
-    "description": "",
-    "depends": ""
-  },
+
+//   rustscan is provided by manjaro as `rustscan`
+//   {
+//     "name": "rustscan",
+//     "description": "",
+//     "depends": ""
+//   },
+
   {
     "name": "system-monitoring-center",
     "description": "",
@@ -119,24 +128,32 @@
     "description": "Open source version of audacity without telemetry",
     "depends": "wxgtk3"
   },
-  {
-    "name": "xapp-appimage-thumbnailer",
-    "description": "",
-    "depends": ""
-  },
-  {
-    "name": "xapp-epub-thumbnailer",
-    "description": "",
-    "depends": ""
-  },
-  {
-    "name": "xapp-mp3-thumbnailer",
-    "description": "",
-    "depends": ""
-  },
-  {
-    "name": "xapp-raw-thumbnailer",
-    "description": "",
-    "depends": ""
-  }
+
+//   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
+//   {
+//     "name": "xapp-appimage-thumbnailer",
+//     "description": "",
+//     "depends": ""
+//   },
+
+//   xapp-epub-thumbnailer is provided by manjaro as `xapp-epub-thumbnailer`
+//   {
+//     "name": "xapp-epub-thumbnailer",
+//     "description": "",
+//     "depends": ""
+//   },
+
+//   xapp-mp3-thumbnailer is provided by manjaro as `xapp-mp3-thumbnailer`
+//   {
+//     "name": "xapp-mp3-thumbnailer",
+//     "description": "",
+//     "depends": ""
+//   },
+
+//   xapp-raw-thumbnailer is provided by manjaro as `xapp-raw-thumbnailer`
+//   {
+//     "name": "xapp-raw-thumbnailer",
+//     "description": "",
+//     "depends": ""
+//   }
 ]
