@@ -14,7 +14,7 @@ env:
   TERM: 'xterm'
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
-
+  REPO: my-aur-repo
 
 
 defaults:
@@ -73,7 +73,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm base-devel coreutils xterm git sudo yay # man-pages man-db procps-ng
+        run: pacman -Sy --noconfirm --needed base-devel coreutils xterm git sudo yay # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -122,24 +122,14 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
 
-  deploy:
+  prepare_deploy:
     needs: [build]
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/base"
       options: "--privileged=true --tty=true"
-
-    env:
-      REPO: my-aur-repo
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
     permissions:
       contents: write # For creating releases
-      pages: write # For creating github pages
-      id-token: write
 
     steps:
 
@@ -149,7 +139,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm base-devel coreutils xterm git wget p7zip sudo manjaro-tools-base manjaro-tools-pkg
+        run: pacman -Sy --noconfirm --needed base-devel coreutils xterm git wget p7zip sudo manjaro-tools-base manjaro-tools-pkg
 
       - name: Create non root user
         run: |
@@ -223,31 +213,46 @@ jobs:
       - run: ls -lRh
         if: always()
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deploy_files
+          path: "${REPO}/*"
 
-################### Deploying to github pages ###################
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [prepare_deploy]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+
+    steps:
       - name: Setup Pages
         uses: actions/configure-pages@v1
-      
-#       - name: Generate artifact
-#         run: tar --dereference --hard-dereference --directory "${{ env.REPO }}/" -cvf artifact.tar --exclude=.git --exclude=.github .
-      
-#       - name: Upload artifact
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: github-pages
-#           path: artifact.tar
+        
+      - name: Download Deploy files
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy_files
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: "."
-
+          path: '.'
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@main
-        
+
       - name: Repo details
         run: |
           echo "=========================================================================="
