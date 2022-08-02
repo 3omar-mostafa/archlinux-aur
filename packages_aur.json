@@ -123,11 +123,13 @@
     "description": "",
     "depends": ""
   },
-  {
-    "name": "tenacity-git",
-    "description": "Open source version of audacity without telemetry",
-    "depends": "wxgtk3"
-  },
+
+//  temp skip for testing
+//  {
+//    "name": "tenacity-git",
+//    "description": "Open source version of audacity without telemetry",
+//    "depends": "wxgtk3"
+//  },
 
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
 //   {
