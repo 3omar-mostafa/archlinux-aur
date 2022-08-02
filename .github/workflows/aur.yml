@@ -170,7 +170,7 @@ jobs:
         run: find . -iname *.pkg.tar.zst -exec cp {} "./${REPO}" \;
 
       - name: Generate database files
-        run:
+        run: |
           cd "${REPO}"
           repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
 
