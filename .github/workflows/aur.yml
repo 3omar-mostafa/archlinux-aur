@@ -79,12 +79,12 @@ jobs:
         run: |
           pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
           || \
-          sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
+          sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --print ${{ matrix.depends }} \
           || \
           echo "[Error] Can not install dependencies"
 
       - name: Build ${{ matrix.name }}
-        run: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
+        run: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --print --aur ${{ matrix.name }}
 
   #     - name: Build
   #       run: |
