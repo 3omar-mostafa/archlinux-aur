@@ -85,17 +85,26 @@ jobs:
 #           yay --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --save
 #           yay --show --currentconfig
 
+      - name: Prepare Install/Build Dependencies
+        run: |
+          cat <<EOF > deps.sh
+          pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
+            || \
+            sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
+            || \
+            ( echo "[Error] Can not install dependencies" && exit 1 )
+          EOF
+          
+          cat deps.sh
+          chmod a+x deps.sh
+        
       - name: Install/Build Dependencies of ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
         with:
           attempt_limit: 3
           attempt_delay: "10000" # 10 seconds
-          command: |
-            pacman -Sy --noconfirm --needed ${{ matrix.depends }} 
-            || 
-            sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} 
-            || 
-            ( echo "[Error] Can not install dependencies" && exit 1 )
+          command: ./deps.sh
+            
 
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
