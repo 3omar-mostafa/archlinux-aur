@@ -83,7 +83,7 @@ jobs:
 
       - name: yay configuration to disable epoch versions
         run: |
-          Epoch Version label is not prefered and causes error while uploading because files contains ':'
+          echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
           
           yay --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --save
           yay --show --currentconfig
