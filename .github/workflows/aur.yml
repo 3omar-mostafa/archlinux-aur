@@ -231,7 +231,7 @@ jobs:
         uses: actions/configure-pages@v1
       
       - name: Generate artifact
-        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}/" -cvf artifact.tar --exclude=.git --exclude=.github
+        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}/" -cvf artifact.tar --exclude=.git --exclude=.github .
       
       - name: Upload artifact
         uses: actions/upload-artifact@v3
