@@ -86,6 +86,7 @@ jobs:
 #           yay --show --currentconfig
 
       - name: Prepare Install/Build Dependencies
+        if: matrix.depends
         run: |
           cat <<EOF > deps.sh
           pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
@@ -99,6 +100,7 @@ jobs:
           chmod a+x deps.sh
         
       - name: Install/Build Dependencies of ${{ matrix.name }}
+        if: matrix.depends
         uses: Wandalen/wretry.action@v1.0.25
         with:
           attempt_limit: 3
@@ -197,9 +199,9 @@ jobs:
         with:
           tag_name: "${{ env.VERSION }}"
           name: "Release v${{ env.VERSION }}"
-          body_path: "./${REPO}/checksums.sha256"
+          body_path: "./${{ env.REPO }}/checksums.sha256"
           files: |
-            ./${REPO}/*
+            ./${{ env.REPO }}/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
