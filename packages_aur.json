@@ -1,89 +1,65 @@
+// Array of AUR Packages to build
+// Each element MUST contain a name
+// and optionally a description, depends [dependencies required to solve conflicts or optional dependencies ...]
+// TODO: allow adding patches
+
 [
   {
     "name": "010editor",
-    "description": "",
     "depends": "qt5-tools tcl"
   },
   {
     "name": "android-apktool",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "android-sdk-build-tools",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "binfmt-java",
-    "description": "",
-    "depends": ""
   },
 
 //   Brave is provided by manjaro `brave-browser`
 //   {
 //     "name": "brave-bin",
-//     "description": "",
-//     "depends": ""
 //   },
 
 //   Bulky is provided by manjaro as `bulky`
 //   {
 //     "name": "bulky",
-//     "description": "",
-//     "depends": ""
 //   },
 
   {
     "name": "gdm-settings",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "github-desktop",
-    "description": "",
     // add `nodejs-lts-gallium` to solve inner conflicts
     "depends": "nodejs-lts-gallium gconf gnome-keyring"
   },
   {
     "name": "gobuster",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "guiscrcpy",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "icoextract",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "insomnia",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "megatools",
-    "description": "",
     "depends": "nodejs-lts-gallium"
   },
   {
     "name": "mongodb-bin",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "mongodb-compass",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "mongodb-tools-bin",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "nemo-compare",
@@ -93,35 +69,26 @@
   {
     "name": "nemo-media-columns",
     "description": "View media information in list view",
-    "depends": ""
   },
   {
     "name": "nemo-mediainfo-tab",
     "description": "View media information in properties window",
-    "depends": ""
   },
   {
     "name": "nordvpn-bin",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "opensnitch",
-    "description": "",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn"
   },
 
 //   rustscan is provided by manjaro as `rustscan`
 //   {
 //     "name": "rustscan",
-//     "description": "",
-//     "depends": ""
 //   },
 
   {
     "name": "system-monitoring-center",
-    "description": "",
-    "depends": ""
   },
   {
     "name": "tenacity-git",
@@ -132,28 +99,20 @@
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
 //   {
 //     "name": "xapp-appimage-thumbnailer",
-//     "description": "",
-//     "depends": ""
 //   },
 
 //   xapp-epub-thumbnailer is provided by manjaro as `xapp-epub-thumbnailer`
 //   {
 //     "name": "xapp-epub-thumbnailer",
-//     "description": "",
-//     "depends": ""
 //   },
 
 //   xapp-mp3-thumbnailer is provided by manjaro as `xapp-mp3-thumbnailer`
 //   {
 //     "name": "xapp-mp3-thumbnailer",
-//     "description": "",
-//     "depends": ""
 //   },
 
 //   xapp-raw-thumbnailer is provided by manjaro as `xapp-raw-thumbnailer`
 //   {
 //     "name": "xapp-raw-thumbnailer",
-//     "description": "",
-//     "depends": ""
 //   }
 ]
