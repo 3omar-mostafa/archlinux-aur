@@ -9,13 +9,32 @@
     "depends": "qt5-tools tcl"
   },
   {
+    "name": "7-zip-full",
+  },
+  {
+    "name": "7-zip",
+  },
+  {
+    "name": "7-zip-bin",
+  },
+  {
     "name": "android-apktool",
   },
   {
     "name": "android-sdk-build-tools",
   },
   {
+    "name": "android-sdk-platform-tools",
+  },
+  {
+    "name": "authy",
+  },
+  {
     "name": "binfmt-java",
+  },
+  {
+    "name": "balena-etcher",
+    "depends": "nodejs-lts-gallium",
   },
 
 //   Brave is provided by manjaro `brave-browser`
@@ -27,9 +46,33 @@
 //   {
 //     "name": "bulky",
 //   },
+  
+  {
+    "name": "burpsuite",
+    "depends": "jre17-openjdk",
+  },
+  {
+    "name": "burpsuite-pro",
+    "depends": "jre17-openjdk",
+  },
+  {
+    "name": "code-features",
+  },
+  {
+    "name": "code-marketplace",
+  },
 
   {
+    "name": "etcher-bin",
+  },
+  {
+    "name": "expressvpn",
+  },
+  {
     "name": "gdm-settings",
+  },
+  {
+    "name": "genymotion",
   },
   {
     "name": "github-desktop",
@@ -37,10 +80,25 @@
     "depends": "nodejs-lts-gallium gconf gnome-keyring"
   },
   {
+    "name": "gnome-shell-extension-fullscreen-notifications-git",
+  },
+  {
+    "name": "gnome-shell-extension-gsconnect",
+  },
+  {
+    "name": "gnome-shell-extension-net-speed",
+  },
+  {
+    "name": "gnome-shell-extension-night-light-slider",
+  },
+  {
     "name": "gobuster",
   },
   {
     "name": "guiscrcpy",
+  },
+  {
+    "name": "hardinfo",
   },
   {
     "name": "icoextract",
@@ -75,11 +133,29 @@
     "description": "View media information in properties window",
   },
   {
+    "name": "ngrok",
+  },
+  {
     "name": "nordvpn-bin",
+  },
+  {
+    "name": "notion-app",
   },
   {
     "name": "opensnitch",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn"
+  },
+  {
+    "name": "pandoc-bin",
+  },
+  {
+    "name": "protonvpn",
+  },
+  {
+    "name": "qpdfview",
+  },
+  {
+    "name": "rar",
   },
 
 //   rustscan is provided by manjaro as `rustscan`
@@ -88,12 +164,33 @@
 //   },
 
   {
+    "name": "surfshark-gui-bin",
+  },
+  {
     "name": "system-monitoring-center",
   },
   {
     "name": "tenacity-git",
     "description": "Open source version of audacity without telemetry",
     "depends": "wxgtk3"
+  },
+  {
+    "name": "timeshift",
+  },
+  {
+    "name": "tor-browser",
+  },
+  {
+    "name": "ttf-ms-win10-auto",
+  },
+  {
+    "name": "ttf-ms-win11-auto",
+  },
+  {
+    "name": "wps-office-fonts",
+  },
+  {
+    "name": "wps-office",
   },
 
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
@@ -114,5 +211,12 @@
 //   xapp-raw-thumbnailer is provided by manjaro as `xapp-raw-thumbnailer`
 //   {
 //     "name": "xapp-raw-thumbnailer",
-//   }
+//   },
+
+  {
+    "name": "xnviewmp",
+  },
+  {
+    "name": "zoom",
+  },
 ]
