@@ -30,6 +30,9 @@
     "name": "authy",
   },
   {
+    "name": "authenticator",
+  },
+  {
     "name": "binfmt-java",
   },
   {
