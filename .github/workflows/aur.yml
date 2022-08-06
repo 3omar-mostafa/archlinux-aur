@@ -120,10 +120,11 @@ jobs:
 
       - name: Build ${{ matrix.name }}
         run: |
+          export PACMAN='yay --nocleanafter'
           package="${{ matrix.name }}"
           sudo -u user git clone https://aur.archlinux.org/$package.git
           cd $package
-          sudo -u user PACMAN='yay --nocleanafter' makepkg --noconfirm -si
+          sudo -E -u user makepkg --noconfirm -si
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
