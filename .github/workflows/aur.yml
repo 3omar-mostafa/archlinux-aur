@@ -57,7 +57,8 @@ jobs:
         matrix:
 #           include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
           include:
-            - name: "gdm-settings"
+            - name: "opensnitch"
+              depends: "hicolor-icon-theme python-qt-material python-pyasn"
 
     container:
       image: "manjarolinux/base"
