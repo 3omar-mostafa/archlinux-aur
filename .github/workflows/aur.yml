@@ -121,10 +121,13 @@ jobs:
       - name: Build ${{ matrix.name }}
         run: |
           cat <<EOF > build.sh
+          #!/bin/bash
+          
           export PACMAN='yay --nocleanafter'
-          package="${{ matrix.name }}"
+          export package="${{ matrix.name }}"
           git clone https://aur.archlinux.org/$package.git
           cd $package
+          env
           makepkg --noconfirm -si
           
           EOF
