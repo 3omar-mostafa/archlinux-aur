@@ -1,24 +1,25 @@
 diff --git a/makepkg b/makepkg
-index 5efc314..3f6ebfb 100755
+index 5efc314..b6dfe3f 100755
 --- a/makepkg
 +++ b/makepkg
-@@ -229,8 +229,14 @@ run_pacman() {
+@@ -229,8 +229,15 @@ run_pacman() {
  	if [[ $1 = -@(T|Q)*([[:alpha:]]) ]]; then
  		cmd=("$PACMAN_PATH" "$@")
  	else
 -		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
-+		cmd=("$PACMAN_PATH" -v "--color" "always" "${PACMAN_OPTS[@]}" "$@")
++		cmd=("$PACMAN_PATH" -v "--debug" "--color" "always" "${PACMAN_OPTS[@]}" "$@")
  		cmdescape="$(printf '%q ' "${cmd[@]}")"
 +
 +		echo "***********************************************************"
 +		echo "$PWD"
++		whoami
 +		echo "${cmd[@]}"
 +		echo "************************************************************"
 +
  		if (( ${#PACMAN_AUTH[@]} )); then
  			if in_array '%c' "${PACMAN_AUTH[@]}"; then
  				cmd=("${PACMAN_AUTH[@]/\%c/$cmdescape}")
-@@ -287,7 +293,7 @@ handle_deps() {
+@@ -287,7 +294,7 @@ handle_deps() {
  		# install missing deps from binary packages (using pacman -S)
  		msg "$(gettext "Installing missing dependencies...")"
  
