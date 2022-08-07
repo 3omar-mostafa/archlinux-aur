@@ -123,15 +123,11 @@ jobs:
         run: |
           cat <<EOF > build.sh
           #!/bin/bash
-          whoami
-          pwd
-          
-          export PACMAN=yay
-          export BUILDDIR="$PWD"
+          env
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          makepkg --noconfirm -si
+          makepkg --noconfirm --needed -si
           
           EOF
           
@@ -139,7 +135,11 @@ jobs:
           chmod -R 777 /home
           chmod -R 777 $PWD
           
-          sudo -u user ./build.sh
+          export PACMAN=yay
+          export BUILDDIR=$PWD
+          
+          #sudo -E -u user ./build.sh
+          sudo -E -u user yay -Sy --noconfirm ${{ matrix.name }}
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
