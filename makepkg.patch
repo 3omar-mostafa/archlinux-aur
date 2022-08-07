@@ -7,7 +7,7 @@ index 5efc314..8654613 100755
  	local cmd cmdescape
  	if [[ $1 = -@(T|Q)*([[:alpha:]]) ]]; then
 -		cmd=("$PACMAN_PATH" "$@")
-+		cmd=("$PACMAN_PATH" -v "-y" "--color" "always" "$@")
++		cmd=("$PACMAN_PATH" -v "--color" "always" "$@")
 +		echo "************************************************************"
 +		echo "${cmd[@]}"
 +		echo "************************************************************"
