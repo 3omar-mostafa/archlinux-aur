@@ -133,6 +133,9 @@ jobs:
           #!/bin/bash
           export PACMAN=yay
           
+          /usr/bin/yay -v --debug --color always --noconfirm -Sy uasm
+          exit 0
+          
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
           makepkg --noconfirm --check --needed -si
@@ -143,6 +146,8 @@ jobs:
           chmod -R 777 /home
           chmod -R 777 $PWD
           echo "BUILDDIR=$PWD" >> $GITHUB_ENV
+          
+
 
           
       - name: Build ${{ matrix.name }}
