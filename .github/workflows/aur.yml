@@ -93,8 +93,6 @@ jobs:
         if: matrix.depends
         run: |
           cat <<EOF > deps.sh
-          pacman -Sy  --color always --noconfirm --needed ${{ matrix.depends }} \
-            || \
             sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
             || \
             ( echo "[Error] Can not install dependencies" && exit 1 )
@@ -124,7 +122,6 @@ jobs:
           patch_path=$PWD/makepkg.patch
           cd $(dirname `which makepkg`)
           git apply "$patch_path"
-           
 
       - name: Build ${{ matrix.name }}
         run: |
