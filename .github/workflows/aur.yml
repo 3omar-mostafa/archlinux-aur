@@ -73,9 +73,9 @@ jobs:
   
       - name: Pacman Config
         run: |
-          sed 's/#Color/Color/g' /etc/pacman.conf
-          sed 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
-          sed 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
+          sed -i 's/#Color/Color/g' /etc/pacman.conf
+          sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
+          sed -i 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
