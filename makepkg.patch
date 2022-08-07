@@ -1,17 +1,10 @@
 diff --git a/makepkg b/makepkg
-index 5efc314..8654613 100755
+index 5efc314..4957bad 100755
 --- a/makepkg
 +++ b/makepkg
-@@ -227,10 +227,19 @@ missing_source_file() {
- run_pacman() {
- 	local cmd cmdescape
+@@ -229,8 +229,13 @@ run_pacman() {
  	if [[ $1 = -@(T|Q)*([[:alpha:]]) ]]; then
--		cmd=("$PACMAN_PATH" "$@")
-+		cmd=("$PACMAN_PATH" -v "--color" "always" "$@")
-+		echo "************************************************************"
-+		echo "${cmd[@]}"
-+		echo "************************************************************"
-+
+ 		cmd=("$PACMAN_PATH" "$@")
  	else
 -		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
 +		cmd=("$PACMAN_PATH" -v "-y" "--color" "always" "${PACMAN_OPTS[@]}" "$@")
