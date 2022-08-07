@@ -168,6 +168,10 @@ jobs:
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
           
+          if [[ -n "${{ matrix.checkout }}" ]] ;  then
+            git checkout "${{ matrix.checkout }}"
+          fi
+          
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"
             
