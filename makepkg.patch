@@ -1,35 +1,35 @@
 diff --git a/makepkg b/makepkg
 --- a/makepkg	(revision 0c496bc92953cd1bcd4f0a3373d21597c29621fe)
-+++ b/makepkg	(date 1659840917748)
-@@ -227,10 +227,21 @@
++++ b/makepkg	(date 1659841426817)
+@@ -225,12 +225,24 @@
+ }
+ 
  run_pacman() {
++    echo "Entered If run_pacman"
  	local cmd cmdescape
  	if [[ $1 = -@(T|Q)*([[:alpha:]]) ]]; then
--		cmd=("$PACMAN_PATH" "$@")
-+		cmd=("$PACMAN_PATH" -v "$@")
+ 		cmd=("$PACMAN_PATH" "$@")
 +		echo "************************************************************"
 +		echo "${cmd[@]}"
-+		echo "Entered If Condition, params are: $@"
++		echo "Entered If Condition, params are: $*"
 +		echo "************************************************************"
 +
  	else
--		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
-+		cmd=("$PACMAN_PATH" -v "${PACMAN_OPTS[@]}" "$@")
+ 		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
  		cmdescape="$(printf '%q ' "${cmd[@]}")"
 +
 +        echo "************************************************************"
 +		echo "${cmd[@]}"
-+		echo "Entered else Condition, params are: $@"
++		echo "Entered else Condition, params are: $*"
 +		echo "************************************************************"
 +
  		if (( ${#PACMAN_AUTH[@]} )); then
  			if in_array '%c' "${PACMAN_AUTH[@]}"; then
  				cmd=("${PACMAN_AUTH[@]/\%c/$cmdescape}")
-@@ -253,6 +264,7 @@
+@@ -252,6 +264,7 @@
+ 			done
  		done
  	fi
- 	"${cmd[@]}"
 +	echo "${cmd[@]}"
+ 	"${cmd[@]}"
  }
- 
- check_deps() {
