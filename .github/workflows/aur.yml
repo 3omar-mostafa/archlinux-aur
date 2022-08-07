@@ -141,6 +141,8 @@ jobs:
           EOF
           
           chmod a+x build.sh
+          chmod -R 777 /home
+          chmod -R 777 $PWD
           
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
