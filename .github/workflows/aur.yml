@@ -77,7 +77,9 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay asp bat socat colorgcc # man-pages man-db procps-ng
+        run: |
+          pacman -Syu
+          pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay asp bat socat colorgcc # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -137,7 +139,7 @@ jobs:
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          paru -Ui
+          paru -Ui --noconfirm --color always
           
           EOF
           
