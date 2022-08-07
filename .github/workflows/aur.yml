@@ -9,9 +9,10 @@ on:
 env:
   FORCE_COLOR : 'true' # Force colors in console output
   CLICOLOR: 1
+  CLICOLOR_FORCE: 'yes'
   force_color_prompt: 'yes'
   color_prompt: 'yes'
-  TERM: 'xterm'
+  TERM: 'xterm-256color'
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
   REPO: aur-repo
@@ -73,7 +74,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --color always --noconfirm --needed base-devel coreutils xterm git sudo yay # man-pages man-db procps-ng
+        run: pacman -Sy --noconfirm --needed base-devel coreutils xterm git sudo yay # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
