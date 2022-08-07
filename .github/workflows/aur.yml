@@ -80,7 +80,7 @@ jobs:
           
           chmod 777 /usr/lib/isatty_override.so
           ls -l /usr/lib/isatty_override.so
-          echo "LD_PRELOAD=isatty_override.so" >> $GITHUB_ENV
+          echo "LD_PRELOAD= /usr/lib/isatty_override.so" >> $GITHUB_ENV
 
       
       - uses: actions/checkout@v3
