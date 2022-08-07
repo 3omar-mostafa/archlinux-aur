@@ -109,7 +109,7 @@ jobs:
         with:
           attempt_limit: 3
           attempt_delay: "10000" # 10 seconds
-          command: socat EXEC:"bash ./deps.sh",pty 
+          command: socat EXEC:"bash ./deps.sh",pty GOPEN:STDOUT
             
 
 #       - name: Build ${{ matrix.name }}
