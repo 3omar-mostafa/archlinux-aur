@@ -80,6 +80,7 @@ jobs:
             # Wheel group is the sudo group in Arch Linux
             useradd --create-home --groups wheel  user
             echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+            chown -R user ..
 
       - name: yay configuration
         run: |
@@ -125,6 +126,8 @@ jobs:
           whoami
           
           export PACMAN=yay
+          export BUILDDIR=$PWD
+          
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
           makepkg --noconfirm -si
@@ -132,7 +135,6 @@ jobs:
           EOF
           
           chmod a+x build.sh
-          sudo chmod -R 777 .
           sudo -u user ./build.sh
 
       - name: "Fix File Names [Replace : with - ]"
