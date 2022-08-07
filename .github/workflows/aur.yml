@@ -130,7 +130,7 @@ jobs:
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          makepkg --noconfirm --needed -si
+          makepkg --noconfirm --check --needed -si
           
           EOF
           
@@ -141,7 +141,7 @@ jobs:
           export PACMAN=yay
           export BUILDDIR=$PWD
           
-          /usr/bin/yay -v -y --color always --noconfirm -S --asdeps go python-grpcio-tools qt5-tools
+          sudo -E -u user yay -Sy  --color always --noconfirm go python-grpcio-tools qt5-tools
           
           sudo -E -u user ./build.sh
           #sudo -E -u user yay -Sy  --color always --noconfirm ${{ matrix.name }}
