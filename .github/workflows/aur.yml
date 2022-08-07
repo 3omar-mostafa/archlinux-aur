@@ -226,13 +226,17 @@ jobs:
 
     steps:
 
-      - name: Add colors to pacman
+      - name: Pacman Config
         run: |
-          sed 's/#Color/Color/g' /etc/pacman.conf
+          sed -i 's/#Color/Color/g' /etc/pacman.conf
+          sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
+          sed -i 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm --needed base-devel coreutils xterm git wget p7zip sudo manjaro-tools-base manjaro-tools-pkg
+        run: |
+          pacman -Syu --noconfirm --color always
+          pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng p7zip sudo manjaro-tools-base manjaro-tools-pkg
 
       - name: Create non root user
         run: |
