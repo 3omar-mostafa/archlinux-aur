@@ -16,6 +16,7 @@ env:
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
   VERBOSEL: 1
+  NODE_OPTIONS: '--max_old_space_size=8192' # increase max allowed memory usage
   REPO: aur-repo
 
 
