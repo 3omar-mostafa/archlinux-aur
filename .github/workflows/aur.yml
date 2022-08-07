@@ -132,7 +132,6 @@ jobs:
           cat <<EOF > build.sh
           #!/bin/bash
           export PACMAN=yay
-          export BUILDDIR=$PWD
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
@@ -143,6 +142,8 @@ jobs:
           chmod a+x build.sh
           chmod -R 777 /home
           chmod -R 777 $PWD
+          echo "BUILDDIR=$PWD" >> $GITHUB_ENV
+
           
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
