@@ -31,6 +31,7 @@
   },
   {
     "name": "authenticator",
+    "depends": "appstream-glib"
   },
   {
     "name": "binfmt-java",
@@ -181,16 +182,19 @@
   },
   {
     "name": "timeshift",
+    "depends": "appstream-glib"
   },
   {
     "name": "tor-browser",
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
   {
-    "name": "ttf-ms-win10-auto",
+    "name": "ttf-ms-win10",
+    "apply_cmd": "wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/21H2_x64/Windows10_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip fonts.zip",
   },
   {
-    "name": "ttf-ms-win11-auto",
+    "name": "ttf-ms-win11",
+    "apply_cmd": "wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/11_21H2_x64/Windows11_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip fonts.zip",
   },
   {
     "name": "wps-office-fonts",
