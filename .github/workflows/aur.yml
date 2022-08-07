@@ -100,6 +100,20 @@ jobs:
       - name: Install Paru
         run: sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru-bin
 
+      - name: Install GPG Key
+        if: matrix.gpg_key
+        run: |
+          sudo -E -u user gpg --recv-keys ${{ matrix.gpg_key }}
+          gpg --recv-keys ${{ matrix.gpg_key }}
+
+      - name: Install GPG Key
+        if: matrix.gpg_url
+        run: |
+          wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
+          
+          sudo -E -u user gpg --import /tmp/gpg.key
+          gpg --import /tmp/gpg.key
+
       - name: Prepare Install/Build Dependencies
         if: matrix.depends
         run: |
@@ -119,7 +133,6 @@ jobs:
           attempt_limit: 3
           attempt_delay: "10000" # 10 seconds
           command: ./deps.sh
-            
 
 #       - name: Build ${{ matrix.name }}
 #         uses: Wandalen/wretry.action@v1.0.25
@@ -130,7 +143,7 @@ jobs:
 
 #       - name: Patch makepkg
 #         run: |
-#           patch_path=$PWD/makepkg.patch
+#           patch_path=$PWD/scripts/makepkg.patch
 #           cd $(dirname `which makepkg`)
 #           git apply "$patch_path"
 
@@ -142,26 +155,26 @@ jobs:
           rm -rf "${{ matrix.name }}" || echo 
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch
+          
+          if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
+            echo "Applying Patch from ${{ matrix.apply_script_file }} file"
+            
+            chmod a+x "../scripts/${{ matrix.apply_script_file }}"
+            "../scripts/${{ matrix.apply_script_file }}"
+          fi
+
+          if [[ -n "${{ matrix.apply_cmd }}" ]] ;  then
+            echo "Applying Patch from command:"
+            echo "${{ matrix.apply_cmd }}"
+            
+            ${{ matrix.apply_cmd }}
+          fi
+          
+          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload
           
           EOF
           
           chmod a+x build.sh
-  
-      - name: Install GPG Key
-        if: matrix.gpg_key
-        run: |
-          sudo -E -u user gpg --recv-keys ${{ matrix.gpg_key }}
-          gpg --recv-keys ${{ matrix.gpg_key }}
-
-      - name: Install GPG Key
-        if: matrix.gpg_url
-        run: |
-          wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
-          
-          sudo -E -u user gpg --import /tmp/gpg.key
-          gpg --import /tmp/gpg.key
-
 
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
