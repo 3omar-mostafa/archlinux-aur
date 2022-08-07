@@ -113,6 +113,17 @@ jobs:
           sudo -E -u user gpg --import /tmp/gpg.key
           gpg --import /tmp/gpg.key
 
+      - name: Create Swap file
+        run: |
+          dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
+          chmod 0666 /swapfile
+          mkswap -U clear /swapfile
+          swapon /swapfile
+          
+          df -Th
+          free -h
+
+
       - name: Prepare Install/Build Dependencies
         if: matrix.depends
         run: |
