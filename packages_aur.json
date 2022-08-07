@@ -31,7 +31,7 @@
   },
   {
     "name": "authenticator",
-    "depends": "appstream-glib"
+    "depends": "appstream-glib",
   },
   {
     "name": "binfmt-java",
@@ -75,6 +75,7 @@
   },
   {
     "name": "gdm-settings",
+    "depends": "appstream-glib",
   },
   {
     "name": "genymotion",
@@ -182,7 +183,7 @@
   },
   {
     "name": "timeshift",
-    "depends": "appstream-glib"
+    "depends": "appstream-glib",
   },
   {
     "name": "tor-browser",
@@ -191,12 +192,12 @@
   {
     "name": "ttf-ms-win10",
     "depends": "unzip wget",
-    "apply_cmd": "wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/21H2_x64/Windows10_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip fonts.zip",
+    "apply_cmd": "wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/21H2_x64/Windows10_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip -uj fonts.zip",
   },
   {
     "name": "ttf-ms-win11",
     "depends": "unzip wget",
-    "apply_cmd": "wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/11_21H2_x64/Windows11_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip fonts.zip",
+    "apply_cmd": "wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/11_21H2_x64/Windows11_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip -uj fonts.zip",
   },
   {
     "name": "wps-office-fonts",
