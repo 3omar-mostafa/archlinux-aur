@@ -124,10 +124,8 @@ jobs:
           #!/bin/bash
           
           export PACMAN='yay --nocleanafter'
-          export package="${{ matrix.name }}"
-          echo "building $package"
-          git clone "https://aur.archlinux.org/$package.git"
-          cd $package
+          git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
+          cd "${{ matrix.name }}"
           makepkg --noconfirm -si
           
           EOF
