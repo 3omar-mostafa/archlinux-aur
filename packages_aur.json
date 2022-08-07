@@ -70,6 +70,7 @@
   },
   {
     "name": "expressvpn",
+    "gpg_url": "https://www.expressvpn.com/expressvpn_release_public_key_0xAFF2A1415F6A3A38.asc",
   },
   {
     "name": "gdm-settings",
@@ -156,6 +157,7 @@
   },
   {
     "name": "qpdfview",
+    "gpg_key": "1F521FF0F87E9E1CDE46B8A9F4928C4DD24D4DF8"
   },
   {
     "name": "rar",
@@ -182,6 +184,7 @@
   },
   {
     "name": "tor-browser",
+    "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
   {
     "name": "ttf-ms-win10-auto",
