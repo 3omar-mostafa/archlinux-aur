@@ -132,6 +132,7 @@ jobs:
           EOF
           
           chmod a+x build.sh
+          sudo chmod -R 777 .
           sudo -u user ./build.sh
 
       - name: "Fix File Names [Replace : with - ]"
