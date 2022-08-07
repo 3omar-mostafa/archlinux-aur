@@ -1,5 +1,5 @@
 diff --git a/makepkg b/makepkg
-index 5efc314..4957bad 100755
+index 5efc314..aa67056 100755
 --- a/makepkg
 +++ b/makepkg
 @@ -229,8 +229,13 @@ run_pacman() {
@@ -7,7 +7,7 @@ index 5efc314..4957bad 100755
  		cmd=("$PACMAN_PATH" "$@")
  	else
 -		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
-+		cmd=("$PACMAN_PATH" -v "-y" "--color" "always" "${PACMAN_OPTS[@]}" "$@")
++		cmd=("$PACMAN_PATH" -v "--color" "always" "${PACMAN_OPTS[@]}" "$@")
  		cmdescape="$(printf '%q ' "${cmd[@]}")"
 +
 +		echo "***********************************************************"
@@ -17,3 +17,12 @@ index 5efc314..4957bad 100755
  		if (( ${#PACMAN_AUTH[@]} )); then
  			if in_array '%c' "${PACMAN_AUTH[@]}"; then
  				cmd=("${PACMAN_AUTH[@]/\%c/$cmdescape}")
+@@ -287,7 +292,7 @@ handle_deps() {
+ 		# install missing deps from binary packages (using pacman -S)
+ 		msg "$(gettext "Installing missing dependencies...")"
+ 
+-		if ! run_pacman -S --asdeps "${deplist[@]}"; then
++		if ! run_pacman -Sy "${deplist[@]}"; then
+ 			error "$(gettext "'%s' failed to install missing dependencies.")" "$PACMAN"
+ 			return $R_DEPS_MISSING
+ 		fi
