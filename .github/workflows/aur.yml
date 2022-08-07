@@ -72,6 +72,8 @@ jobs:
       - name: Force isatty to true
         run: |
           cd /tmp
+          export LD_PRELOAD=
+          
           echo "int isatty(int x) { (void) x; return 1 ;}" > isatty_override.c
           gcc -c -fPIC isatty_override.c -o isatty_override.o
           gcc isatty_override.o -shared -o isatty_override.so
