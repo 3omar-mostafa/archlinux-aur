@@ -77,7 +77,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay socat colorgcc # man-pages man-db procps-ng
+        run: pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay devtools asp bat socat colorgcc # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -94,7 +94,7 @@ jobs:
           yay --show --currentconfig
 
       - name: Install Paru
-        run: sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru-bin asp devtools bat
+        run: sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru-bin 
 
       - name: Prepare Install/Build Dependencies
         if: matrix.depends
@@ -134,7 +134,6 @@ jobs:
         run: |
           cat <<EOF > build.sh
           #!/bin/bash
-          export PACMAN=yay
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
