@@ -137,7 +137,7 @@ jobs:
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          yay -Ui
+          paru -Ui
           
           EOF
           
