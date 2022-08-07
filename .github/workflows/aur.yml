@@ -141,13 +141,11 @@ jobs:
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          paru -Ui --noconfirm --color always
+          paru -Ui --noconfirm --color always --skippgpcheck
           
           EOF
           
           chmod a+x build.sh
-
-      - run: sudo -E -u user ./build.sh
 
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
