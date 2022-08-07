@@ -122,8 +122,9 @@ jobs:
         run: |
           cat <<EOF > build.sh
           #!/bin/bash
+          whoami
           
-          export PACMAN='yay --nocleanafter'
+          export PACMAN=yay
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
           makepkg --noconfirm -si
