@@ -93,9 +93,9 @@ jobs:
         if: matrix.depends
         run: |
           cat <<EOF > deps.sh
-          pacman -Sy --noconfirm --needed ${{ matrix.depends }} \
+          pacman -Sy  --color always --noconfirm --needed ${{ matrix.depends }} \
             || \
-            sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
+            sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
             || \
             ( echo "[Error] Can not install dependencies" && exit 1 )
           EOF
@@ -117,43 +117,11 @@ jobs:
 #         with:
 #           attempt_limit: 3
 #           attempt_delay: "10000" # 10 seconds
-#           command: sudo -u user yay -Sy --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
+#           command: sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
 
       - name: Patch makepkg
         run: |
-          cat <<EOF > patch.diff
-          diff --git a/makepkg b/makepkg
-          --- a/makepkg	(revision 0c496bc92953cd1bcd4f0a3373d21597c29621fe)
-          +++ b/makepkg	(date 1659839852228)
-          @@ -227,9 +227,14 @@
-           run_pacman() {
-            local cmd cmdescape
-            if [[ $1 = -@(T|Q)*([[:alpha:]]) ]]; then
-          -		cmd=("$PACMAN_PATH" "$@")
-          +		cmd=("$PACMAN_PATH" -v "$@")
-          +		echo "************************************************************"
-          +		echo "${cmd[@]}"
-          +		echo "Entered If Condition, params are: $@"
-          +		echo "************************************************************"
-          +
-            else
-          -		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
-          +		cmd=("$PACMAN_PATH" -v "${PACMAN_OPTS[@]}" "$@")
-              cmdescape="$(printf '%q ' "${cmd[@]}")"
-              if (( ${#PACMAN_AUTH[@]} )); then
-                if in_array '%c' "${PACMAN_AUTH[@]}"; then
-          @@ -253,6 +258,7 @@
-              done
-            fi
-            "${cmd[@]}"
-          +	echo "${cmd[@]}"
-           }
-
-           check_deps() {
-
-          EOF
-           
-          patch_path=$PWD/patch.diff
+          patch_path=$PWD/makepkg.patch
           cd $(dirname `which makepkg`)
           git apply "$patch_path"
            
@@ -178,7 +146,7 @@ jobs:
           export BUILDDIR=$PWD
           
           sudo -E -u user ./build.sh
-          #sudo -E -u user yay -Sy --noconfirm ${{ matrix.name }}
+          #sudo -E -u user yay -Sy  --color always --noconfirm ${{ matrix.name }}
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
