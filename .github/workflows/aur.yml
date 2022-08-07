@@ -80,17 +80,18 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc # man-pages man-db procps-ng
+          pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng
 
       - name: Create Swap file
         run: |
           df -Th
           free -h
           
-          dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
-          chmod 0600 /swapfile
-          mkswap -U clear /swapfile
-          swapon --verbose /swapfile
+          export SWAPFILE=/__w/swapfile
+          dd if=/dev/zero of=$SWAPFILE bs=1M count=4096 status=progress
+          chmod 0600 $SWAPFILE
+          mkswap -U clear $SWAPFILE
+          swapon --verbose $SWAPFILE
 
       - name: Create non root user
         run: |
