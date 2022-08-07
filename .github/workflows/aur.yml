@@ -52,8 +52,6 @@ jobs:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
     runs-on: ubuntu-latest
-    env:
-      LD_PRELOAD: /lib/isatty_override.so
     
     strategy:
         fail-fast: false
@@ -71,13 +69,15 @@ jobs:
       
       - name: Force isatty to true
         run: |
-          cd /tmp
-          export LD_PRELOAD=
-          
+          cd /tmp          
           echo "int isatty(int x) { (void) x; return 1 ;}" > isatty_override.c
           gcc -c -fPIC isatty_override.c -o isatty_override.o
           gcc isatty_override.o -shared -o isatty_override.so
           cp isatty_override.so /lib
+          
+          ls -l /lib/isatty_override.so
+          echo "LD_PRELOAD=/lib/isatty_override.so" >> $GITHUB_ENV
+
       
       - uses: actions/checkout@v3
 
