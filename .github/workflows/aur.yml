@@ -142,7 +142,7 @@ jobs:
           rm -rf "${{ matrix.name }}" || echo 
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          paru -Ui --noconfirm --color always --check --nocleanafter --pgpfetch
+          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch
           
           EOF
           
