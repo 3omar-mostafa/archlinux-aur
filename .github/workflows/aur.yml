@@ -81,12 +81,12 @@ jobs:
             useradd --create-home --groups wheel  user
             echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-#       - name: yay configuration to disable epoch versions
-#         run: |
-#           echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
+      - name: yay configuration
+        run: |
+          echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
           
-#           yay --editmenu --answeredit All --editor sed --editorflags "'s/epoch=/#epoch=/g'" --save
-#           yay --show --currentconfig
+          yay --answerclean None --builddir $PWD --save
+          yay --show --currentconfig
 
       - name: Prepare Install/Build Dependencies
         if: matrix.depends
