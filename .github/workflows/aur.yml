@@ -2,7 +2,7 @@ name: AUR
 
 on:
   schedule:
-    - cron: '0 0 * * 6' # Runs at 00:00 UTC on Sat.
+    - cron: '0 0 * * mon' # Runs at 00:00 UTC on Monday.
   push:
   workflow_dispatch:
 
@@ -16,7 +16,6 @@ env:
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
   VERBOSEL: 1
-  RUSTFLAGS: --color always
   REPO: aur-repo
 
 
