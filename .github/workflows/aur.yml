@@ -147,6 +147,21 @@ jobs:
           EOF
           
           chmod a+x build.sh
+  
+      - name: Install GPG Key
+        if: matrix.gpg_key
+        run: |
+          sudo -E -u user gpg --recv-keys ${{ matrix.gpg_key }}
+          gpg --recv-keys ${{ matrix.gpg_key }}
+
+      - name: Install GPG Key
+        if: matrix.gpg_url
+        run: |
+          wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
+          
+          sudo -E -u user gpg --import /tmp/gpg.key
+          gpg --import /tmp/gpg.key
+
 
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
