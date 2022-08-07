@@ -84,14 +84,15 @@ jobs:
 
       - name: Create Swap file
         run: |
-          df -Th
-          free -h
-          
           export SWAPFILE=/__w/swapfile
-          dd if=/dev/zero of=$SWAPFILE bs=1M count=4096 status=progress
+          dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
           chmod 0600 $SWAPFILE
           mkswap -U clear $SWAPFILE
           swapon --verbose $SWAPFILE
+          
+          swapon --show 
+          df -Th
+          free -h
 
       - name: Create non root user
         run: |
