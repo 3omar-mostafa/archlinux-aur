@@ -139,9 +139,10 @@ jobs:
           cat <<EOF > build.sh
           #!/bin/bash
           
+          rm -rf "${{ matrix.name }}" || echo 
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          paru -Ui --noconfirm --color always --skippgpcheck
+          paru -Ui --noconfirm --color always --check --nocleanafter --pgpfetch
           
           EOF
           
