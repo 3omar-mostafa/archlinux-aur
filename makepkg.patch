@@ -1,11 +1,11 @@
 diff --git a/makepkg b/makepkg
 --- a/makepkg	(revision 0c496bc92953cd1bcd4f0a3373d21597c29621fe)
-+++ b/makepkg	(date 1659841426817)
++++ b/makepkg	(date 1659841644312)
 @@ -225,12 +225,24 @@
  }
  
  run_pacman() {
-+    echo "Entered If run_pacman"
++    echo "Entered run_pacman"
  	local cmd cmdescape
  	if [[ $1 = -@(T|Q)*([[:alpha:]]) ]]; then
  		cmd=("$PACMAN_PATH" "$@")
@@ -18,7 +18,7 @@ diff --git a/makepkg b/makepkg
  		cmd=("$PACMAN_PATH" "${PACMAN_OPTS[@]}" "$@")
  		cmdescape="$(printf '%q ' "${cmd[@]}")"
 +
-+        echo "************************************************************"
++       echo "***********************************************************"
 +		echo "${cmd[@]}"
 +		echo "Entered else Condition, params are: $*"
 +		echo "************************************************************"
@@ -33,3 +33,4 @@ diff --git a/makepkg b/makepkg
 +	echo "${cmd[@]}"
  	"${cmd[@]}"
  }
+ 
