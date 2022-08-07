@@ -142,7 +142,9 @@ jobs:
           EOF
           
           chmod a+x build.sh
-          
+
+      - run: sudo -E -u user ./build.sh
+
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
         with:
