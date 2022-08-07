@@ -82,6 +82,16 @@ jobs:
           pacman -Syu --noconfirm --color always
           pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc # man-pages man-db procps-ng
 
+      - name: Create Swap file
+        run: |
+          df -Th
+          free -h
+          
+          dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
+          chmod 0600 /swapfile
+          mkswap -U clear /swapfile
+          swapon --verbose /swapfile
+
       - name: Create non root user
         run: |
             # Wheel group is the sudo group in Arch Linux
@@ -112,17 +122,6 @@ jobs:
           
           sudo -E -u user gpg --import /tmp/gpg.key
           gpg --import /tmp/gpg.key
-
-      - name: Create Swap file
-        run: |
-          dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
-          chmod 0600 /swapfile
-          mkswap -U clear /swapfile
-          swapon /swapfile
-          
-          df -Th
-          free -h
-
 
       - name: Prepare Install/Build Dependencies
         if: matrix.depends
