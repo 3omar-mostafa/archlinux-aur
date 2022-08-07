@@ -124,9 +124,10 @@ jobs:
           cat <<EOF > build.sh
           #!/bin/bash
           whoami
+          pwd
           
           export PACMAN=yay
-          export BUILDDIR=$PWD
+          export BUILDDIR="$PWD"
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
@@ -135,6 +136,9 @@ jobs:
           EOF
           
           chmod a+x build.sh
+          chmod -R 777 /home
+          chmod -R 777 $PWD
+          
           sudo -u user ./build.sh
 
       - name: "Fix File Names [Replace : with - ]"
