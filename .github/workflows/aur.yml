@@ -77,9 +77,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: |
-          pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay socat colorgcc # man-pages man-db procps-ng
-          sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru \
+        run: pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay socat colorgcc # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -94,6 +92,9 @@ jobs:
           
           yay --answerclean None --builddir $PWD --save
           yay --show --currentconfig
+
+      - name: Install Paru
+        run: sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru
 
       - name: Prepare Install/Build Dependencies
         if: matrix.depends
