@@ -133,9 +133,6 @@ jobs:
           #!/bin/bash
           export PACMAN=yay
           
-          /usr/bin/yay -v --debug --color always --noconfirm -Sy uasm
-          exit 0
-          
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
           makepkg --noconfirm --check --needed -si
