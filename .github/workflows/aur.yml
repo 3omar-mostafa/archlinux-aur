@@ -78,7 +78,7 @@ jobs:
 
       - name: Install basic dependencies
         run: |
-          pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay paru socat colorgcc # man-pages man-db procps-ng
+          pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay socat colorgcc # man-pages man-db procps-ng
           sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru \
 
       - name: Create non root user
