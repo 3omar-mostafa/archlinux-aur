@@ -77,7 +77,7 @@ jobs:
           cat /etc/pacman.conf
 
       - name: Install basic dependencies
-        run: pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay socat colorgcc # man-pages man-db procps-ng
+        run: pacman -Sy --noconfirm --color always --needed base-devel coreutils xterm git sudo yay paru socat colorgcc # man-pages man-db procps-ng
 
       - name: Create non root user
         run: |
@@ -97,7 +97,7 @@ jobs:
         if: matrix.depends
         run: |
           cat <<EOF > deps.sh
-            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
+            sudo -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
             || \
             ( echo "[Error] Can not install dependencies" && exit 1 )
           EOF
@@ -121,11 +121,11 @@ jobs:
 #           attempt_delay: "10000" # 10 seconds
 #           command: sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
 
-      - name: Patch makepkg
-        run: |
-          patch_path=$PWD/makepkg.patch
-          cd $(dirname `which makepkg`)
-          git apply "$patch_path"
+#       - name: Patch makepkg
+#         run: |
+#           patch_path=$PWD/makepkg.patch
+#           cd $(dirname `which makepkg`)
+#           git apply "$patch_path"
 
       - name: Prepare Build ${{ matrix.name }}
         run: |
@@ -135,17 +135,11 @@ jobs:
           
           git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
           cd "${{ matrix.name }}"
-          makepkg --noconfirm --check --needed -si
+          paru -Ui
           
           EOF
           
           chmod a+x build.sh
-          chmod -R 777 /home
-          chmod -R 777 $PWD
-          echo "BUILDDIR=$PWD" >> $GITHUB_ENV
-          
-
-
           
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
