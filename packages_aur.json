@@ -197,6 +197,7 @@
   {
     "name": "ttf-ms-win11",
     "depends": "unzip wget",
+    "checkout": "5ba5194a795c71999d16510aeb4a24ecbc8d1782",
     "apply_cmd": "touch license.rtf && wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/11_21H2_x64/Windows11_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip -uj fonts.zip",
   },
   {
