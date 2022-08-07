@@ -151,11 +151,11 @@ jobs:
 
            check_deps() {
 
-           EOF
+          EOF
            
-           patch_path=$PWD/patch.diff
-           cd $(dirname `which makepkg`)
-           git apply "$patch_path"
+          patch_path=$PWD/patch.diff
+          cd $(dirname `which makepkg`)
+          git apply "$patch_path"
            
 
       - name: Build ${{ matrix.name }}
