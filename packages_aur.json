@@ -54,10 +54,7 @@
   {
     "name": "burpsuite",
     "depends": "jre17-openjdk",
-  },
-  {
-    "name": "burpsuite-pro",
-    "depends": "jre17-openjdk",
+    "apply_script_file": "burpsuite/burpsuite.sh",
   },
   {
     "name": "code-features",
