@@ -1,0 +1,47 @@
+diff --git a/apindex.py b/apindex.py
+index 5dda071..c94b1b3 100755
+--- a/apindex.py
++++ b/apindex.py
+@@ -114,7 +114,7 @@ class File:
+         if self.isDir():
+             fileSize = "-"
+         else:
+-            fileSize = str(math.floor(os.path.getsize(self.getPath()) / 1000)) + " kB"
++            fileSize = str(math.floor(os.path.getsize(self.getPath()) / 1000)) + " KB"
+         modifyTime = time.strftime('%d-%b-%Y %H:%M',
+                         time.localtime(os.path.getmtime(self.getPath())))
+ 
+@@ -195,7 +195,7 @@ def main():
+         print("No root directory specified!")
+         exit(1)
+ 
+-    IndexWriter.writeIndex(sys.argv[1])
++    IndexWriter.writeIndex(sys.argv[1], sys.argv[2])
+ 
+ if __name__=="__main__":
+     main()
+diff --git a/share/apindex/index.template.html b/share/apindex/index.template.html
+index c94ac89..25132b6 100644
+--- a/share/apindex/index.template.html
++++ b/share/apindex/index.template.html
+@@ -8,12 +8,18 @@
+     </style>
+ </head>
+     <body>
+-        <h1>Index of #DIR</h1>
++        <h1>#TITLE - Index of #DIR</h1>
++        Pacman.conf </br>
++        <div style="border: 3px; border-style: dashed; padding: 0.5%; margin-top: 0.5%; margin-bottom: 0.5%; display: inline-block;">
++            [aur-repo]</br>
++            SigLevel = Never</br>
++            Server = <a href="https://3omar-mostafa.github.io/manjaro/">https://3omar-mostafa.github.io/manjaro/</a></br>
++        </div>
+         <hr>
+             <table>
+                 <col width="800">
+                 <col width="200">
+-                <col width="80">
++                <col width="150">
+                 <tr>
+                     <th align="left">Filename</th>
+                     <th align="left">Last modified</th>

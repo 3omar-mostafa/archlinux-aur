@@ -215,7 +215,7 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
 
-  deploy:
+  prepare_deploy:
     needs: [build]
     runs-on: ubuntu-latest
     container:
@@ -223,13 +223,9 @@ jobs:
       options: "--privileged=true --tty=true"
     permissions:
       contents: write # For creating releases
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
+      - uses: actions/checkout@v3
 
       - name: Pacman Config
         run: |
@@ -299,13 +295,8 @@ jobs:
           cd apindex-2.2
           
           # Patch file to allow custom title
-          echo -e "\n================ Patching ================\n"
-          sed -Ei 's/.*IndexWriter.writeIndex\(sys.argv\[1\]\)/    IndexWriter.writeIndex(sys.argv[1], sys.argv[2])/g' apindex.py
-          tail apindex.py
-          echo -e "\n\n=====================================================\n\n"
-          sed -i 's|<h1>Index of #DIR</h1>|<h1>#TITLE - Index of #DIR</h1>|g' share/apindex/index.template.html
-          tail share/apindex/index.template.html
-          
+          git apply ../scripts/apindex.patch
+
           cmake . -DCMAKE_INSTALL_PREFIX=/usr
           sudo make install
           
@@ -320,13 +311,40 @@ jobs:
       - run: ls -lRh
         if: always()
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deploy_files
+          path: "${{ env.REPO }}/*"
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [prepare_deploy]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+
+    steps:
       - name: Setup Pages
         uses: actions/configure-pages@v1
         
+      - name: Download Deploy files
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy_files
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ${{ env.REPO }}
+          path: '.'
           
       - name: Deploy to GitHub Pages
         id: deployment
