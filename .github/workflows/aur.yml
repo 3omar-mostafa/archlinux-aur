@@ -58,10 +58,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-#           include:
-#             - name: "opensnitch"
-#               depends: "hicolor-icon-theme python-qt-material python-pyasn"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "010editor"
+              depends: "qt5-tools tcl"
 
     container:
       image: "manjarolinux/base"
