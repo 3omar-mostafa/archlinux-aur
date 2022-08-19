@@ -215,7 +215,7 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
 
-  prepare_deploy:
+  deploy:
     needs: [build]
     runs-on: ubuntu-latest
     container:
@@ -223,7 +223,12 @@ jobs:
       options: "--privileged=true --tty=true"
     permissions:
       contents: write # For creating releases
-
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
 
       - name: Pacman Config
@@ -271,9 +276,9 @@ jobs:
       - name: Generate Checksum for packages
         run: |
           cd "${REPO}"
-          echo "## SHA256 Checksum\n\n" > checksums.sha256
-          sha256sum * >> checksums.sha256
-          cat checksums.sha256
+          echo "## SHA256 Checksum" > /tmp/checksums.sha256
+          sha256sum * >> /tmp/checksums.sha256
+          cat /tmp/checksums.sha256
 
       - name: Release Packages Files
         uses: softprops/action-gh-release@v1
@@ -281,7 +286,7 @@ jobs:
         with:
           tag_name: "${{ env.VERSION }}"
           name: "Release v${{ env.VERSION }}"
-          body_path: "./${{ env.REPO }}/checksums.sha256"
+          body_path: "/tmp/checksums.sha256"
           files: |
             ./${{ env.REPO }}/*
         env:
@@ -316,40 +321,13 @@ jobs:
       - run: ls -lRh
         if: always()
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: deploy_files
-          path: "${{ env.REPO }}/*"
-
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [prepare_deploy]
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true
-
-    steps:
       - name: Setup Pages
         uses: actions/configure-pages@v1
         
-      - name: Download Deploy files
-        uses: actions/download-artifact@v3
-        with:
-          name: deploy_files
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: '.'
+          path: ${{ env.REPO }}
           
       - name: Deploy to GitHub Pages
         id: deployment
