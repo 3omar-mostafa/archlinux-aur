@@ -271,7 +271,8 @@ jobs:
       - name: Generate Checksum for packages
         run: |
           cd "${REPO}"
-          sha256sum * > checksums.sha256
+          echo "## SHA256 Checksum\n\n" > checksums.sha256
+          sha256sum * >> checksums.sha256
           cat checksums.sha256
 
       - name: Release Packages Files
@@ -309,6 +310,7 @@ jobs:
       - name: Generate index.html
         run: |
           cd "${REPO}"
+          rm -v checksums.sha256
           apindex . "AUR Repository v${VERSION}"
 
       - run: ls -lRh
@@ -344,32 +346,14 @@ jobs:
         with:
           name: deploy_files
 
-      - name: Generate artifact
-        run: tar --dereference --hard-dereference --directory '.' -cvf artifact.tar --exclude=.git --exclude=.github .
-      
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages
-          path: artifact.tar
-
-#     Due to a bug in actions/deploy-pages@main, it download the first artifact in alphabetical order, not `github-pages` as the docs
-#     When this is fixed, remove this code
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: '!!!!!!!!!github-pages'
-          path: artifact.tar
-
-#       - name: Upload artifact
-#         uses: actions/upload-pages-artifact@v1
-#         with:
-#           path: '.'
-          
+          path: '.'
           
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@main
+        uses: actions/deploy-pages@v1
 
       - name: Repo details
         run: |
