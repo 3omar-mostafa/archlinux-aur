@@ -30,15 +30,23 @@
     "name": "authy",
   },
   {
+    "name": "authy-electron",
+    "depends": "electron",
+  },
+  {
     "name": "authenticator",
     "depends": "appstream-glib",
   },
   {
-    "name": "binfmt-java",
-  },
-  {
     "name": "balena-etcher",
     "depends": "nodejs-lts-gallium",
+  },  
+  {
+    "name": "battop",
+    "depends": "rust",
+  },
+  {
+    "name": "binfmt-java",
   },
 
 //   Brave is provided by manjaro `brave-browser`
@@ -62,9 +70,34 @@
   {
     "name": "code-marketplace",
   },
-
+  {
+    "name": "clapper",
+    "depends": "gtuber-git",
+  },
+  {
+    "name": "cyberchef-electron",
+  },
+  {
+    "name": "cyberchef-web",
+  },
+  {
+    "name": "discord_arch_electron",
+  },
+  {
+    "name": "drawio-desktop",
+    "depends": "nodejs-lts-gallium",
+  },
+  {
+    "name": "drawio-desktop-bin",
+  },
+  {
+    "name": "droidcam",
+  },
   {
     "name": "etcher-bin",
+  },
+  {
+    "name": "exifcleaner-bin",
   },
   {
     "name": "expressvpn",
@@ -83,6 +116,9 @@
     "depends": "nodejs-lts-gallium gconf gnome-keyring"
   },
   {
+    "name": "gnome-obfuscate",
+  },
+  {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
   },
   {
@@ -93,6 +129,15 @@
   },
   {
     "name": "gnome-shell-extension-night-light-slider",
+  },
+  {
+    "name": "gnome-shell-extension-pip-on-top-git",
+  },
+  {
+    "name": "gnome-shell-extension-shell-configurator",
+  },
+  {
+    "name": "gnome-shell-extension-wintile",
   },
   {
     "name": "gobuster",
@@ -110,8 +155,20 @@
     "name": "insomnia",
   },
   {
+    "name": "insomnia-electron",
+  },
+  {
+    "name": "junction",
+  },
+  {
+    "name": "masterpdfeditor-free",
+  },
+  {
     "name": "megatools",
     "depends": "nodejs-lts-gallium"
+  },
+  {
+    "name": "metadata-cleaner",
   },
   {
     "name": "mongodb-bin",
@@ -121,6 +178,9 @@
   },
   {
     "name": "mongodb-tools-bin",
+  },
+  {
+    "name": "muezzin-bin",
   },
   {
     "name": "nemo-compare",
@@ -152,6 +212,10 @@
     "name": "pandoc-bin",
   },
   {
+    "name": "pdfstudio-bin",
+    "depends": "jre17-openjdk",
+  },
+  {
     "name": "protonvpn",
   },
   {
@@ -167,6 +231,9 @@
 //     "name": "rustscan",
 //   },
 
+  {
+    "name": "steghide",
+  },
   {
     "name": "surfshark-gui-bin",
   },
@@ -196,6 +263,9 @@
     "depends": "unzip wget",
     "checkout": "5ba5194a795c71999d16510aeb4a24ecbc8d1782",
     "apply_cmd": "touch license.rtf && wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/11_21H2_x64/Windows11_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip -uj fonts.zip",
+  },
+  {
+    "name": "waydroid",
   },
   {
     "name": "wps-office-fonts",
