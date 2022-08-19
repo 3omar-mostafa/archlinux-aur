@@ -315,7 +315,6 @@ jobs:
       - name: Generate index.html
         run: |
           cd "${REPO}"
-          rm -v checksums.sha256
           apindex . "AUR Repository v${VERSION}"
 
       - run: ls -lRh
