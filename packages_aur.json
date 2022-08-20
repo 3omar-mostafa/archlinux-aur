@@ -117,6 +117,7 @@
   },
   {
     "name": "gnome-obfuscate",
+    "depends": "appstream-glib",
   },
   {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
@@ -132,6 +133,7 @@
   },
   {
     "name": "gnome-shell-extension-pip-on-top-git",
+    "depends": "zip",
   },
   {
     "name": "gnome-shell-extension-shell-configurator",
@@ -169,6 +171,7 @@
   },
   {
     "name": "metadata-cleaner",
+    "depends": "appstream mypy python-pycodestyle python-pydocstyle python-tomli reuse",
   },
   {
     "name": "mongodb-bin",
