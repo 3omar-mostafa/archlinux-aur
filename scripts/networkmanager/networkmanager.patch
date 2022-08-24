@@ -1,0 +1,39 @@
+diff --git a/src/core/devices/wifi/nm-device-wifi.c b/src/core/devices/wifi/nm-device-wifi.c
+index 39c68d7..ad388ce 100644
+--- a/src/core/devices/wifi/nm-device-wifi.c
++++ b/src/core/devices/wifi/nm-device-wifi.c
+@@ -46,8 +46,8 @@
+ #include "devices/nm-device-logging.h"
+ 
+ #define SCAN_INTERVAL_SEC_MIN  3
+-#define SCAN_INTERVAL_SEC_STEP 20
+-#define SCAN_INTERVAL_SEC_MAX  120
++#define SCAN_INTERVAL_SEC_STEP 5
++#define SCAN_INTERVAL_SEC_MAX  10
+ 
+ #define SCAN_EXTRA_DELAY_MSEC 500
+ 
+diff --git a/src/libnm-core-impl/nm-setting-ip-config.c b/src/libnm-core-impl/nm-setting-ip-config.c
+index ab760c4..61bf992 100644
+--- a/src/libnm-core-impl/nm-setting-ip-config.c
++++ b/src/libnm-core-impl/nm-setting-ip-config.c
+@@ -5167,9 +5167,7 @@ nm_setting_ip_config_get_dhcp_hostname(NMSettingIPConfig *setting)
+ gboolean
+ nm_setting_ip_config_get_dhcp_send_hostname(NMSettingIPConfig *setting)
+ {
+-    g_return_val_if_fail(NM_IS_SETTING_IP_CONFIG(setting), FALSE);
+-
+-    return NM_SETTING_IP_CONFIG_GET_PRIVATE(setting)->dhcp_send_hostname;
++    return FALSE;
+ }
+ 
+ /**
+@@ -6442,7 +6440,7 @@ nm_setting_ip_config_class_init(NMSettingIPConfigClass *klass)
+         g_param_spec_boolean(NM_SETTING_IP_CONFIG_DHCP_SEND_HOSTNAME,
+                              "",
+                              "",
+-                             TRUE,
++                             FALSE,
+                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+ 
+     /**

@@ -1,0 +1,9 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 512da38..9d22865 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -33,3 +33,4 @@
+ prepare() {
+   cd NetworkManager
++  patch -Np1 -i "{{NM_PATCH_DIR}}/networkmanager.patch"
+ }

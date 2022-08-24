@@ -58,10 +58,12 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-#           include:
-#             - name: "010editor"
-#               depends: "qt5-tools tcl"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "networkmanager"
+              depends: "python-dbus"
+              official: true
+              apply_script_file: "networkmanager/networkmanager.sh"
 
     container:
       image: "manjarolinux/base"
@@ -130,7 +132,7 @@ jobs:
         if: matrix.depends
         run: |
           cat <<EOF > deps.sh
-            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter ${{ matrix.depends }} \
+            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.depends }} \
             || \
             ( echo "[Error] Can not install dependencies" && exit 1 )
           EOF
@@ -151,7 +153,7 @@ jobs:
 #         with:
 #           attempt_limit: 3
 #           attempt_delay: "10000" # 10 seconds
-#           command: sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter --aur ${{ matrix.name }}
+#           command: sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter --aur --ask 4 ${{ matrix.name }}
 
 #       - name: Patch makepkg
 #         run: |
@@ -163,11 +165,19 @@ jobs:
         run: |
           cat <<EOF > build.sh
           #!/bin/bash
+
+          SCRIPTS_DIR=`echo ${PWD}/scripts`
           
-          rm -rf "${{ matrix.name }}" || echo 
-          git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
-          cd "${{ matrix.name }}"
-          
+          if [[ -n "${{ matrix.official }}" ]] ;  then
+            rm -rf "svntogit-packages" || echo 
+            git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
+            cd svntogit-packages/trunk
+          else
+            rm -rf "${{ matrix.name }}" || echo 
+            git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
+            cd "${{ matrix.name }}"
+          fi
+
           if [[ -n "${{ matrix.checkout }}" ]] ;  then
             git checkout "${{ matrix.checkout }}"
           fi
@@ -175,8 +185,8 @@ jobs:
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"
             
-            chmod a+x "../scripts/${{ matrix.apply_script_file }}"
-            "../scripts/${{ matrix.apply_script_file }}"
+            chmod a+x "$SCRIPTS_DIR/${{ matrix.apply_script_file }}"
+            "$SCRIPTS_DIR/${{ matrix.apply_script_file }}"
           fi
 
           if [[ -n "${{ matrix.apply_cmd }}" ]] ;  then
@@ -186,7 +196,7 @@ jobs:
             ${{ matrix.apply_cmd }}
           fi
           
-          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload
+          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4
           
           EOF
           
