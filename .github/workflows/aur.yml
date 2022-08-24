@@ -1,5 +1,9 @@
 name: AUR
 
+# use `--ask 4` in pacman to allow defeault yes in case of conflicts
+# https://unix.stackexchange.com/questions/274727/how-to-force-pacman-to-answer-yes-to-all-questions
+
+
 on:
   schedule:
     - cron: '0 0 * * mon' # Runs at 00:00 UTC on Monday.
@@ -29,6 +33,8 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
+        - run: mount | grep sysfs
+
         - uses: actions/checkout@v3
 
         - name: Set Output packages
@@ -70,7 +76,8 @@ jobs:
       options: "--privileged=true --tty=true"
 
     steps:
-    
+      - run: mount | grep sysfs
+
       - uses: actions/checkout@v3
   
       - name: Pacman Config
@@ -166,7 +173,7 @@ jobs:
           cat <<EOF > build.sh
           #!/bin/bash
 
-          SCRIPTS_DIR=`echo ${PWD}/scripts`
+          SCRIPTS_DIR=`pwd`/scripts
           
           if [[ -n "${{ matrix.official }}" ]] ;  then
             rm -rf "svntogit-packages" || echo 
@@ -185,8 +192,8 @@ jobs:
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"
             
-            chmod a+x "$SCRIPTS_DIR/${{ matrix.apply_script_file }}"
-            "$SCRIPTS_DIR/${{ matrix.apply_script_file }}"
+            chmod a+x "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
+            "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
           fi
 
           if [[ -n "${{ matrix.apply_cmd }}" ]] ;  then
