@@ -33,8 +33,6 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - run: mount | grep sysfs
-
         - uses: actions/checkout@v3
 
         - name: Set Output packages
@@ -67,17 +65,16 @@ jobs:
           # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
           include:
             - name: "networkmanager"
-              depends: "python-dbus"
+              checkdepends: "python-dbus"
               official: true
               apply_script_file: "networkmanager/networkmanager.sh"
+              build_flags: "--nocheck"
 
     container:
       image: "manjarolinux/base"
       options: "--privileged=true --tty=true"
 
     steps:
-      - run: mount | grep sysfs
-
       - uses: actions/checkout@v3
   
       - name: Pacman Config
@@ -136,10 +133,10 @@ jobs:
           gpg --import /tmp/gpg.key
 
       - name: Prepare Install/Build Dependencies
-        if: matrix.depends
+        if: matrix.depends || matrix.checkdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.depends }} \
+            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.depends }} ${{ matrix.checkdepends }} \
             || \
             ( echo "[Error] Can not install dependencies" && exit 1 )
           EOF
@@ -148,7 +145,7 @@ jobs:
           chmod a+x deps.sh
         
       - name: Install/Build Dependencies of ${{ matrix.name }}
-        if: matrix.depends
+        if: matrix.depends || matrix.checkdepends
         uses: Wandalen/wretry.action@v1.0.25
         with:
           attempt_limit: 3
@@ -203,7 +200,7 @@ jobs:
             ${{ matrix.apply_cmd }}
           fi
           
-          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4
+          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4 ${{ matrix.build_flags }}
           
           EOF
           
