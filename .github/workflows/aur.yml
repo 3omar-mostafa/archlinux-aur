@@ -68,7 +68,7 @@ jobs:
               checkdepends: "python-dbus"
               official: true
               apply_script_file: "networkmanager/networkmanager.sh"
-              build_flags: "--nocheck"
+              # build_flags: "--nocheck"
 
     container:
       image: "manjarolinux/base"
