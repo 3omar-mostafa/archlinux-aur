@@ -11,6 +11,3 @@ sed -i 's/source=("${pkgname}-${pkgver}.jar::/source=("${pkgname}-${pkgver}.sh::
 sed -i -E "s/sha256sums=\(.*/sha256sums=\('SKIP'/g" PKGBUILD
 
 git apply $SCRIPT_DIR/burpsuite.patch
-
-cat PKGBUILD
-

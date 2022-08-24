@@ -141,8 +141,8 @@ jobs:
             ( echo "[Error] Can not install dependencies" && exit 1 )
           EOF
           
-          cat deps.sh
           chmod a+x deps.sh
+          bat --color always --pager=never deps.sh
         
       - name: Install/Build Dependencies of ${{ matrix.name }}
         if: matrix.depends || matrix.checkdepends
@@ -167,15 +167,18 @@ jobs:
 
       - name: Prepare Build ${{ matrix.name }}
         run: |
+          export SCRIPTS_DIR=`pwd`/scripts
+
           cat <<EOF > build.sh
           #!/bin/bash
-
-          SCRIPTS_DIR=`pwd`/scripts
           
           if [[ -n "${{ matrix.official }}" ]] ;  then
             rm -rf "svntogit-packages" || echo 
             git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
             cd svntogit-packages/trunk
+
+            pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}"
+          
           else
             rm -rf "${{ matrix.name }}" || echo 
             git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
@@ -200,11 +203,14 @@ jobs:
             ${{ matrix.apply_cmd }}
           fi
           
+          bat --color always --pager=never PKGBUILD
+
           paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4 ${{ matrix.build_flags }}
           
           EOF
           
           chmod a+x build.sh
+          bat --color always --pager=never build.sh
 
       - name: Build ${{ matrix.name }}
         uses: Wandalen/wretry.action@v1.0.25
