@@ -1,0 +1,15 @@
+diff --git a/pacman.conf b/pacman.conf
+index 3982bbe..655af6f 100644
+--- a/pacman.conf
++++ b/pacman.conf
+@@ -69,6 +69,10 @@ LocalFileSigLevel = Optional
+ # repo name header and Include lines. You can add preferred servers immediately
+ # after the header, and they will be used before the default mirrors.
+ 
++[aur-repo]
++SigLevel = Never
++Server = https://3omar-mostafa.github.io/manjaro/
++
+ #[testing]
+ #Include = /etc/pacman.d/mirrorlist
+ 

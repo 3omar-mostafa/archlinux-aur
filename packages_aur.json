@@ -35,7 +35,7 @@
   },
   {
     "name": "authenticator",
-    "depends": "appstream-glib",
+    "checkdepends": "appstream-glib",
   },
   {
     "name": "balena-etcher",
@@ -105,7 +105,7 @@
   },
   {
     "name": "gdm-settings",
-    "depends": "appstream-glib",
+    "checkdepends": "appstream-glib",
   },
   {
     "name": "genymotion",
@@ -117,7 +117,7 @@
   },
   {
     "name": "gnome-obfuscate",
-    "depends": "appstream-glib",
+    "checkdepends": "appstream-glib",
   },
   {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
@@ -171,7 +171,7 @@
   },
   {
     "name": "metadata-cleaner",
-    "depends": "appstream mypy python-pycodestyle python-pydocstyle python-tomli reuse",
+    "checkdepends": "appstream mypy python-pycodestyle python-pydocstyle python-tomli reuse",
   },
   {
     "name": "mongodb-bin",
@@ -197,6 +197,13 @@
   {
     "name": "nemo-mediainfo-tab",
     "description": "View media information in properties window",
+  },
+  {
+    "name": "networkmanager",
+    "checkdepends": "python-dbus",
+    "official": true,
+    "apply_script_file": "networkmanager/networkmanager.sh",
+    "build_flags": "--nocheck",
   },
   {
     "name": "ngrok",
@@ -250,7 +257,7 @@
   },
   {
     "name": "timeshift",
-    "depends": "appstream-glib",
+    "checkdepends": "appstream-glib",
   },
   {
     "name": "tor-browser",
@@ -259,13 +266,13 @@
   {
     "name": "ttf-ms-win10",
     "depends": "unzip wget",
-    "apply_cmd": "touch license.rtf && wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/21H2_x64/Windows10_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip -uj fonts.zip",
+    "apply_script_file": "ttf-ms-win10/ttf-ms-win10.sh",
   },
   {
     "name": "ttf-ms-win11",
     "depends": "unzip wget",
     "checkout": "5ba5194a795c71999d16510aeb4a24ecbc8d1782",
-    "apply_cmd": "touch license.rtf && wget https://github.com/3omar-mostafa/Windows-ISO-Extractor/releases/download/11_21H2_x64/Windows11_21H2_English.International_x64_Fonts.zip -O fonts.zip && unzip -uj fonts.zip",
+    "apply_script_file": "ttf-ms-win11/ttf-ms-win11.sh",
   },
   {
     "name": "waydroid",
