@@ -68,7 +68,7 @@ jobs:
               checkdepends: "python-dbus"
               official: true
               apply_script_file: "networkmanager/networkmanager.sh"
-              # build_flags: "--nocheck"
+              build_flags: "--nocheck"
 
     container:
       image: "manjarolinux/base"
@@ -177,7 +177,7 @@ jobs:
             git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
             cd svntogit-packages/trunk
 
-            pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}"
+            sudo pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}"
           
           else
             rm -rf "${{ matrix.name }}" || echo 
