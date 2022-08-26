@@ -21,6 +21,10 @@
     "name": "android-apktool",
   },
   {
+    "name": "android-backup-extractor",
+    "depends": "jdk17-openjdk ant bash"
+  },
+  {
     "name": "android-sdk-build-tools",
   },
   {
@@ -65,6 +69,13 @@
     "apply_script_file": "burpsuite/burpsuite.sh",
   },
   {
+    "name": "capa-bin",
+  },
+  {
+    "name": "cloak",
+    "depends": "rust",
+  },
+  {
     "name": "code-features",
   },
   {
@@ -75,10 +86,22 @@
     "depends": "gtuber-git",
   },
   {
+    "name": "crunch",
+  },
+  {
     "name": "cyberchef-electron",
   },
   {
     "name": "cyberchef-web",
+  },
+  {
+    "name": "depix-git",
+  },
+  {
+    "name": "dirb",
+  },
+  {
+    "name": "dirbuster-wordlists",
   },
   {
     "name": "discord_arch_electron",
@@ -104,8 +127,24 @@
     "gpg_url": "https://www.expressvpn.com/expressvpn_release_public_key_0xAFF2A1415F6A3A38.asc",
   },
   {
+    "name": "fawkes-bin",
+  },
+  {
+    "name": "feroxbuster",
+    "depends": "rust",
+  },
+  {
+    "name": "ffuf",
+  },
+  {
+    "name": "fig",
+  },
+  {
     "name": "gdm-settings",
     "checkdepends": "appstream-glib",
+  },
+  {
+    "name": "gedit-plugin-markdown_preview",
   },
   {
     "name": "genymotion",
@@ -114,6 +153,9 @@
     "name": "github-desktop",
     // add `nodejs-lts-gallium` to solve inner conflicts
     "depends": "nodejs-lts-gallium gconf gnome-keyring"
+  },
+  {
+    "name": "gitleaks",
   },
   {
     "name": "gnome-obfuscate",
@@ -148,6 +190,9 @@
     "name": "guiscrcpy",
   },
   {
+    "name": "haiti",
+  },
+  {
     "name": "hardinfo",
   },
   {
@@ -161,6 +206,9 @@
   },
   {
     "name": "junction",
+  },
+  {
+    "name": "linux-wifi-hotspot",
   },
   {
     "name": "masterpdfeditor-free",
@@ -219,6 +267,9 @@
     "depends": "hicolor-icon-theme python-qt-material python-pyasn"
   },
   {
+    "name": "pam_usb",
+  },
+  {
     "name": "pandoc-bin",
   },
   {
@@ -226,7 +277,19 @@
     "depends": "jre17-openjdk",
   },
   {
+    "name": "peass",
+  },
+  {
     "name": "protonvpn",
+  },
+  {
+    "name": "python-androguard",
+  },
+  {
+    "name": "python-name-that-hash",
+  },
+  {
+    "name": "pwncat",
   },
   {
     "name": "qpdfview",
@@ -242,7 +305,29 @@
 //   },
 
   {
+    "name": "shellcheck-bin",
+  },
+  {
+    "name": "sherlock",
+  },
+  {
+    "name": "smbmap",
+  },
+  {
+    "name": "social-engineer-toolkit",
+    "depends": "jre17-openjdk",
+  },
+  {
+    "name": "sparrow-wifi-git",
+  },
+  {
+    "name": "spiderfoot",
+  },
+  {
     "name": "steghide",
+  },
+  {
+    "name": "stegseek",
   },
   {
     "name": "surfshark-gui-bin",
@@ -278,6 +363,12 @@
     "name": "waydroid",
   },
   {
+    "name": "wfuzz",
+  },
+  {
+    "name": "wordlists",
+  },
+  {
     "name": "wps-office-fonts",
   },
   {
@@ -309,5 +400,8 @@
   },
   {
     "name": "zoom",
+  },
+  {
+    "name": "zoomdl",
   },
 ]
