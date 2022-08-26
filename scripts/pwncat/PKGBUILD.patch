@@ -1,0 +1,13 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 30baf47..1d10ebb 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -14,6 +14,8 @@
+ 
+ build() {
+   cd "${pkgname}-${pkgver}"
++  patch -Np1 -i "{{PWN_PATCH_DIR}}/pwncat.patch"
++
+   python setup.py build
+   gzip --force man/pwncat.1
+ }

@@ -182,14 +182,14 @@ jobs:
           #!/bin/bash
           
           if [[ -n "${{ matrix.official }}" ]] ;  then
-            rm -rf "svntogit-packages" || echo 
+            rm -rf "svntogit-packages"
             git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
             cd svntogit-packages/trunk
 
             sudo pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}"
           
           else
-            rm -rf "${{ matrix.name }}" || echo 
+            rm -rf "${{ matrix.name }}"
             git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
             cd "${{ matrix.name }}"
           fi
@@ -197,6 +197,8 @@ jobs:
           if [[ -n "${{ matrix.checkout }}" ]] ;  then
             git checkout "${{ matrix.checkout }}"
           fi
+          
+          rm -rf */.git
           
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"

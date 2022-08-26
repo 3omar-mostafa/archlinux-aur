@@ -287,9 +287,11 @@
   },
   {
     "name": "python-name-that-hash",
+    "build_flags": "--nocheck",
   },
   {
     "name": "pwncat",
+    "apply_script_file": "pwncat/pwncat.sh"
   },
   {
     "name": "qpdfview",
