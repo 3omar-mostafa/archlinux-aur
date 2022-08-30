@@ -1,7 +1,17 @@
 // Array of AUR Packages to build
 // Each element MUST contain a name
-// and optionally a description, depends [dependencies required to solve conflicts or optional dependencies ...]
-// TODO: allow adding patches
+// 
+// and optionally:
+// - description
+// - depends [dependencies required to solve conflicts or optional dependencies ...]
+// - checkdepends [dependencies required to check packaging]
+// - checkout [a commit hash or branch to checkout to after cloning aur repo]
+// - apply_cmd [bash commands to run after cloning aur repo]
+// - apply_script_file [bash script to run after cloning to aur repo (path relative to scripts folder)]
+// - gpg_url [url to download gpg key]
+// - gpg_key
+// - official [boolean to determine where to clone PKGBUILD (aur or official repos)]
+// - build_flags [flags to add to paru when building PKGBUILD]
 
 [
   {
@@ -140,6 +150,12 @@
     "name": "fig",
   },
   {
+    "name": "findex-bin",
+  },
+  {
+    "name": "findex-git",
+  },
+  {
     "name": "gdm-settings",
     "checkdepends": "appstream-glib",
   },
@@ -162,14 +178,26 @@
     "checkdepends": "appstream-glib",
   },
   {
+    "name": "gnome-shell-extension-dash-to-dock-animator-git",
+  },
+  {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
   },
+  //   gsconnect is provided by manjaro `gnome-shell-extension-gsconnect`
+  // {
+  //   "name": "gnome-shell-extension-gsconnect",
+  // },
   {
-    "name": "gnome-shell-extension-gsconnect",
+    "name": "gnome-shell-extension-improvedosk-git",
+    "depends": "ttf-symbola",
   },
   {
-    "name": "gnome-shell-extension-net-speed",
+    "name": "gnome-shell-extension-just-perfection-desktop",
   },
+  // This is the wrong extension, the intended one is https://github.com/prateekmedia/netspeedsimplified
+  // {
+  //   "name": "gnome-shell-extension-net-speed",
+  // },
   {
     "name": "gnome-shell-extension-night-light-slider",
   },
@@ -177,9 +205,10 @@
     "name": "gnome-shell-extension-pip-on-top-git",
     "depends": "zip",
   },
-  {
-    "name": "gnome-shell-extension-shell-configurator",
-  },
+  // TODO: Fix Building
+  // {
+  //   "name": "gnome-shell-extension-shell-configurator",
+  // },
   {
     "name": "gnome-shell-extension-wintile",
   },
@@ -263,8 +292,12 @@
     "name": "notion-app",
   },
   {
+    "name": "openrazer-meta",
+    "depends": "linux-headers linux-lts-headers linux-hardened-headers linux-zen-headers",
+  },
+  {
     "name": "opensnitch",
-    "depends": "hicolor-icon-theme python-qt-material python-pyasn"
+    "depends": "hicolor-icon-theme python-qt-material python-pyasn",
   },
   {
     "name": "pam_usb",
@@ -280,14 +313,14 @@
     "name": "peass",
   },
   {
+    "name": "postman-bin",
+    "apply_script_file": "postman/postman.sh",
+  },
+  {
     "name": "protonvpn",
   },
   {
     "name": "python-androguard",
-  },
-  {
-    "name": "python-name-that-hash",
-    "build_flags": "--nocheck",
   },
   {
     "name": "pwncat",
