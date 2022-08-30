@@ -104,9 +104,10 @@
   {
     "name": "cyberchef-web",
   },
-  {
-    "name": "depix-git",
-  },
+  // TODO: Fix
+  // {
+  //   "name": "depix-git",
+  // },
   {
     "name": "dirb",
   },
@@ -154,6 +155,7 @@
   },
   {
     "name": "findex-git",
+    "depends": "libkeybinder3",
   },
   {
     "name": "gdm-settings",
@@ -179,6 +181,7 @@
   },
   {
     "name": "gnome-shell-extension-dash-to-dock-animator-git",
+    "depends": "zip",
   },
   {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
@@ -293,7 +296,7 @@
   },
   {
     "name": "openrazer-meta",
-    "depends": "linux-headers linux-lts-headers linux-hardened-headers linux-zen-headers",
+    "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
   },
   {
     "name": "opensnitch",
