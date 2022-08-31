@@ -1,0 +1,37 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 5a6ba8a..dd9cd92 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -6,10 +6,9 @@
+-_pyver=3.9
+ pkgdesc="A tool for recovering passwords from pixelized screenshots"
+ arch=('any')
+ url="https://github.com/beurtschipper/Depix"
+ license=('CC-BY-4.0')
+-depends=('python')
+-makedepends=('git')
++depends=('python-pillow')
++makedepends=('git' 'python-setuptools')
+ provides=("depix")
+ conflicts=("depix")
+ source=("${pkgname}::git+https://github.com/beurtschipper/Depix.git")
+@@ -24,18 +23,7 @@
+   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+ }
+ 
+-build() {
+-  cd "$srcdir/${pkgname}"
+-  sed -i '1i\#!/usr/bin/env python' depix.py
+-}
+-
+ package() {
+   cd "$srcdir/${pkgname}"
+-  install -d "${pkgdir}/usr/lib/python${_pyver}/"
+-  cp -r depixlib "${pkgdir}/usr/lib/python${_pyver}/"
+-  install -Dm 755 depix.py "${pkgdir}/usr/bin/depix.py"
+-  install -d "${pkgdir}/usr/share/depix/"
+-  cp -r images "${pkgdir}/usr/share/depix/"
+-  cp -r docs "${pkgdir}/usr/share/depix/"
+-  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/depix/LICENSE"
++  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1
+ }

@@ -104,10 +104,10 @@
   {
     "name": "cyberchef-web",
   },
-  // TODO: Fix
-  // {
-  //   "name": "depix-git",
-  // },
+  {
+    "name": "depix-git",
+    "apply_script_file": "depix/depix.sh"
+  },
   {
     "name": "dirb",
   },
