@@ -295,7 +295,7 @@
     "name": "notion-app",
   },
   {
-    "name": "openrazer-meta",
+    "name": "openrazer",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
   },
   {
