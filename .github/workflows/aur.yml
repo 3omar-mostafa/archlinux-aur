@@ -198,7 +198,7 @@ jobs:
             git checkout "${{ matrix.checkout }}"
           fi
           
-          rm -rf */.git
+          find ../.. -type d -name .git -exec rm -rf {} \;
           
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"

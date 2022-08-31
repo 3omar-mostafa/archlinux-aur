@@ -208,10 +208,9 @@
     "name": "gnome-shell-extension-pip-on-top-git",
     "depends": "zip",
   },
-  // TODO: Fix Building
-  // {
-  //   "name": "gnome-shell-extension-shell-configurator",
-  // },
+  {
+    "name": "gnome-shell-extension-shell-configurator",
+  },
   {
     "name": "gnome-shell-extension-wintile",
   },
