@@ -90,7 +90,7 @@ jobs:
       - name: makepkg Config
         run: |
           sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
-          echo 'PACKAGER="3omar-mostafa"' >> /etc/makepkg.conf
+          echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
           bat --color always --pager=never /etc/makepkg.conf
 
       - name: Install basic dependencies
@@ -296,7 +296,7 @@ jobs:
 
       - name: "Delete Empty Directories"
         continue-on-error: true
-        run: find . -type d -exec rmdir -v {} \;
+        run: find . -type d -ignore_readdir_race -exec rmdir -v {} \;
 
       - name: Generate database files
         run: |
@@ -307,7 +307,11 @@ jobs:
         run: |
           cd "${REPO}"
           echo "## SHA256 Checksum" > /tmp/checksums.sha256
-          sha256sum * >> /tmp/checksums.sha256
+          echo "| SHA256 | Checksum |" >> /tmp/checksums.sha256
+          echo "| ------ | -------- |" >> /tmp/checksums.sha256
+          for file in *; do
+            echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
+          done
           cat /tmp/checksums.sha256
 
       - name: Release Packages Files
@@ -416,7 +420,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng p7zip sudo manjaro-tools-base manjaro-tools-pkg
+          pacman -Sy --noconfirm --color always --needed base-devel python-pip curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng p7zip sudo manjaro-tools-base manjaro-tools-pkg
 
       - name: Config Repo
         run: patch -Np1 -i ./scripts/pacman_repo.patch /etc/pacman.conf
