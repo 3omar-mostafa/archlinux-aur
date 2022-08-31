@@ -71,7 +71,7 @@ jobs:
             #   build_flags: "--nocheck"
 
     container:
-      image: "manjarolinux/base"
+      image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
 
     steps:
@@ -96,7 +96,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng
+          pacman -Sy --noconfirm --color always base-devel glibc curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng
 
       - name: Create Swap file
         run: |
@@ -255,7 +255,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     container:
-      image: "manjarolinux/base"
+      image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
     permissions:
       contents: write # For creating releases
@@ -406,7 +406,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy]
     container:
-      image: "manjarolinux/base"
+      image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
     
     steps:
