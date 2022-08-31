@@ -5,5 +5,5 @@ index 512da38..9d22865 100644
 @@ -33,3 +33,4 @@
  prepare() {
    cd NetworkManager
-+  patch -Np1 -i "{{NM_PATCH_DIR}}/networkmanager.patch"
++  patch -Np1 --ignore-whitespace -i "{{NM_PATCH_DIR}}/networkmanager.patch"
  }

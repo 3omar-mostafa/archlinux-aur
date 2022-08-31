@@ -6,7 +6,7 @@ index 30baf47..1d10ebb 100644
  
  build() {
    cd "${pkgname}-${pkgver}"
-+  patch -Np1 -i "{{PWN_PATCH_DIR}}/pwncat.patch"
++  patch -Np1 --ignore-whitespace -i "{{PWN_PATCH_DIR}}/pwncat.patch"
 +
    python setup.py build
    gzip --force man/pwncat.1
