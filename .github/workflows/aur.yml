@@ -203,7 +203,7 @@ jobs:
             git checkout "${{ matrix.checkout }}"
           fi
           
-          find ../.. -type d -name .git -exec rm -rf {} \;
+          find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \;
           
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"
@@ -301,7 +301,7 @@ jobs:
 
       - name: "Delete Empty Directories"
         continue-on-error: true
-        run: find . -type d -ignore_readdir_race -exec rmdir -v {} \;
+        run: find . -ignore_readdir_race -type d -exec rmdir -v {} \;
 
       - name: Generate database files
         run: |

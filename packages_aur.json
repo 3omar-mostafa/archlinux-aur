@@ -211,6 +211,7 @@
   },
   {
     "name": "gnome-shell-extension-shell-configurator",
+    "apply_script_file": "gnome-shell-extension-shell-configurator/gnome-shell-extension-shell-configurator.sh",
   },
   {
     "name": "gnome-shell-extension-wintile",
@@ -297,6 +298,7 @@
   {
     "name": "openrazer",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
+    "apply_cmd": "export PATH=/usr/bin:$PATH",
   },
   {
     "name": "opensnitch",
