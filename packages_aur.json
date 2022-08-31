@@ -11,6 +11,7 @@
 // - gpg_url [url to download gpg key]
 // - gpg_key
 // - official [boolean to determine where to clone PKGBUILD (aur or official repos)]
+// - local [boolean to determine that PKGBUILD is local in this repo inside packages folder]
 // - build_flags [flags to add to paru when building PKGBUILD]
 
 [
@@ -197,10 +198,10 @@
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
   },
-  // This is the wrong extension, the intended one is https://github.com/prateekmedia/netspeedsimplified
-  // {
-  //   "name": "gnome-shell-extension-net-speed",
-  // },
+  {
+    "name": "gnome-shell-extension-net-speed-simplified",
+    "local": true,
+  },
   {
     "name": "gnome-shell-extension-night-light-slider",
   },

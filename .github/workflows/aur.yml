@@ -188,6 +188,11 @@ jobs:
 
             sudo pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}"
           
+          elif [[ -n "${{ matrix.local }}" ]] ; then
+            rm -rf "${{ matrix.name }}"
+            cp -a "./packages/${{ matrix.name }}" .
+            cd "${{ matrix.name }}"
+          
           else
             rm -rf "${{ matrix.name }}"
             git clone "https://aur.archlinux.org/${{ matrix.name }}.git"

@@ -1,0 +1,18 @@
+pkgname=gnome-shell-extension-net-speed-simplified
+_pkgname=netspeedsimplified
+pkgver=35
+pkgrel=1
+pkgdesc="A Net Speed extension With Loads of Customization. Fork of simplenetspeed"
+arch=('any')
+url="https://www.github.com/prateekmedia/netspeedsimplified"
+license=('GPL')
+depends=('gnome-shell')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('03340e67d8c9543caae0666d6059727e84d2b6f07712579e2680eab81fbdd7c8')
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    local _uuid=$(grep -Po '(?<="uuid": ")[^"]*' metadata.json)
+    install -d "${pkgdir}/usr/share/gnome-shell/extensions/${_uuid}"
+    cp -a * "${pkgdir}/usr/share/gnome-shell/extensions/${_uuid}"
+}
