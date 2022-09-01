@@ -125,7 +125,7 @@ jobs:
           yay --show --currentconfig
 
       - name: Install Paru
-        run: sudo -u user yay -Sy --color always --noconfirm --builddir . --cleanafter paru-bin
+        run: sudo -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
 
       - name: Install GPG Key
         if: matrix.gpg_key
@@ -221,7 +221,7 @@ jobs:
           
           bat --color always --pager=never PKGBUILD
 
-          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4 ${{ matrix.build_flags }}
+          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4 --builddir . ${{ matrix.build_flags }}
           
           EOF
           
