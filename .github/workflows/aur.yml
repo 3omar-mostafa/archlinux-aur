@@ -104,7 +104,7 @@ jobs:
       - name: Create Swap file
         run: |
           export SWAPFILE=/__w/swapfile
-          dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
+          dd if=/dev/zero of=$SWAPFILE bs=1M count=4096 status=progress
           chmod 0600 $SWAPFILE
           mkswap -U clear $SWAPFILE
           swapon --verbose $SWAPFILE
@@ -254,12 +254,18 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
 
-  prepare_deploy:
+  deploy:
     needs: [build]
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true      
     steps:
       - uses: actions/checkout@v3
       
@@ -331,23 +337,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-      - name: Install apindex
-        run: |
-          wget "https://github.com/libthinkpad/apindex/archive/refs/tags/2.2.zip"
-          7z x 2.2.zip
-          cd apindex-2.2
-          
-          # Patch file to allow custom title
-          git apply ../scripts/apindex.patch
-
-          cmake . -DCMAKE_INSTALL_PREFIX=/usr
-          sudo make install
-          
-          cd ..
-          rm -r apindex-2.2 2.2.zip
-
       - name: Generate index.html
         run: |
+          $PWD/scripts/apindex/build.sh
           cd "${REPO}"
           apindex . "AUR Repository v${VERSION}"
 
@@ -362,20 +354,8 @@ jobs:
         with:
           name: github-pages
           path: artifact.tar
-          retention-days: 3
+          retention-days: 1
 
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [prepare_deploy]
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true
-
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
