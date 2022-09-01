@@ -45,3 +45,15 @@ index c94ac89..25132b6 100644
                  <tr>
                      <th align="left">Filename</th>
                      <th align="left">Last modified</th>
+diff --git a/share/apindex/icons.xml b/share/apindex/icons.xml
+index 6a8ee8f..ae37098 100644
+--- a/share/apindex/icons.xml
++++ b/share/apindex/icons.xml
+@@ -29,6 +29,7 @@
+     <icon file="package.png">
+         <ex>deb</ex>
+         <ex>rpm</ex>
++        <ex>zst</ex>
+     </icon>
+ 
+     <icon file="patch.png">
