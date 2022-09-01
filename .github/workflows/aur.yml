@@ -13,16 +13,23 @@ on:
 env:
   FORCE_COLOR : 'true' # Force colors in console output
   CLICOLOR: 1
+  CLI_COLOR: 1
   CLICOLOR_FORCE: 'yes'
+  CLI_COLOR_FORCE: 'yes'
   force_color_prompt: 'yes'
   color_prompt: 'yes'
   TERM: 'xterm-256color'
   GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
   COLORTERM: 'truecolor'
-  VERBOSEL: 1
+  COLOR_TERM: 'truecolor'
+  VERBOSE: 1
   NODE_OPTIONS: '--max_old_space_size=8192' # increase max allowed memory usage
   REPO: aur-repo
 
+permissions:
+  contents: write # For creating releases
+  pages: write
+  id-token: write
 
 defaults:
   run:
@@ -62,13 +69,9 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-            # - name: "networkmanager"
-            #   checkdepends: "python-dbus"
-            #   official: true
-            #   apply_script_file: "networkmanager/networkmanager.sh"
-            #   build_flags: "--nocheck"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "7-zip-bin"
 
     container:
       image: "manjarolinux/build"
@@ -257,9 +260,6 @@ jobs:
     container:
       image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
-    permissions:
-      contents: write # For creating releases
-
     steps:
       - uses: actions/checkout@v3
       
@@ -301,7 +301,7 @@ jobs:
 
       - name: "Delete Empty Directories"
         continue-on-error: true
-        run: find . -ignore_readdir_race -type d -exec rmdir -v {} \;
+        run: find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
 
       - name: Generate database files
         run: |
@@ -354,11 +354,15 @@ jobs:
       - run: ls -lRh
         if: always()
 
-      - name: Upload artifact
+      - name: Prepare pages artifact
+        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
+      
+      - name: Upload pages artifact
         uses: actions/upload-artifact@v3
         with:
-          name: deploy_files
-          path: "${{ env.REPO }}/*"
+          name: github-pages
+          path: artifact.tar
+          retention-days: 3
 
 
   deploy:
@@ -367,28 +371,11 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
     concurrency:
       group: "pages"
       cancel-in-progress: true
 
     steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v1
-        
-      - name: Download Deploy files
-        uses: actions/download-artifact@v3
-        with:
-          name: deploy_files
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: '.'
-          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
