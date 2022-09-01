@@ -438,7 +438,7 @@ jobs:
           cat packages_aur.json | jq .[].name -r > packages_aur.txt
           while read -r package; do
               echo "=================== Installing $package ==================="
-              pacman -Sy --noconfirm --color always $package
+              pacman -Sy --noconfirm --color always --ask 4 $package 
               echo "==========================================================="
           done < packages_aur.txt
 
