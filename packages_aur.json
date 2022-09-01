@@ -63,11 +63,10 @@
   {
     "name": "binfmt-java",
   },
-
 //   Brave is provided by manjaro `brave-browser`
-//   {
-//     "name": "brave-bin",
-//   },
+  {
+    "name": "brave-bin",
+  },
 
 //   Bulky is provided by manjaro as `bulky`
 //   {
@@ -351,7 +350,7 @@
     "name": "rar",
   },
 
-//   rustscan is provided by manjaro as `rustscan`
+//   rustscan is provided by arch as `rustscan`
 //   {
 //     "name": "rustscan",
 //   },

@@ -69,9 +69,9 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "7-zip-bin"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          # include:
+            # - name: "7-zip-bin"
 
     container:
       image: "manjarolinux/build"
