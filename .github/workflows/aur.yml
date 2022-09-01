@@ -312,7 +312,7 @@ jobs:
         run: |
           cd "${REPO}"
           echo "## SHA256 Checksum" > /tmp/checksums.sha256
-          echo "| SHA256 | Checksum |" >> /tmp/checksums.sha256
+          echo "| SHA256 | Filename |" >> /tmp/checksums.sha256
           echo "| ------ | -------- |" >> /tmp/checksums.sha256
           for file in *; do
             echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
@@ -435,10 +435,10 @@ jobs:
           pip3 install json5 # Allows using C-style comments in json
           python3 -c "import json5, json; json.dump(json5.load(open('packages_aur.json', 'r')), open('packages_aur.json', 'w'))"
 
-          cat packages_aur.json| jq .[].name -r > packages
+          cat packages_aur.json | jq .[].name -r > packages_aur.txt
           while read -r package; do
               echo "=================== Installing $package ==================="
-              pacman -Sy --noconfirm --color always --needed $package
+              pacman -Sy --noconfirm --color always $package
               echo "==========================================================="
-          done <packages 
+          done < packages_aur.txt
 

@@ -83,6 +83,9 @@
     "name": "capa-bin",
   },
   {
+    "name": "clamav-unofficial-sigs",
+  },
+  {
     "name": "cloak",
     "depends": "rust",
   },
@@ -220,6 +223,12 @@
     "name": "gobuster",
   },
   {
+    "name": "gradience",
+    "description": "Customize the look of Adwaita",
+    "depends": "adw-gtk3",
+    "checkdepends": "appstream-glib",
+  },
+  {
     "name": "guiscrcpy",
   },
   {
@@ -288,6 +297,9 @@
   },
   {
     "name": "ngrok",
+  },
+  {
+    "name": "noisetorch",
   },
   {
     "name": "nordvpn-bin",
@@ -361,6 +373,9 @@
     "name": "sparrow-wifi-git",
   },
   {
+    "name": "seclists",
+  },
+  {
     "name": "spiderfoot",
   },
   {
@@ -400,13 +415,18 @@
     "apply_script_file": "ttf-ms-win11/ttf-ms-win11.sh",
   },
   {
+    "name": "uno-calculator-bin",
+    "description": "Windows Calculator",
+    "apply_script_file": "uno-calculator/uno-calculator.sh",
+  },
+  {
     "name": "waydroid",
   },
   {
     "name": "wfuzz",
   },
   {
-    "name": "wordlists",
+    "name": "whatsapp-for-linux",
   },
   {
     "name": "wps-office-fonts",
