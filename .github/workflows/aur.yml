@@ -7,7 +7,6 @@ name: AUR
 on:
   schedule:
     - cron: '0 0 * * mon' # Runs at 00:00 UTC on Monday.
-  push:
   workflow_dispatch:
 
 env:
