@@ -80,14 +80,10 @@ jobs:
       - uses: actions/checkout@v3
   
       - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat
+        run: pacman -Sy --noconfirm --color always --needed bat aria2
 
       - name: Pacman Config
-        run: |
-          sed -i 's/#Color/Color/g' /etc/pacman.conf
-          sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
-          sed -i 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
-          bat --color always --pager=never /etc/pacman.conf
+        run: ./scripts/pacmanconf.sh
 
       - name: makepkg Config
         run: |
@@ -101,6 +97,7 @@ jobs:
           pacman -Sy --noconfirm --color always base-devel glibc curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng
 
       - name: Create Swap file
+        if: matrix.need_swap
         run: |
           export SWAPFILE=/__w/swapfile
           dd if=/dev/zero of=$SWAPFILE bs=1M count=4096 status=progress
@@ -162,19 +159,6 @@ jobs:
           attempt_limit: 3
           attempt_delay: "10000" # 10 seconds
           command: ./deps.sh
-
-#       - name: Build ${{ matrix.name }}
-#         uses: Wandalen/wretry.action@v1.0.25
-#         with:
-#           attempt_limit: 3
-#           attempt_delay: "10000" # 10 seconds
-#           command: sudo -u user yay -Sy  --color always --noconfirm --needed --builddir . --nocleanafter --aur --ask 4 ${{ matrix.name }}
-
-#       - name: Patch makepkg
-#         run: |
-#           patch_path=$PWD/scripts/makepkg.patch
-#           cd $(dirname `which makepkg`)
-#           git apply "$patch_path"
 
       - name: Prepare Build ${{ matrix.name }}
         run: |
@@ -269,14 +253,10 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat
+        run: pacman -Sy --noconfirm --color always --needed bat aria2
 
       - name: Pacman Config
-        run: |
-          sed -i 's/#Color/Color/g' /etc/pacman.conf
-          sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
-          sed -i 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
-          bat --color always --pager=never /etc/pacman.conf
+        run: ./scripts/pacmanconf.sh
 
       - name: Install basic dependencies
         run: |
@@ -379,14 +359,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat
+        run: pacman -Sy --noconfirm --color always --needed bat aria2
 
       - name: Pacman Config
-        run: |
-          sed -i 's/#Color/Color/g' /etc/pacman.conf
-          sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
-          sed -i 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
-          bat --color always --pager=never /etc/pacman.conf
+        run: ./scripts/pacmanconf.sh
 
       - name: Install basic dependencies
         run: |

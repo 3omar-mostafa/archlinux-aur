@@ -12,6 +12,7 @@
 // - gpg_key
 // - official [boolean to determine where to clone PKGBUILD (aur or official repos)]
 // - local [boolean to determine that PKGBUILD is local in this repo inside packages folder]
+// - need_swap [boolean to create swap file]
 // - build_flags [flags to add to paru when building PKGBUILD]
 
 [
@@ -241,6 +242,7 @@
   },
   {
     "name": "insomnia",
+    "need_swap": true,
   },
   {
     "name": "insomnia-electron",
