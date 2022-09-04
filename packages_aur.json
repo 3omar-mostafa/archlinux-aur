@@ -91,6 +91,10 @@
   },
   {
     "name": "code-features",
+    "depends": "icu69",
+  },
+  {
+    "name": "code-icons",
   },
   {
     "name": "code-marketplace",
@@ -142,6 +146,10 @@
     "gpg_url": "https://www.expressvpn.com/expressvpn_release_public_key_0xAFF2A1415F6A3A38.asc",
   },
   {
+    "name": "extension-manager",
+    "checkdepends": "appstream-glib",
+  },
+  {
     "name": "fawkes-bin",
   },
   {
@@ -184,6 +192,10 @@
     "checkdepends": "appstream-glib",
   },
   {
+    "name": "gnome-console",
+    "checkdepends": "appstream-glib",
+  },
+  {
     "name": "gnome-shell-extension-dash-to-dock-animator-git",
     "depends": "zip",
   },
@@ -218,6 +230,9 @@
   },
   {
     "name": "gnome-shell-extension-wintile",
+  },
+  {
+    "name": "gnome-text-editor",
   },
   {
     "name": "gobuster",
@@ -458,6 +473,10 @@
 
   {
     "name": "xnviewmp",
+  },
+  {
+    "name": "xviewer",
+    "depends": "xviewer-plugins",
   },
   {
     "name": "zoom",
