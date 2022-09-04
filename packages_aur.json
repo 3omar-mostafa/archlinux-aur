@@ -34,7 +34,7 @@
   },
   {
     "name": "android-backup-extractor",
-    "depends": "jdk17-openjdk ant bash"
+    "depends": "jdk17-openjdk ant bash",
   },
   {
     "name": "android-sdk-build-tools",
@@ -269,6 +269,14 @@
     "name": "linux-wifi-hotspot",
   },
   {
+    "name": "logisim",
+    "depends": "jdk17-openjdk",
+  },
+  {
+    "name": "logisim-evolution",
+    "depends": "jdk17-openjdk",
+  },
+  {
     "name": "masterpdfeditor-free",
   },
   {
@@ -346,6 +354,9 @@
     "name": "peass",
   },
   {
+    "name": "pensela-bin",
+  },
+  {
     "name": "postman-bin",
     "apply_script_file": "postman/postman.sh",
   },
@@ -420,6 +431,9 @@
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
   {
+    "name": "ttf-meslo-nerd-font-powerlevel10k",
+  },
+  {
     "name": "ttf-ms-win10",
     "depends": "unzip wget",
     "apply_script_file": "ttf-ms-win10/ttf-ms-win10.sh",
@@ -443,6 +457,12 @@
   },
   {
     "name": "whatsapp-for-linux",
+  },
+  {
+    "name": "woeusb",
+  },
+  {
+    "name": "woeusb-ng",
   },
   {
     "name": "wps-office-fonts",
