@@ -1,0 +1,21 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 998df45..29395f8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -64,11 +64,11 @@ set(TS_FILES
+     src/translations/apk-editor-studio.zh_CN.ts
+ )
+ 
+-set_source_files_properties(${TS_FILES} PROPERTIES
+-    # TODO Output .qm files to build directory
+-    OUTPUT_LOCATION ${CMAKE_SOURCE_DIR}/dist/all/resources/translations
+-)
++# set_source_files_properties(${TS_FILES} PROPERTIES
++#     # TODO Output .qm files to build directory
++#     OUTPUT_LOCATION ${CMAKE_SOURCE_DIR}/dist/all/resources/translations
++# )
+ 
+-qt5_add_translation(QM_FILES ${TS_FILES})
++# qt5_add_translation(QM_FILES ${TS_FILES})
+ target_sources(apk-editor-studio PRIVATE ${QM_FILES})
+ target_include_directories(apk-editor-studio PRIVATE src lib)

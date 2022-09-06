@@ -43,6 +43,21 @@
     "name": "android-sdk-platform-tools",
   },
   {
+    "name": "apk-editor-studio",
+    "description": "APK Editor Studio is a powerful yet easy-to-use APK reverse-engineering tool",
+    "depends": "jdk17-openjdk",
+    "local": true,
+  },
+  {
+    "name": "apk-mitm",
+    "description": "A CLI application that automatically prepares Android APK files for HTTPS inspection",
+    "depends": "nodejs-lts-gallium",
+  },
+  {
+    "name": "arjun",
+    "description": "HTTP parameter discovery suite",
+  },
+  {
     "name": "authy",
   },
   {
@@ -148,6 +163,11 @@
   {
     "name": "extension-manager",
     "checkdepends": "appstream-glib",
+  },
+  {
+    "name": "fatcat",
+    "description": "FAT filesystems explore, extract, repair, and forensic tool",
+    "apply_script_file": "fatcat/fatcat.sh",
   },
   {
     "name": "fawkes-bin",
@@ -332,6 +352,10 @@
     "name": "notion-app",
   },
   {
+    "name": "noto-fonts-variable-ar",
+    "description": "Google Noto TTF variable fonts for Arabic Scripts",
+  },
+  {
     "name": "openrazer",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
@@ -412,6 +436,10 @@
     "name": "stegseek",
   },
   {
+    "name": "sticky",
+    "description": "A sticky notes app for the Linux desktop",
+  },
+  {
     "name": "surfshark-gui-bin",
   },
   {
@@ -431,6 +459,10 @@
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
   {
+    "name": "ttf-amiri",
+    "description": "A Classical Arabic Naskh typeface poineered by Amiria/Bulaq Press in Cairo",
+  },
+  {
     "name": "ttf-meslo-nerd-font-powerlevel10k",
   },
   {
@@ -445,9 +477,18 @@
     "apply_script_file": "ttf-ms-win11/ttf-ms-win11.sh",
   },
   {
+    "name": "ttf-qurancomplex-fonts",
+    "description": "Arabic fonts by King Fahd Glorious Quran Printing Complex in al-Madinah al-Munawwarah",
+  },
+  {
     "name": "uno-calculator-bin",
     "description": "Windows Calculator",
     "apply_script_file": "uno-calculator/uno-calculator.sh",
+  },
+  {
+    "name": "vinetto",
+    "description": "Thumbnail file parser that can process a variety of file types (Thumbs.db, Thumbcache_*.db)",
+    "local": true,
   },
   {
     "name": "waydroid",

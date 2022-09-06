@@ -1,0 +1,16 @@
+pkgname=vinetto
+_pkgname=Vinetto
+pkgver=0.9.11
+pkgrel=1
+pkgdesc="Thumbnail file parser that can process a variety of file types (Thumbs.db, Thumbcache_*.db)"
+url="https://github.com/AtesComp/Vinetto"
+license=('GPL3')
+arch=('i686' 'x86_64')
+depends=('python' 'python-pillow' 'python-numpy')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('12971e303309f0a046f9a32037a5ff839dc53420d6491ac7341d7cfc3c095f37')
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py install --root=$pkgdir/ --prefix=/usr
+}
