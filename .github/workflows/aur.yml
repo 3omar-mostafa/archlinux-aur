@@ -282,7 +282,7 @@ jobs:
           path: "${{ env.REPO }}"
 
       - name: "Move all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec mv {} "./${REPO}" \;
+        run: find . -iname *.pkg.tar.zst -exec mv -v {} "./${REPO}" \;
 
       - name: "Delete Empty Directories"
         continue-on-error: true

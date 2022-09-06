@@ -43,6 +43,10 @@
     "name": "android-sdk-platform-tools",
   },
   {
+    "name": "anydesk-bin",
+    "description": "Fast Remote Desktop Application",
+  },
+  {
     "name": "apk-editor-studio",
     "description": "APK Editor Studio is a powerful yet easy-to-use APK reverse-engineering tool",
     "depends": "jdk17-openjdk",
@@ -141,6 +145,10 @@
     "name": "discord_arch_electron",
   },
   {
+    "name": "dosbox-x",
+    "description": "x86 emulator with builtin DOS, with patches with more features",
+  },
+  {
     "name": "drawio-desktop",
     "depends": "nodejs-lts-gallium",
   },
@@ -190,6 +198,9 @@
     "depends": "libkeybinder3",
   },
   {
+    "name": "freedownloadmanager",
+  },
+  {
     "name": "gdm-settings",
     "checkdepends": "appstream-glib",
   },
@@ -203,6 +214,11 @@
     "name": "github-desktop",
     // add `nodejs-lts-gallium` to solve inner conflicts
     "depends": "nodejs-lts-gallium gconf gnome-keyring"
+  },
+  {
+    "name": "gitkraken",
+    "description": "Intuitive, fast, and beautiful cross-platform Git client",
+    "depends": "gnome-keyring",
   },
   {
     "name": "gitleaks",
@@ -250,6 +266,10 @@
   },
   {
     "name": "gnome-shell-extension-wintile",
+  },
+  {
+    "name": "gnome-shell-extension-x11gestures",
+    "description": "Enable GNOME Shell multi-touch gestures (touchegg) on X11",
   },
   {
     "name": "gnome-text-editor",
@@ -457,6 +477,11 @@
   {
     "name": "tor-browser",
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
+  },
+  {
+    "name": "touche",
+    "description": "Linux multi-touch gesture recognizer",
+    "checkdepends": "appstream-glib",
   },
   {
     "name": "ttf-amiri",
