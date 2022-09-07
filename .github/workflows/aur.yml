@@ -94,7 +94,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always base-devel glibc curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng
 
       - name: Create Swap file
         if: matrix.need_swap
@@ -261,13 +261,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng p7zip sudo manjaro-tools-base manjaro-tools-pkg
-
-      - name: Create non root user
-        run: |
-            # Wheel group is the sudo group in Arch Linux
-            useradd --create-home --groups wheel  user
-            echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          pacman -Sy --noconfirm --color always --needed base-devel curl wget zip github-cli asp p7zip manjaro-tools-base manjaro-tools-pkg
 
       - name: Create Version Env
         run: |
@@ -305,17 +299,13 @@ jobs:
           cat /tmp/checksums.sha256
 
       - name: Release Packages Files
-        uses: softprops/action-gh-release@v1
-        if: always()
-        with:
-          tag_name: "${{ env.VERSION }}"
-          name: "Release v${{ env.VERSION }}"
-          body_path: "/tmp/checksums.sha256"
-          files: |
-            ./${{ env.REPO }}/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+        run: |
+          echo ${{ github.token }} | gh auth login --with-token
+          tag_name="${{ env.VERSION }}"
+
+          gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
+          gh release upload "$tag_name" --repo ${{ github.repository }} --clobber ./${{ env.REPO }}/*
+
       - name: Generate index.html
         run: |
           $PWD/scripts/apindex/build.sh
@@ -367,7 +357,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel python-pip curl wget coreutils xterm git sudo yay asp bat socat colorgcc procps-ng p7zip sudo manjaro-tools-base manjaro-tools-pkg
+          pacman -Sy --noconfirm --color always --needed base-devel python-pip asp
 
       - name: Config Repo
         run: patch -Np1 -i ./scripts/pacman_repo.patch /etc/pacman.conf
