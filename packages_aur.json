@@ -102,6 +102,10 @@
     "name": "capa-bin",
   },
   {
+    "name": "chisel-tunnel",
+    "description": "A fast TCP/UDP tunnel over HTTP",
+  },
+  {
     "name": "clamav-unofficial-sigs",
   },
   {
@@ -198,6 +202,10 @@
     "depends": "libkeybinder3",
   },
   {
+    "name": "find-the-command",
+    "description": "Advanced command-not-found hook for bash, fish and zsh using the power of pacman",
+  },
+  {
     "name": "freedownloadmanager",
   },
   {
@@ -222,6 +230,10 @@
   },
   {
     "name": "gitleaks",
+  },
+  {
+    "name": "gitstatus",
+    "description": "gitstatus is a 10x faster alternative to git status and git describe",
   },
   {
     "name": "gnome-obfuscate",
@@ -287,10 +299,18 @@
     "name": "guiscrcpy",
   },
   {
+    "name": "hakrawler-git",
+    "description": "Simple, fast web crawler designed for easy, quick discovery of endpoints and assets within a web application",
+  },
+  {
     "name": "haiti",
   },
   {
     "name": "hardinfo",
+  },
+  {
+    "name": "httpx",
+    "description": "A fast and multi-purpose HTTP toolkit allow to run multiple probers using retryablehttp library",
   },
   {
     "name": "icoextract",
@@ -376,6 +396,11 @@
     "description": "Google Noto TTF variable fonts for Arabic Scripts",
   },
   {
+    "name": "octave-plugins-all",
+    "description": "A meta package which depends on all other octave packages",
+    "local": true,
+  },
+  {
     "name": "openrazer",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
@@ -389,6 +414,10 @@
   },
   {
     "name": "pandoc-bin",
+  },
+  {
+    "name": "payload-dumper-go",
+    "description": "An Android OTA payload dumper written in Go",
   },
   {
     "name": "pdfstudio-bin",
@@ -429,6 +458,10 @@
 
   {
     "name": "shellcheck-bin",
+  },
+  {
+    "name": "shellter",
+    "description": "Dynamic shellcode injection tool",
   },
   {
     "name": "sherlock",
@@ -482,6 +515,10 @@
     "name": "touche",
     "description": "Linux multi-touch gesture recognizer",
     "checkdepends": "appstream-glib",
+  },
+  {
+    "name": "trufflehog",
+    "description": "Tool for finding secrets like private keys and credentials",
   },
   {
     "name": "ttf-amiri",
@@ -569,5 +606,13 @@
   },
   {
     "name": "zoomdl",
+  },
+  {
+    "name": "zsh-autocomplete-git",
+    "description": "IDE-style type-ahead completion for Zsh",
+  },
+  {
+    "name": "zsh-fast-syntax-highlighting",
+    "description": "Optimized and extended zsh-syntax-highlighting",
   },
 ]
