@@ -18,29 +18,37 @@
 [
   {
     "name": "010editor",
+    "description": "Professional hex editing with Binary Templates",
     "depends": "qt5-tools tcl"
   },
   {
     "name": "7-zip-full",
+    "description": "File archiver with a high compression ratio",
   },
   {
     "name": "7-zip",
+    "description": "File archiver with a high compression ratio",
   },
   {
     "name": "7-zip-bin",
+    "description": "File archiver with a high compression ratio",
   },
   {
     "name": "android-apktool",
+    "description": "A tool for reverse engineering Android apk files",
   },
   {
     "name": "android-backup-extractor",
+    "description": "Utility to extract and repack Android backups created with adb backup",
     "depends": "jdk17-openjdk ant bash",
   },
   {
     "name": "android-sdk-build-tools",
+    "description": "Build-Tools for Google Android SDK (aapt, aidl, dexdump, dx, llvm-rs-cc)",
   },
   {
     "name": "android-sdk-platform-tools",
+    "description": "Platform-Tools for Google Android SDK (adb and fastboot)",
   },
   {
     "name": "anydesk-bin",
@@ -63,43 +71,53 @@
   },
   {
     "name": "authy",
+    "description": "Two factor authentication desktop application",
   },
   {
     "name": "authy-electron",
+    "description": "Two factor authentication desktop application",
     "depends": "electron",
   },
   {
     "name": "authenticator",
+    "description": "2FA code generator for GNOME",
     "checkdepends": "appstream-glib",
   },
   {
     "name": "balena-etcher",
+    "description": "Flash OS images to SD cards & USB drives, safely and easily",
     "depends": "nodejs-lts-gallium",
   },  
   {
     "name": "battop",
+    "description": "Interactive battery info viewer",
     "depends": "rust",
   },
   {
     "name": "binfmt-java",
+    "description": "Allow running .jar files directly as executable",
   },
 //   Brave is provided by manjaro `brave-browser`
   {
     "name": "brave-bin",
+    "description": "Web browser that blocks ads and trackers by default",
   },
 
 //   Bulky is provided by manjaro as `bulky`
 //   {
 //     "name": "bulky",
+//     "description": "Bulk File Renamer",
 //   },
   
   {
     "name": "burpsuite",
+    "description": "An integrated platform for performing security testing of web applications",
     "depends": "jre17-openjdk",
     "apply_script_file": "burpsuite/burpsuite.sh",
   },
   {
     "name": "capa-bin",
+    "description": "The FLARE team's open-source tool to identify capabilities in executable files",
   },
   {
     "name": "chisel-tunnel",
@@ -107,46 +125,59 @@
   },
   {
     "name": "clamav-unofficial-sigs",
+    "description": "ClamAV Unofficial Signatures",
   },
   {
     "name": "cloak",
+    "description": "A Command Line OTP (One Time Password) Authenticator application",
     "depends": "rust",
   },
   {
     "name": "code-features",
+    "description": "Unblock some features in Code OSS, including features in VSCode Insiders",
     "depends": "icu69",
   },
   {
     "name": "code-icons",
+    "description": "Change Code - OSS icons to VS Code ones",
   },
   {
     "name": "code-marketplace",
+    "description": "Enable vscode marketplace in Code OSS",
   },
   {
     "name": "clapper",
+    "description": "A GNOME media player built using GJS with GTK4 toolkit and powered by GStreamer with OpenGL rendering",
     "depends": "gtuber-git",
   },
   {
     "name": "crunch",
+    "description": "A wordlist which generate all possible combinations and permutations"
   },
   {
     "name": "cyberchef-electron",
+    "description": "The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis",
   },
   {
     "name": "cyberchef-web",
+    "description": "The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis",
   },
   {
     "name": "depix-git",
+    "description": "A tool for recovering passwords from pixelized screenshots",
     "apply_script_file": "depix/depix.sh"
   },
   {
     "name": "dirb",
+    "description": "DIRB is a web content scanner, brute forceing for hidden files",
   },
   {
     "name": "dirbuster-wordlists",
+    "description": "Dirbuster's default directories wordlists",
   },
   {
     "name": "discord_arch_electron",
+    "description": "Discord (popular voice + video app)",
   },
   {
     "name": "dosbox-x",
@@ -154,26 +185,33 @@
   },
   {
     "name": "drawio-desktop",
+    "description": "Diagram drawing application built on web technology",
     "depends": "nodejs-lts-gallium",
   },
   {
     "name": "drawio-desktop-bin",
+    "description": "Diagram drawing application built on web technology",
   },
   {
     "name": "droidcam",
+    "description": "A tool for using your android device as a wireless/usb webcam",
   },
   {
     "name": "etcher-bin",
+    "description": "Flash OS images to SD cards & USB drives, safely and easily",
   },
   {
     "name": "exifcleaner-bin",
+    "description": "Desktop app to clean metadata from images, videos, PDFs, and other files",
   },
   {
     "name": "expressvpn",
+    "description": "Proprietary VPN client for Linux",
     "gpg_url": "https://www.expressvpn.com/expressvpn_release_public_key_0xAFF2A1415F6A3A38.asc",
   },
   {
     "name": "extension-manager",
+    "description": "A native tool for browsing, installing, and managing GNOME Shell Extensions",
     "checkdepends": "appstream-glib",
   },
   {
@@ -183,22 +221,28 @@
   },
   {
     "name": "fawkes-bin",
+    "description": "Image cloaking tool for personal privacy",
   },
   {
     "name": "feroxbuster",
+    "description": "A fast, simple, recursive content discovery tool written in Rust",
     "depends": "rust",
   },
   {
     "name": "ffuf",
+    "description": "Fast web fuzzer written in Go",
   },
   {
     "name": "fig",
+    "description": "Adds IDE-style autocomplete to your existing terminal",
   },
   {
     "name": "findex-bin",
+    "description": "Highly customizable application finder with high performance. Written in Rust and uses GTK",
   },
   {
     "name": "findex-git",
+    "description": "Highly customizable application finder with high performance. Written in Rust and uses GTK",
     "depends": "libkeybinder3",
   },
   {
@@ -207,19 +251,24 @@
   },
   {
     "name": "freedownloadmanager",
+    "description": "FDM is a powerful modern download accelerator and organizer",
   },
   {
     "name": "gdm-settings",
+    "description": "A settings app for Gnome's Login Manager (GDM)",
     "checkdepends": "appstream-glib",
   },
   {
     "name": "gedit-plugin-markdown_preview",
+    "description": "A gedit plugin previewing markdown (.md) documents",
   },
   {
     "name": "genymotion",
+    "description": "Complete set of tools that provides a virtual environment for Android",
   },
   {
     "name": "github-desktop",
+    "description": "GUI for managing Git and GitHub",
     // add `nodejs-lts-gallium` to solve inner conflicts
     "depends": "nodejs-lts-gallium gconf gnome-keyring"
   },
@@ -230,6 +279,7 @@
   },
   {
     "name": "gitleaks",
+    "description": "Audit Git repos for secrets and keys",
   },
   {
     "name": "gitstatus",
@@ -237,47 +287,59 @@
   },
   {
     "name": "gnome-obfuscate",
+    "description": "Censor private information from images",
     "checkdepends": "appstream-glib",
   },
   {
     "name": "gnome-console",
+    "description": "A simple user-friendly terminal emulator for the GNOME desktop",
     "checkdepends": "appstream-glib",
   },
   {
     "name": "gnome-shell-extension-dash-to-dock-animator-git",
+    "description": "Animate the icons of dash to dock",
     "depends": "zip",
   },
   {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
+    "description": "Extension that enables all notifications in fullscreen mode",
   },
   //   gsconnect is provided by manjaro `gnome-shell-extension-gsconnect`
   // {
   //   "name": "gnome-shell-extension-gsconnect",
+  //   "description": "KDE Connect implementation with GNOME Shell integration",
   // },
   {
     "name": "gnome-shell-extension-improvedosk-git",
+    "description": "Makes GNOME's onscreen keyboard more useable",
     "depends": "ttf-symbola",
   },
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
+    "description": "Just Perfection GNOME Shell Desktop",
   },
   {
     "name": "gnome-shell-extension-net-speed-simplified",
+    "description": "A Net Speed monitor With Loads of Customization",
     "local": true,
   },
   {
     "name": "gnome-shell-extension-night-light-slider",
+    "description": "Manage GNOME night light temperature intensity from the panel",
   },
   {
     "name": "gnome-shell-extension-pip-on-top-git",
+    "description": "Makes Picture-in-Picture windows stay on top. Compatible with Firefox and Clapper media player",
     "depends": "zip",
   },
   {
     "name": "gnome-shell-extension-shell-configurator",
+    "description": "Configure and customize GNOME Shell with advanced settings",
     "apply_script_file": "gnome-shell-extension-shell-configurator/gnome-shell-extension-shell-configurator.sh",
   },
   {
     "name": "gnome-shell-extension-wintile",
+    "description": "Windows 10 window tiling for GNOME",
   },
   {
     "name": "gnome-shell-extension-x11gestures",
@@ -285,9 +347,11 @@
   },
   {
     "name": "gnome-text-editor",
+    "description": "Simple text editor that focuses on session management",
   },
   {
     "name": "gobuster",
+    "description": "A directory/file & DNS busting tool",
   },
   {
     "name": "gradience",
@@ -297,6 +361,7 @@
   },
   {
     "name": "guiscrcpy",
+    "description": "Open Source GUI based Android Screen Mirroring System"
   },
   {
     "name": "hakrawler-git",
@@ -304,9 +369,11 @@
   },
   {
     "name": "haiti",
+    "description": "Hash type identifier",
   },
   {
     "name": "hardinfo",
+    "description": "A system information and benchmark tool",
   },
   {
     "name": "httpx",
@@ -314,50 +381,64 @@
   },
   {
     "name": "icoextract",
+    "description": "Icon extractor for Windows PE files (.exe/.dll) with optional thumbnailer functionality",
   },
   {
     "name": "insomnia",
+    "description": "API Client and Design Platform for GraphQL and REST",
     "need_swap": true,
   },
   {
     "name": "insomnia-electron",
+    "description": "API Client and Design Platform for GraphQL and REST",
   },
   {
     "name": "junction",
+    "description": "Application/browser chooser",
   },
   {
     "name": "linux-wifi-hotspot",
+    "description": "Feature-rich wifi hotspot creator",
   },
   {
     "name": "logisim",
+    "description": "An educational tool for designing and simulating digital logic circuits",
     "depends": "jdk17-openjdk",
   },
   {
     "name": "logisim-evolution",
+    "description": "An educational tool for designing and simulating digital logic circuits (with more features)",
     "depends": "jdk17-openjdk",
   },
   {
     "name": "masterpdfeditor-free",
+    "description": "A complete solution for viewing, creating and editing PDF files",
   },
   {
     "name": "megatools",
+    "description": "Command line client application for Mega.nz",
     "depends": "nodejs-lts-gallium"
   },
   {
     "name": "metadata-cleaner",
+    "description": "Python GTK application to view and clean metadata in files, using mat2",
     "checkdepends": "appstream mypy python-pycodestyle python-pydocstyle python-tomli reuse",
   },
   {
     "name": "mongodb-bin",
+    "description": "A high-performance, open source, schema-free document-oriented database",
   },
   {
     "name": "mongodb-compass",
+    "description": "The MongoDB GUI",
   },
   {
     "name": "mongodb-tools-bin",
+    "description": "The MongoDB tools provide import, export, and diagnostic capabilities",
   },
   {
     "name": "muezzin-bin",
+    "description": "Islamic prayer times and adhan application",
   },
   {
     "name": "nemo-compare",
@@ -374,6 +455,7 @@
   },
   {
     "name": "networkmanager",
+    "description": "Network Management daemon",
     "checkdepends": "python-dbus",
     "official": true,
     "apply_script_file": "networkmanager/networkmanager.sh",
@@ -381,15 +463,19 @@
   },
   {
     "name": "ngrok",
+    "description": "A tunneling, reverse proxy for developing and understanding networked, HTTP services",
   },
   {
     "name": "noisetorch",
+    "description": "Real-time microphone noise suppression on Linux",
   },
   {
     "name": "nordvpn-bin",
+    "description": "NordVPN CLI tool for Linux",
   },
   {
     "name": "notion-app",
+    "description": "The all-in-one workspace for your notes and tasks",
   },
   {
     "name": "noto-fonts-variable-ar",
@@ -402,18 +488,22 @@
   },
   {
     "name": "openrazer",
+    "description": "Drivers for razer devices",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
   },
   {
     "name": "opensnitch",
+    "description": "GNU/Linux port of the Little Snitch application firewall",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn",
   },
   {
     "name": "pam_usb",
+    "description": "Hardware authentication for Linux using ordinary flash media (USB & Card based)",
   },
   {
     "name": "pandoc-bin",
+    "description": "Pandoc - executable only, without 750MB Haskell depends/makedepends",
   },
   {
     "name": "payload-dumper-go",
@@ -421,72 +511,91 @@
   },
   {
     "name": "pdfstudio-bin",
+    "description": "Review, annotate, and edit PDF Documents",
     "depends": "jre17-openjdk",
   },
   {
     "name": "peass",
+    "description": "Privilege Escalation Awesome Scripts SUITE for Windows and Linux: LinPEAS and WinPEAS",
   },
   {
     "name": "pensela-bin",
+    "description": "The Swiss Army Knife of Screen Annotation Tools",
   },
   {
     "name": "postman-bin",
+    "description": "Build, test, and document your APIs faster",
     "apply_script_file": "postman/postman.sh",
   },
   {
     "name": "protonvpn",
+    "description": "Official ProtonVPN",
   },
   {
     "name": "python-androguard",
+    "description": "Python framework for Android application analysis",
   },
   {
     "name": "pwncat",
+    "description": "Netcat with Firewall, bind and reverse shell, self-injecting shell and port forwarding magic",
     "apply_script_file": "pwncat/pwncat.sh"
   },
   {
     "name": "qpdfview",
+    "description": "A tabbed PDF viewer using the poppler library",
     "gpg_key": "1F521FF0F87E9E1CDE46B8A9F4928C4DD24D4DF8"
   },
   {
     "name": "rar",
+    "description": "A command-line port of the rar compression utility",
   },
 
 //   rustscan is provided by arch as `rustscan`
 //   {
 //     "name": "rustscan",
+//     "description": "A modern port scanner",
 //   },
 
   {
     "name": "shellcheck-bin",
+    "description": "Shell script analysis tool (binary release, static)",
   },
   {
     "name": "shellter",
     "description": "Dynamic shellcode injection tool",
   },
   {
-    "name": "sherlock",
+    "name": "sherlock-git",
+    "description": "Hunt down social media accounts by username across social networks",
   },
   {
     "name": "smbmap",
+    "description": "Enumerate samba share drives across an entire domain",
   },
   {
     "name": "social-engineer-toolkit",
+    "description": "Open-source penetration testing framework designed for social engineering",
     "depends": "jre17-openjdk",
   },
   {
     "name": "sparrow-wifi-git",
+    "description": "Next-Gen GUI-based WiFi and Bluetooth Analyzer for Linux",
   },
   {
     "name": "seclists",
+    "description": "A collection of multiple types of lists used during security assessments, collected in one place",
   },
   {
     "name": "spiderfoot",
+    "description": "SpiderFoot is an open source intelligence (OSINT) automation tool",
   },
   {
     "name": "steghide",
+    "description": "Embeds a message in a file by replacing some of the least significant bits",
   },
   {
     "name": "stegseek",
+    "description": "Lightning fast steghide cracker",
   },
   {
     "name": "sticky",
@@ -494,9 +603,11 @@
   },
   {
     "name": "surfshark-gui-bin",
+    "description": "Surfshark VPN client"
   },
   {
     "name": "system-monitoring-center",
+    "description": "System performance and usage monitoring tool",
   },
   {
     "name": "tenacity-git",
@@ -505,10 +616,12 @@
   },
   {
     "name": "timeshift",
+    "description": "A system restore utility for Linux",
     "checkdepends": "appstream-glib",
   },
   {
     "name": "tor-browser",
+    "description": "Anonymous browsing using Firefox and Tor",
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
   {
@@ -526,14 +639,17 @@
   },
   {
     "name": "ttf-meslo-nerd-font-powerlevel10k",
+    "description": "Meslo Nerd Font patched for Powerlevel10k",
   },
   {
     "name": "ttf-ms-win10",
+    "description": "Microsoft Windows 10 TrueType fonts",
     "depends": "unzip wget",
     "apply_script_file": "ttf-ms-win10/ttf-ms-win10.sh",
   },
   {
     "name": "ttf-ms-win11",
+    "description": "Microsoft Windows 11 TrueType fonts",
     "depends": "unzip wget",
     "checkout": "5ba5194a795c71999d16510aeb4a24ecbc8d1782",
     "apply_script_file": "ttf-ms-win11/ttf-ms-win11.sh",
@@ -554,58 +670,81 @@
   },
   {
     "name": "waydroid",
+    "description": "A container-based approach to boot a full Android system on a regular Linux system",
   },
   {
     "name": "wfuzz",
+    "description": "Utility to bruteforce (fuzz) web applications to find their not linked resources",
+  },
+  {
+    "name": "wget2",
+    "description": "Updated version of the popular wget URL retrieval tool",
   },
   {
     "name": "whatsapp-for-linux",
+    "description": "An unofficial WhatsApp desktop application for linux",
   },
   {
     "name": "woeusb",
+    "description": "A Linux program to create Windows USB stick installer from a Windows DVD or an image",
   },
   {
     "name": "woeusb-ng",
+    "description": "A Linux program to create Windows USB stick installer from a Windows DVD or an image",
   },
   {
     "name": "wps-office-fonts",
+    "description": "The wps-office-fonts package contains Founder Chinese fonts",
   },
   {
     "name": "wps-office",
+    "description": "Kingsoft Office (WPS Office) - an office productivity suite",
   },
 
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
 //   {
 //     "name": "xapp-appimage-thumbnailer",
+//     "description": "Appimage thumbnailer",
 //   },
 
 //   xapp-epub-thumbnailer is provided by manjaro as `xapp-epub-thumbnailer`
 //   {
 //     "name": "xapp-epub-thumbnailer",
+//     "description": "EPUB books thumbnailer",
 //   },
 
 //   xapp-mp3-thumbnailer is provided by manjaro as `xapp-mp3-thumbnailer`
 //   {
 //     "name": "xapp-mp3-thumbnailer",
+//     "description": "MP3 Cover thumbnailer",
 //   },
 
 //   xapp-raw-thumbnailer is provided by manjaro as `xapp-raw-thumbnailer`
 //   {
 //     "name": "xapp-raw-thumbnailer",
+//     "description": "RAW image thumbnailer",
 //   },
 
   {
     "name": "xnviewmp",
+    "description": "An efficient multimedia viewer, browser and converter",
+  },
+  {
+    "name": "xnviewmp-system-libs",
+    "description": "An efficient multimedia viewer, browser and converter (using system libraries)",
   },
   {
     "name": "xviewer",
+    "description": "A simple and easy to use image viewer",
     "depends": "xviewer-plugins",
   },
   {
     "name": "zoom",
+    "description": "Video Conferencing and Web Conferencing Service",
   },
   {
     "name": "zoomdl",
+    "description": "Download Zoom recorded meetings easily",
   },
   {
     "name": "zsh-autocomplete-git",
