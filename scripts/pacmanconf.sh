@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pacman-mirrors --fasttrack
+
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
 sed -i 's/IgnorePkg/#IgnorePkg/g' /etc/pacman.conf
