@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pacman-mirrors --fasttrack
+pacman -Syyu --noconfirm --color always
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/HoldPkg/#HoldPkg/g' /etc/pacman.conf
