@@ -679,6 +679,7 @@
   {
     "name": "wget2",
     "description": "Updated version of the popular wget URL retrieval tool",
+    "gpg_key": "1CB27DBC98614B2D5841646D08302DB6A2670428",
   },
   {
     "name": "whatsapp-for-linux",
