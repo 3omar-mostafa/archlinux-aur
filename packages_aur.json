@@ -15,6 +15,10 @@
 // - need_swap [boolean to create swap file]
 // - build_flags [flags to add to paru when building PKGBUILD]
 
+
+// TODO:
+// Try to use `use-system-electron` aur package, OR `use-system-electron19` to have only one electron version
+
 [
   {
     "name": "010editor",
@@ -122,6 +126,10 @@
   {
     "name": "chisel-tunnel",
     "description": "A fast TCP/UDP tunnel over HTTP",
+  },
+  {
+    "name": "chromedriver",
+    "description": "Standalone server that implements the W3C WebDriver standard (for google-chrome)",
   },
   {
     "name": "clamav-unofficial-sigs",
@@ -254,6 +262,10 @@
     "description": "FDM is a powerful modern download accelerator and organizer",
   },
   {
+    "name": "freetube",
+    "description": "An open source desktop YouTube player built with privacy in mind",
+  },
+  {
     "name": "gdm-settings",
     "description": "A settings app for Gnome's Login Manager (GDM)",
     "checkdepends": "appstream-glib",
@@ -354,6 +366,10 @@
     "description": "A directory/file & DNS busting tool",
   },
   {
+    "name": "google-cloud-sdk",
+    "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
+  },
+  {
     "name": "gradience",
     "description": "Customize the look of Adwaita",
     "depends": "adw-gtk3",
@@ -397,6 +413,17 @@
     "description": "Application/browser chooser",
   },
   {
+    "name": "librewolf",
+    "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
+    "depends": "nodejs-lts-gallium",
+    "gpg_key": "14F26682D0916CDD81E37B6D61B7B526D98F0353",
+  },
+  {
+    "name": "librewolf-bin",
+    "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
+    "gpg_key": "031F7104E932F7BD7416E7F6D2845E1305D6E801",
+  },
+  {
     "name": "linux-wifi-hotspot",
     "description": "Feature-rich wifi hotspot creator",
   },
@@ -417,7 +444,7 @@
   {
     "name": "megatools",
     "description": "Command line client application for Mega.nz",
-    "depends": "nodejs-lts-gallium"
+    "depends": "nodejs-lts-gallium",
   },
   {
     "name": "metadata-cleaner",
@@ -534,6 +561,24 @@
   {
     "name": "python-androguard",
     "description": "Python framework for Android application analysis",
+  },
+  {
+    "name": "python-dlib",
+    "description": "Dlib is a modern C++ toolkit containing machine learning algorithms",
+  },
+  {
+    "name": "python-numba",
+    "description": "NumPy aware dynamic Python compiler using LLVM",
+  },
+  {
+    "name": "python-scikit-image",
+    "description": "Image processing routines for SciPy",
+    "checkdepends":"python-matplotlib python-pooch python-pyqt5 python-pytest python-pytest-cov python-pytest-flake8 python-pytest-localserver",
+  },
+  {
+    "name": "python-selenium",
+    "description": "Selenium is browser automation testing framework",
+    "checkdepends": "python-pytest",
   },
   {
     "name": "pwncat",
@@ -657,6 +702,10 @@
   {
     "name": "ttf-qurancomplex-fonts",
     "description": "Arabic fonts by King Fahd Glorious Quran Printing Complex in al-Madinah al-Munawwarah",
+  },
+  {
+    "name": "uget-integrator-browsers",
+    "description": "Configuration to integrate browsers with uget download manager",
   },
   {
     "name": "uno-calculator-bin",
