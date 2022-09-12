@@ -136,6 +136,10 @@
     "description": "ClamAV Unofficial Signatures",
   },
   {
+    "name": "clion",
+    "description": "Jetbrains C/C++ IDE",
+  },
+  {
     "name": "cloak",
     "description": "A Command Line OTP (One Time Password) Authenticator application",
     "depends": "rust",
@@ -258,6 +262,10 @@
     "description": "Advanced command-not-found hook for bash, fish and zsh using the power of pacman",
   },
   {
+    "name": "flutter",
+    "description": "A new mobile app SDK to help developers and designers build modern mobile apps for iOS and Android",
+  },
+  {
     "name": "freedownloadmanager",
     "description": "FDM is a powerful modern download accelerator and organizer",
   },
@@ -306,6 +314,10 @@
     "name": "gnome-console",
     "description": "A simple user-friendly terminal emulator for the GNOME desktop",
     "checkdepends": "appstream-glib",
+  },
+  {
+    "name": "gnome-search-providers-jetbrains",
+    "description": "Add Jetbrains IDE projects to Gnome Search",
   },
   {
     "name": "gnome-shell-extension-dash-to-dock-animator-git",
@@ -366,6 +378,10 @@
     "description": "A directory/file & DNS busting tool",
   },
   {
+    "name": "goland",
+    "description": "Jetbrains Golang IDE",
+  },
+  {
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
   },
@@ -407,6 +423,10 @@
   {
     "name": "insomnia-electron",
     "description": "API Client and Design Platform for GraphQL and REST",
+  },
+  {
+    "name": "intellij-idea-ultimate-edition",
+    "description": "Jetbrains Java IDE (Professional Edition)",
   },
   {
     "name": "junction",
@@ -553,6 +573,10 @@
     "description": "Official ProtonVPN",
   },
   {
+    "name": "pycharm-professional",
+    "description": "Jetbrains Python IDE (Professional Edition)",
+  },
+  {
     "name": "python-androguard",
     "description": "Python framework for Android application analysis",
   },
@@ -587,6 +611,10 @@
   {
     "name": "rar",
     "description": "A command-line port of the rar compression utility",
+  },
+  {
+    "name": "rubymine",
+    "description": "Jetbrains Ruby/Rails IDE",
   },
 
 //   rustscan is provided by arch as `rustscan`
