@@ -413,12 +413,6 @@
     "description": "Application/browser chooser",
   },
   {
-    "name": "librewolf",
-    "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
-    "depends": "nodejs-lts-gallium",
-    "gpg_key": "14F26682D0916CDD81E37B6D61B7B526D98F0353",
-  },
-  {
     "name": "librewolf-bin",
     "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
     "gpg_key": "031F7104E932F7BD7416E7F6D2845E1305D6E801",
