@@ -5,6 +5,8 @@
 // - description
 // - depends [dependencies required to solve conflicts or optional dependencies ...]
 // - checkdepends [dependencies required to check packaging]
+// - postdepends [install these dependencies after original package]
+// - conflictdepends [install each of these dependencies one at a time]
 // - checkout [a commit hash or branch to checkout to after cloning aur repo]
 // - apply_cmd [bash commands to run after cloning aur repo]
 // - apply_script_file [bash script to run after cloning to aur repo (path relative to scripts folder)]
@@ -181,7 +183,7 @@
   },
   {
     "name": "dirb",
-    "description": "DIRB is a web content scanner, brute forceing for hidden files",
+    "description": "DIRB is a web content scanner, brute forcing for hidden files",
   },
   {
     "name": "dirbuster-wordlists",
@@ -366,10 +368,6 @@
     "description": "Windows 10 window tiling for GNOME",
   },
   {
-    "name": "gnome-shell-extension-x11gestures",
-    "description": "Enable GNOME Shell multi-touch gestures (touchegg) on X11",
-  },
-  {
     "name": "gnome-text-editor",
     "description": "Simple text editor that focuses on session management",
   },
@@ -431,6 +429,13 @@
   {
     "name": "junction",
     "description": "Application/browser chooser",
+  },
+  {
+    "name": "librewolf",
+    "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
+    "depends": "nodejs-lts-gallium",
+    "gpg_key": "14F26682D0916CDD81E37B6D61B7B526D98F0353",
+    "need_swap": true,
   },
   {
     "name": "librewolf-bin",
@@ -694,6 +699,7 @@
   {
     "name": "touche",
     "description": "Linux multi-touch gesture recognizer",
+    "postdepends": "gnome-shell-extension-x11gestures",
     "checkdepends": "appstream-glib",
   },
   {
@@ -742,6 +748,9 @@
   {
     "name": "waydroid",
     "description": "A container-based approach to boot a full Android system on a regular Linux system",
+    "depends": "python-pyclip",
+    "conflictdepends": "waydroid-image waydroid-image-gapps",
+    "postdepends": "waydroid-script-git",
   },
   {
     "name": "wfuzz",
@@ -765,12 +774,9 @@
     "description": "A Linux program to create Windows USB stick installer from a Windows DVD or an image",
   },
   {
-    "name": "wps-office-fonts",
-    "description": "The wps-office-fonts package contains Founder Chinese fonts",
-  },
-  {
     "name": "wps-office",
     "description": "Kingsoft Office (WPS Office) - an office productivity suite",
+    "depends": "wps-office-mime ttf-wps-fonts",
   },
 
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`

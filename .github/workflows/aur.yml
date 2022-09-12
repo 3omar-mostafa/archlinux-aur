@@ -101,7 +101,7 @@ jobs:
         if: matrix.need_swap
         run: |
           export SWAPFILE=/__w/swapfile
-          dd if=/dev/zero of=$SWAPFILE bs=1M count=4096 status=progress
+          dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
           chmod 0600 $SWAPFILE
           mkswap -U clear $SWAPFILE
           swapon --verbose $SWAPFILE
@@ -225,6 +225,47 @@ jobs:
           attempt_delay: "10000" # 10 seconds
           command: sudo -E -u user ./build.sh
 
+
+      - name: Prepare Conflict Dependencies
+        if: matrix.conflictdepends
+        run: |
+          cat <<EOF > deps.sh
+            read -a packages <<< "${{ matrix.conflictdepends }}"
+            for package in "${packages[@]}"; do
+              sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 $package
+            done
+          EOF
+          
+          chmod a+x deps.sh
+          bat --color always --pager=never deps.sh
+        
+      - name: Post Dependencies of ${{ matrix.name }}
+        if: matrix.conflictdepends
+        uses: Wandalen/wretry.action@v1.0.25
+        with:
+          attempt_limit: 3
+          attempt_delay: "10000" # 10 seconds
+          command: ./deps.sh
+
+      - name: Prepare Post Dependencies
+        if: matrix.postdepends
+        run: |
+          cat <<EOF > deps.sh
+            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.postdepends }} \
+            || \
+            ( echo "[Error] Can not install dependencies" && exit 1 )
+          EOF
+          
+          chmod a+x deps.sh
+          bat --color always --pager=never deps.sh
+        
+      - name: Post Dependencies of ${{ matrix.name }}
+        if: matrix.postdepends
+        uses: Wandalen/wretry.action@v1.0.25
+        with:
+          attempt_limit: 3
+          attempt_delay: "10000" # 10 seconds
+          command: ./deps.sh
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
