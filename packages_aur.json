@@ -16,6 +16,7 @@
 // - local [boolean to determine that PKGBUILD is local in this repo inside packages folder]
 // - need_swap [boolean to create swap file]
 // - build_flags [flags to add to paru when building PKGBUILD]
+// - meta [boolean which indicates that this is a virtual package that should not be built]
 
 
 // TODO:
@@ -28,16 +29,10 @@
     "depends": "qt5-tools tcl"
   },
   {
-    "name": "7-zip-full",
-    "description": "File archiver with a high compression ratio",
-  },
-  {
     "name": "7-zip",
     "description": "File archiver with a high compression ratio",
-  },
-  {
-    "name": "7-zip-bin",
-    "description": "File archiver with a high compression ratio",
+    "conflictdepends": "7-zip 7-zip-bin 7-zip-full",
+    "meta": true,
   },
   {
     "name": "android-apktool",
@@ -49,12 +44,10 @@
     "depends": "jdk17-openjdk ant bash",
   },
   {
-    "name": "android-sdk-build-tools",
+    "name": "android-sdk-tools",
     "description": "Build-Tools for Google Android SDK (aapt, aidl, dexdump, dx, llvm-rs-cc)",
-  },
-  {
-    "name": "android-sdk-platform-tools",
-    "description": "Platform-Tools for Google Android SDK (adb and fastboot)",
+    "conflictdepends": "android-sdk-build-tools android-sdk-platform-tools",
+    "meta": true,
   },
   {
     "name": "anydesk-bin",
@@ -78,11 +71,9 @@
   {
     "name": "authy",
     "description": "Two factor authentication desktop application",
-  },
-  {
-    "name": "authy-electron",
-    "description": "Two factor authentication desktop application",
+    "conflictdepends": "authy authy-electron",
     "depends": "electron",
+    "meta": true,
   },
   {
     "name": "authenticator",
@@ -147,17 +138,11 @@
     "depends": "rust",
   },
   {
-    "name": "code-features",
-    "description": "Unblock some features in Code OSS, including features in VSCode Insiders",
+    "name": "code-unblock-features",
+    "description": "Unblock some features in Code OSS, to be like VSCode",
+    "conflictdepends": "code-features code-icons code-marketplace",
     "depends": "icu69",
-  },
-  {
-    "name": "code-icons",
-    "description": "Change Code - OSS icons to VS Code ones",
-  },
-  {
-    "name": "code-marketplace",
-    "description": "Enable vscode marketplace in Code OSS",
+    "meta": true,
   },
   {
     "name": "clapper",
@@ -169,12 +154,10 @@
     "description": "A wordlist which generate all possible combinations and permutations"
   },
   {
-    "name": "cyberchef-electron",
+    "name": "cyberchef",
     "description": "The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis",
-  },
-  {
-    "name": "cyberchef-web",
-    "description": "The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis",
+    "conflictdepends": "cyberchef-electron cyberchef-web",
+    "meta": true,
   },
   {
     "name": "depix-git",
@@ -199,13 +182,11 @@
     "description": "x86 emulator with builtin DOS, with patches with more features",
   },
   {
-    "name": "drawio-desktop",
+    "name": "drawio",
     "description": "Diagram drawing application built on web technology",
+    "conflictdepends": "drawio-desktop drawio-desktop-bin",
     "depends": "nodejs-lts-gallium",
-  },
-  {
-    "name": "drawio-desktop-bin",
-    "description": "Diagram drawing application built on web technology",
+    "meta": true,
   },
   {
     "name": "droidcam",
@@ -253,13 +234,11 @@
     "description": "Adds IDE-style autocomplete to your existing terminal",
   },
   {
-    "name": "findex-bin",
+    "name": "findex",
     "description": "Highly customizable application finder with high performance. Written in Rust and uses GTK",
-  },
-  {
-    "name": "findex-git",
-    "description": "Highly customizable application finder with high performance. Written in Rust and uses GTK",
+    "conflictdepends": "findex-bin findex-git",
     "depends": "libkeybinder3",
+    "meta": true,
   },
   {
     "name": "find-the-command",
@@ -410,7 +389,7 @@
   },
   {
     "name": "httpx",
-    "description": "A fast and multi-purpose HTTP toolkit allow to run multiple probers using retryablehttp library",
+    "description": "A fast and multi-purpose HTTP toolkit allow to run multiple probers using retryable http library",
   },
   {
     "name": "icoextract",
@@ -419,11 +398,9 @@
   {
     "name": "insomnia",
     "description": "API Client and Design Platform for GraphQL and REST",
+    "conflictdepends": "insomnia insomnia-electron",
     "need_swap": true,
-  },
-  {
-    "name": "insomnia-electron",
-    "description": "API Client and Design Platform for GraphQL and REST",
+    "meta": true,
   },
   {
     "name": "intellij-idea-ultimate-edition",
@@ -737,6 +714,12 @@
     "apply_script_file": "uno-calculator/uno-calculator.sh",
   },
   {
+    "name": "usbguard-notifications",
+    "description": "USBGuard GUI and Notification tools",
+    "conflictdepends": "usbguard-notifier usbguard-applet-qt",
+    "meta": true,
+  },
+  {
     "name": "vinetto",
     "description": "Thumbnail file parser that can process a variety of file types (Thumbs.db, Thumbcache_*.db)",
     "local": true,
@@ -764,10 +747,8 @@
   {
     "name": "woeusb",
     "description": "A Linux program to create Windows USB stick installer from a Windows DVD or an image",
-  },
-  {
-    "name": "woeusb-ng",
-    "description": "A Linux program to create Windows USB stick installer from a Windows DVD or an image",
+    "conflictdepends": "woeusb woeusb-ng",
+    "meta": true,
   },
   {
     "name": "wps-office",

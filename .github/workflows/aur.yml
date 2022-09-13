@@ -155,6 +155,7 @@ jobs:
           ./deps.sh
 
       - name: Build ${{ matrix.name }}
+        if: ${{ ! matrix.meta }}
         run: |
           export SCRIPTS_DIR=`pwd`/scripts
 
