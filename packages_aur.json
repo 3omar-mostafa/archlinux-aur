@@ -92,7 +92,7 @@
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
-    "depends": "nodejs-lts-gallium",
+    "depends": "nodejs-lts-gallium electron12-bin",
   },  
   {
     "name": "battop",
@@ -192,6 +192,7 @@
   {
     "name": "discord_arch_electron",
     "description": "Discord (popular voice + video app)",
+    "depends": "electron16-bin",
   },
   {
     "name": "dosbox-x",
@@ -226,6 +227,7 @@
   {
     "name": "extension-manager",
     "description": "A native tool for browsing, installing, and managing GNOME Shell Extensions",
+    "depends": "python-gobject",
     "checkdepends": "appstream-glib",
   },
   {
@@ -274,6 +276,7 @@
   {
     "name": "freetube",
     "description": "An open source desktop YouTube player built with privacy in mind",
+    "depends": "electron16-bin",
   },
   {
     "name": "gdm-settings",
@@ -429,13 +432,6 @@
   {
     "name": "junction",
     "description": "Application/browser chooser",
-  },
-  {
-    "name": "librewolf",
-    "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
-    "depends": "nodejs-lts-gallium",
-    "gpg_key": "14F26682D0916CDD81E37B6D61B7B526D98F0353",
-    "need_swap": true,
   },
   {
     "name": "librewolf-bin",
