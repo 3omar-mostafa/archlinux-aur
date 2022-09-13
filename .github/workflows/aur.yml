@@ -141,7 +141,7 @@ jobs:
           sudo -E -u user gpg --import /tmp/gpg.key
           gpg --import /tmp/gpg.key
 
-      - name: Prepare Install/Build Dependencies
+      - name: Install/Build Dependencies of ${{ matrix.name }}
         if: matrix.depends || matrix.checkdepends
         run: |
           cat <<EOF > deps.sh
@@ -152,16 +152,9 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-        
-      - name: Install/Build Dependencies of ${{ matrix.name }}
-        if: matrix.depends || matrix.checkdepends
-        uses: Wandalen/wretry.action@v1.0.25
-        with:
-          attempt_limit: 3
-          attempt_delay: "10000" # 10 seconds
-          command: ./deps.sh
+          ./deps.sh
 
-      - name: Prepare Build ${{ matrix.name }}
+      - name: Build ${{ matrix.name }}
         run: |
           export SCRIPTS_DIR=`pwd`/scripts
 
@@ -169,19 +162,16 @@ jobs:
           #!/bin/bash
           
           if [[ -n "${{ matrix.official }}" ]] ;  then
-            rm -rf "svntogit-packages"
             git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
             cd svntogit-packages/trunk
 
             sudo pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}"
           
           elif [[ -n "${{ matrix.local }}" ]] ; then
-            rm -rf "${{ matrix.name }}"
             cp -a "./packages/${{ matrix.name }}" .
             cd "${{ matrix.name }}"
           
           else
-            rm -rf "${{ matrix.name }}"
             git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
             cd "${{ matrix.name }}"
           fi
@@ -217,37 +207,23 @@ jobs:
 
           chmod a+x build.sh
           bat --color always --pager=never build.sh
+          sudo -E -u user ./build.sh
 
-      - name: Build ${{ matrix.name }}
-        uses: Wandalen/wretry.action@v1.0.25
-        with:
-          attempt_limit: 3
-          attempt_delay: "10000" # 10 seconds
-          command: sudo -E -u user ./build.sh
-
-
-      - name: Prepare Conflict Dependencies
+      - name: Conflict Dependencies of ${{ matrix.name }}
         if: matrix.conflictdepends
         run: |
           cat <<EOF > deps.sh
             read -a packages <<< "${{ matrix.conflictdepends }}"
-            for package in "${packages[@]}"; do
-              sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 $package
+            for package in "\${packages[@]}"; do
+              sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 "\$package"
             done
           EOF
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-        
-      - name: Post Dependencies of ${{ matrix.name }}
-        if: matrix.conflictdepends
-        uses: Wandalen/wretry.action@v1.0.25
-        with:
-          attempt_limit: 3
-          attempt_delay: "10000" # 10 seconds
-          command: ./deps.sh
+          ./deps.sh
 
-      - name: Prepare Post Dependencies
+      - name: Post Dependencies of ${{ matrix.name }}
         if: matrix.postdepends
         run: |
           cat <<EOF > deps.sh
@@ -258,14 +234,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-        
-      - name: Post Dependencies of ${{ matrix.name }}
-        if: matrix.postdepends
-        uses: Wandalen/wretry.action@v1.0.25
-        with:
-          attempt_limit: 3
-          attempt_delay: "10000" # 10 seconds
-          command: ./deps.sh
+          ./deps.sh
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
