@@ -152,7 +152,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          ./deps.sh
+          bash --noprofile --norc -e -o pipefail ./deps.sh
 
       - name: Build ${{ matrix.name }}
         if: ${{ ! matrix.meta }}
@@ -208,7 +208,7 @@ jobs:
 
           chmod a+x build.sh
           bat --color always --pager=never build.sh
-          sudo -E -u user ./build.sh
+          sudo -E -u user bash --noprofile --norc -e -o pipefail ./build.sh
 
       - name: Conflict Dependencies of ${{ matrix.name }}
         if: matrix.conflictdepends
@@ -235,7 +235,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          ./deps.sh
+          bash --noprofile --norc -e -o pipefail ./deps.sh
 
       - name: Post Dependencies of ${{ matrix.name }}
         if: matrix.postdepends
@@ -248,7 +248,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          ./deps.sh
+          bash --noprofile --norc -e -o pipefail ./deps.sh
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
