@@ -181,7 +181,7 @@ jobs:
             git checkout "${{ matrix.checkout }}"
           fi
           
-          find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \;
+          find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \; || true
           
           if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
             echo "Applying Patch from ${{ matrix.apply_script_file }} file"
@@ -214,22 +214,22 @@ jobs:
         if: matrix.conflictdepends
         run: |
           cat <<EOF > deps.sh
-            function RED()    { echo -e "\e[31m\${1}\e[0m"; }
-            function GREEN()  { echo -e "\e[32m\${1}\e[0m"; }
-            function YELLOW() { echo -e "\e[33m\${1}\e[0m"; }
+            function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
+            function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
+            function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
 
             read -a packages <<< "${{ matrix.conflictdepends }}"
             for package in "\${packages[@]}"; do
-              YELLOW "################################################################################\n"
+              YELLOW "################################################################################"
               if [[ -n "\$old_package" ]]; then
-                RED "****************************** Removing \$old_package ******************************\n"
+                RED "****************************** Removing \$old_package ******************************"
                 pacman -R --color always --noconfirm --ask 4 "\$old_package"
-                RED "********************************************************************************\n"
+                RED "********************************************************************************"
               fi
-              GREEN "==================================== Installing \$package ====================================\n"
+              GREEN "==================================== Installing \$package ===================================="
               sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
               export old_package="\$package"
-              GREEN "================================================================================\n"
+              GREEN "================================================================================"
             done
           EOF
           
