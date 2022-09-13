@@ -214,22 +214,22 @@ jobs:
         if: matrix.conflictdepends
         run: |
           cat <<EOF > deps.sh
-            function RED()    { echo -e "\e[1;31m\${1}\e[0m"; }
-            function GREEN()  { echo -e "\e[1;32m\${1}\e[0m"; }
-            function YELLOW() { echo -e "\e[1;33m\${1}\e[0m"; }
+            function RED()    { echo -e "\e[31m\${1}\e[0m"; }
+            function GREEN()  { echo -e "\e[32m\${1}\e[0m"; }
+            function YELLOW() { echo -e "\e[33m\${1}\e[0m"; }
 
             read -a packages <<< "${{ matrix.conflictdepends }}"
             for package in "\${packages[@]}"; do
-              YELLOW "\n################################################################################\n"
+              YELLOW "################################################################################\n"
               if [[ -n "\$old_package" ]]; then
-                RED "\n****************************** Removing \$old_package ******************************\n"
+                RED "****************************** Removing \$old_package ******************************\n"
                 pacman -R --color always --noconfirm --ask 4 "\$old_package"
-                RED "\n********************************************************************************\n"
+                RED "********************************************************************************\n"
               fi
-              GREEN "\n================================================================================\n"
+              GREEN "==================================== Installing \$package ====================================\n"
               sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
               export old_package="\$package"
-              GREEN "\n================================================================================\n"
+              GREEN "================================================================================\n"
             done
           EOF
           
