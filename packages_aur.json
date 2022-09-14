@@ -753,7 +753,7 @@
   {
     "name": "wps-office",
     "description": "Kingsoft Office (WPS Office) - an office productivity suite",
-    "depends": "wps-office-mime ttf-wps-fonts",
+    "postdepends": "ttf-wps-fonts",
   },
 
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
