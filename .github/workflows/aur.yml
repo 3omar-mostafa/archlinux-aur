@@ -28,7 +28,6 @@ env:
   CCFLAGS: '-fdiagnostics-color=always'
   CXXFLAGS: '-fdiagnostics-color=always'
   CPPFLAGS: '-fdiagnostics-color=always'
-  RUSTFLAGS: '--color auto'
   VERBOSE: 1
   NODE_OPTIONS: '--max_old_space_size=8192' # increase max allowed memory usage
   REPO: aur-repo
