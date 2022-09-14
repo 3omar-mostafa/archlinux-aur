@@ -24,10 +24,10 @@ env:
   COLORTERM: 'truecolor'
   COLOR_TERM: 'truecolor'
   CMAKE_COLOR_DIAGNOSTICS: 'true'
-  CFLAGS: '-fdiagnostics-color=always'
-  CCFLAGS: '-fdiagnostics-color=always'
-  CXXFLAGS: '-fdiagnostics-color=always'
-  CPPFLAGS: '-fdiagnostics-color=always'
+  # CFLAGS: '-fdiagnostics-color=always'
+  # CCFLAGS: '-fdiagnostics-color=always'
+  # CXXFLAGS: '-fdiagnostics-color=always'
+  # CPPFLAGS: '-fdiagnostics-color=always'
   VERBOSE: 1
   NODE_OPTIONS: '--max_old_space_size=8192' # increase max allowed memory usage
   REPO: aur-repo
@@ -94,6 +94,7 @@ jobs:
       - name: makepkg Config
         run: |
           sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
+          sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
           echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
           bat --color always /etc/makepkg.conf
 

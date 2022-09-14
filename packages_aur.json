@@ -504,6 +504,8 @@
     "name": "octave-plugins-all",
     "description": "A meta package which depends on all other octave packages",
     "local": true,
+    "depends": "dolfin gmsh scotch slepc",
+    "apply_cmd": "export CFLAGS=;export CXXFLAGS=;export CCFLAGS=;export CPPFLAGS=;",
   },
   {
     "name": "openrazer",
