@@ -137,8 +137,8 @@ jobs:
       - name: Install GPG Key
         if: matrix.gpg_key
         run: |
-          sudo -E -u user gpg --recv-keys ${{ matrix.gpg_key }}
-          gpg --recv-keys ${{ matrix.gpg_key }}
+          sudo -E -u user gpg --recv-keys --keyserver keys.openpgp.org ${{ matrix.gpg_key }}
+          gpg --recv-keys --keyserver keys.openpgp.org ${{ matrix.gpg_key }}
 
       - name: Install GPG Key
         if: matrix.gpg_url
