@@ -33,7 +33,7 @@ permissions:
 
 defaults:
   run:
-    shell: bash -i -l -e -o pipefail {0}
+    shell: bash -l -e -o pipefail {0}
 
 jobs:
   load_balancer:
@@ -81,7 +81,7 @@ jobs:
       - uses: actions/checkout@v3
   
       - name: Install bat
-        run: pacman -Sy --noconfirm --needed bat aria2
+        run: pacman -Sy --noconfirm --color always --needed bat aria2
 
       - name: Pacman Config
         run: ./scripts/pacmanconf.sh
@@ -153,7 +153,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          bash -i -l -e -o pipefail ./deps.sh
+          bash -l -e -o pipefail ./deps.sh
 
       - name: Build ${{ matrix.name }}
         if: ${{ ! matrix.meta }}
@@ -209,7 +209,7 @@ jobs:
 
           chmod a+x build.sh
           bat --color always --pager=never build.sh
-          sudo -E -u user bash -i -l -e -o pipefail ./build.sh
+          sudo -E -u user bash -l -e -o pipefail ./build.sh
 
       - name: Conflict Dependencies of ${{ matrix.name }}
         if: matrix.conflictdepends
@@ -236,7 +236,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          bash -i -l -e -o pipefail ./deps.sh
+          bash -l -e -o pipefail ./deps.sh
 
       - name: Post Dependencies of ${{ matrix.name }}
         if: matrix.postdepends
@@ -249,7 +249,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          bash -i -l -e -o pipefail ./deps.sh
+          bash -l -e -o pipefail ./deps.sh
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
