@@ -126,7 +126,7 @@ jobs:
           yay --show --currentconfig
 
       - name: Install Paru
-        run: sudo -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
+        run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
 
       - name: Install GPG Key
         if: matrix.gpg_key
@@ -146,9 +146,7 @@ jobs:
         if: matrix.depends || matrix.checkdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.depends }} ${{ matrix.checkdepends }} \
-            || \
-            ( echo "[Error] Can not install dependencies" && exit 1 )
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.depends }} ${{ matrix.checkdepends }}
           EOF
           
           chmod a+x deps.sh
@@ -167,7 +165,7 @@ jobs:
             git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
             cd svntogit-packages/trunk
 
-            sudo pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
+            sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
           
           elif [[ -n "${{ matrix.local }}" ]] ; then
             cp -a "./packages/${{ matrix.name }}" .
@@ -228,7 +226,7 @@ jobs:
                 RED "********************************************************************************"
               fi
               GREEN "==================================== Installing \$package ===================================="
-              sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
+              sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
               export old_package="\$package"
               GREEN "================================================================================"
             done
@@ -242,9 +240,7 @@ jobs:
         if: matrix.postdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.postdepends }} \
-            || \
-            ( echo "[Error] Can not install dependencies" && exit 1 )
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 ${{ matrix.postdepends }}
           EOF
           
           chmod a+x deps.sh
@@ -347,6 +343,10 @@ jobs:
       - run: ls -lRh --color=always
         if: always()
 
+      - run: du -sh ${{ env.REPO }}/* | sort -rh
+        continue-on-error: true
+        if: always()
+
       - name: Prepare pages artifact
         run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
       
@@ -360,6 +360,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          timeout: '7200000' # 2 hours
+          error_count: '50'
+          reporting_interval: '30000' # 30 seconds
 
       - name: Repo details
         run: |
