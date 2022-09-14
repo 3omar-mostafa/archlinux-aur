@@ -71,7 +71,7 @@ jobs:
         matrix:
           # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
           include:
-            - name: "7-zip-bin"
+            - name: "7-zip"
 
     container:
       image: "manjarolinux/build"
@@ -164,7 +164,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          bash -l -e -o pipefail ./deps.sh
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty STDIO
 
       - name: Build ${{ matrix.name }}
         if: ${{ ! matrix.meta }}
@@ -220,7 +220,7 @@ jobs:
 
           chmod a+x build.sh
           bat --color always --pager=never build.sh
-          sudo -E -u user bash -l -e -o pipefail ./build.sh
+          socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty STDIO
 
       - name: Conflict Dependencies of ${{ matrix.name }}
         if: matrix.conflictdepends
@@ -247,7 +247,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          bash -l -e -o pipefail ./deps.sh
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty STDIO
 
       - name: Post Dependencies of ${{ matrix.name }}
         if: matrix.postdepends
@@ -258,7 +258,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --pager=never deps.sh
-          bash -l -e -o pipefail ./deps.sh
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty STDIO
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
