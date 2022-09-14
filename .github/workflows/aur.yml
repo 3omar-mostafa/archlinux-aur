@@ -95,8 +95,9 @@ jobs:
         run: |
           sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
           sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
+          sed -i 's/--retry 3 --retry-delay 3/--retry 10 --retry-delay 5 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
           echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
-          bat --color always /etc/makepkg.conf
+          bat --color always --wrap=never /etc/makepkg.conf
 
       - name: Install basic dependencies
         run: |
@@ -156,7 +157,7 @@ jobs:
           EOF
           
           chmod a+x deps.sh
-          bat --color always deps.sh
+          bat --color always --wrap=never deps.sh
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty FD:1
 
       - name: Build ${{ matrix.name }}
@@ -202,7 +203,7 @@ jobs:
             ${{ matrix.apply_cmd }}
           fi
           
-          bat --color always --pager=never PKGBUILD
+          bat --color always --wrap=never PKGBUILD
 
           paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4 --builddir . ${{ matrix.build_flags }}
           
@@ -212,7 +213,7 @@ jobs:
           chown -R user:user $HOME
 
           chmod a+x build.sh
-          bat --color always --pager=never build.sh
+          bat --color always --wrap=never build.sh
           socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty FD:1
 
       - name: Conflict Dependencies of ${{ matrix.name }}
@@ -239,7 +240,7 @@ jobs:
           EOF
           
           chmod a+x deps.sh
-          bat --color always deps.sh
+          bat --color always --wrap=never deps.sh
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty FD:1
 
       - name: Post Dependencies of ${{ matrix.name }}
@@ -250,7 +251,7 @@ jobs:
           EOF
           
           chmod a+x deps.sh
-          bat --color always deps.sh
+          bat --color always --wrap=never deps.sh
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty FD:1
 
       - name: "Fix File Names [Replace : with - ]"

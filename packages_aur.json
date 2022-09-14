@@ -312,6 +312,11 @@
     "name": "gnome-shell-extension-fullscreen-notifications-git",
     "description": "Extension that enables all notifications in fullscreen mode",
   },
+  {
+    "name": "gnome-shell-extension-forge",
+    "description": "Tiling and Window Manager for Gnome-Shell",
+  },
+
   //   gsconnect is provided by manjaro `gnome-shell-extension-gsconnect`
   // {
   //   "name": "gnome-shell-extension-gsconnect",
@@ -504,8 +509,8 @@
     "name": "octave-plugins-all",
     "description": "A meta package which depends on all other octave packages",
     "local": true,
-    "depends": "dolfin gmsh scotch slepc",
-    "apply_cmd": "export CFLAGS=;export CXXFLAGS=;export CCFLAGS=;export CPPFLAGS=;",
+    "depends": "gmsh-bin scotch slepc",
+    // "apply_cmd": "export CFLAGS=;export CXXFLAGS=;export CCFLAGS=;export CPPFLAGS=;",
   },
   {
     "name": "openrazer",
