@@ -140,7 +140,7 @@ jobs:
       - name: Install GPG Key
         if: matrix.gpg_key
         run: |
-          if [[ -n "${{ matrix.gpg_key_server }}"]]; then
+          if [[ -n "${{ matrix.gpg_key_server }}" ]] ;  then
             export args="--keyserver ${{ matrix.gpg_key_server }}"
           fi
 
