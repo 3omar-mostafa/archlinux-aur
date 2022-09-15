@@ -97,7 +97,7 @@ jobs:
         run: |
           sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
           sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
-          sed -i 's/--retry 3 --retry-delay 3/--retry 10 --retry-delay 5 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
+          sed -i 's/--retry 3 --retry-delay 3/--retry 15 --retry-delay 10 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
           echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
           bat --color always --wrap=never /etc/makepkg.conf
 
@@ -314,7 +314,7 @@ jobs:
           path: "${{ env.REPO }}"
 
       - name: "List packages tree"
-        run: tree "./${REPO}"
+        run: tree "./${REPO}" --du
 
       - name: "Move all packages to root folder"
         run: find . -iname *.pkg.tar.zst -exec mv -v {} "./${REPO}" \;
@@ -345,7 +345,11 @@ jobs:
           tag_name="${{ env.VERSION }}"
 
           gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
-          gh release upload "$tag_name" --repo ${{ github.repository }} --clobber ./${{ env.REPO }}/*
+          
+          for package in ./${{ env.REPO }}/* ; do
+            gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "./${{ env.REPO }}/$package"
+            sleep 1
+          done
 
       - name: Generate index.html
         run: |
@@ -356,7 +360,7 @@ jobs:
       - run: ls -lRh --color=always
         if: always()
 
-      - run: du -sh ${{ env.REPO }}/* | sort -rh
+      - run: du -sh ${{ env.REPO }} ; du -sh ${{ env.REPO }}/* | sort -rh
         continue-on-error: true
         if: always()
 
@@ -375,7 +379,7 @@ jobs:
         uses: actions/deploy-pages@v1
         with:
           timeout: '7200000' # 2 hours
-          error_count: '50'
+          error_count: '100'
           reporting_interval: '30000' # 30 seconds
 
       - name: Repo details
