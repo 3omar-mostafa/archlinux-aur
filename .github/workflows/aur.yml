@@ -8,6 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -82,7 +83,7 @@ jobs:
     container:
       image: "manjarolinux/build"
       # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --tty --interactive --attach --cap-add"
+      options: "--privileged --attach STDIN,STDOUT,STDERR --tty --interactive --cap-add"
 
     steps:
       - uses: actions/checkout@v3
