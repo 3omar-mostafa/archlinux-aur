@@ -8,7 +8,6 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
-  push:
 
 env:
   BAT_PAGER: ''
@@ -75,15 +74,15 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "battop"
-              depends: "rust"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          # include:
+            # - name: "battop"
+              # depends: "rust"
 
     container:
       image: "manjarolinux/build"
       # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --entrypoint=bash"
+      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty"
 
     steps:
       - uses: actions/checkout@v3
