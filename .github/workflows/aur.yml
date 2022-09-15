@@ -83,7 +83,7 @@ jobs:
     container:
       image: "manjarolinux/build"
       # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDERR --interactive --tty"
+      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty"
 
     steps:
       - uses: actions/checkout@v3
