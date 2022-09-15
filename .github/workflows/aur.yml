@@ -138,15 +138,19 @@ jobs:
       - name: Install GPG Key
         if: matrix.gpg_key
         run: |
-          sudo -E -u user gpg --recv-keys --keyserver keys.openpgp.org ${{ matrix.gpg_key }}
-          gpg --recv-keys --keyserver keys.openpgp.org ${{ matrix.gpg_key }}
+          if [[ -n "${{ matrix.gpg_key_server }}"]]; then
+            export args="--keyserver ${{ matrix.gpg_key_server }}"
+          fi
+
+          sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
+          gpg $args --recv-keys $"{{ matrix.gpg_key }}"
 
       - name: Install GPG Key
         if: matrix.gpg_url
         run: |
           wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
           
-          sudo -E -u user gpg --import /tmp/gpg.key
+          sudo -u user gpg --import /tmp/gpg.key
           gpg --import /tmp/gpg.key
 
       - name: Install/Build Dependencies of ${{ matrix.name }}

@@ -12,6 +12,7 @@
 // - apply_script_file [bash script to run after cloning to aur repo (path relative to scripts folder)]
 // - gpg_url [url to download gpg key]
 // - gpg_key
+// - gpg_key_server [optional key server to fetch gpg keys from]
 // - official [boolean to determine where to clone PKGBUILD (aur or official repos)]
 // - local [boolean to determine that PKGBUILD is local in this repo inside packages folder]
 // - need_swap [boolean to create swap file]
@@ -509,7 +510,7 @@
     "name": "octave-plugins-all",
     "description": "A meta package which depends on all other octave packages",
     "local": true,
-    "depends": "gmsh-bin scotch slepc",
+    "depends": "openssh gmsh-bin scotch slepc",
     // "apply_cmd": "export CFLAGS=;export CXXFLAGS=;export CCFLAGS=;export CPPFLAGS=;",
   },
   {
@@ -557,6 +558,7 @@
     "name": "protonvpn",
     "description": "Official ProtonVPN",
     "gpg_key": "6A5571928D2222D83BC7456E4EDE055B645F044F",
+    "gpg_key_server": "keys.openpgp.org",
   },
   {
     "name": "pycharm-professional",
