@@ -145,7 +145,7 @@ jobs:
           fi
 
           sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
-          gpg $args --recv-keys $"{{ matrix.gpg_key }}"
+          gpg $args --recv-keys "${{ matrix.gpg_key }}"
 
       - name: Install GPG Key
         if: matrix.gpg_url
