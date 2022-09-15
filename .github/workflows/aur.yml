@@ -74,13 +74,15 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-            # - name: "7-zip"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "battop"
+              depends: "rust"
 
     container:
       image: "manjarolinux/build"
-      options: "--privileged=true --tty=true"
+      # https://docs.docker.com/engine/reference/commandline/create/
+      options: "--privileged --tty --interactive --attach --cap-add"
 
     steps:
       - uses: actions/checkout@v3
