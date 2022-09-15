@@ -374,8 +374,12 @@
   {
     "name": "gradience",
     "description": "Customize the look of Adwaita",
+    // After this commit, `libadwaita-git` was replaced with `libadwaita>=1:1.2.0` which has not been in manjaro stable yet
+    // TODO
+    "checkout": "9621e3efc552fdb6d5bb5d73375f713294a15d16",
     "depends": "adw-gtk3",
     "checkdepends": "appstream-glib",
+    "postdepends": "gradience-plugins",
   },
   {
     "name": "guiscrcpy",
