@@ -8,7 +8,6 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
-  push:
 
 env:
   BAT_PAGER: ''
@@ -75,10 +74,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "battop"
-              depends: "rust"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          # include:
+          #   - name: "battop"
+          #     depends: "rust"
 
     container:
       image: "manjarolinux/build"
@@ -349,6 +348,7 @@ jobs:
           
           for package in ./${{ env.REPO }}/* ; do
             gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+            echo -e "\e[1m\e[32m\============================= Uploaded $package =============================\e[0m";
             sleep 1
           done
 
@@ -406,8 +406,7 @@ jobs:
         run: pacman -Sy --noconfirm --color always --needed bat aria2
 
       - name: Pacman Config
-        run: |
-          ./scripts/pacmanconf.sh
+        run: ./scripts/pacmanconf.sh
 
       - name: Install basic dependencies
         run: |
@@ -424,7 +423,7 @@ jobs:
           cat packages_aur.json | jq .[].name -r > packages_aur.txt
           while read -r package; do
               echo "=================== Installing $package ==================="
-              pacman -Sy --noconfirm --color always --ask 4 $package 
+              pacman -Sy --noconfirm --color always --ask 4 --overwrite '*' $package 
               echo "==========================================================="
           done < packages_aur.txt
 
