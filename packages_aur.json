@@ -422,6 +422,12 @@
     "description": "Application/browser chooser",
   },
   {
+    "name": "jupyter",
+    "description": "Jupyter Notebooks packages",
+    "conflictdepends": "python-ipympl python-jupytext jupyter-octave_kernel jupyter_contrib_nbextensions",
+    "meta": true,
+  },
+  {
     "name": "librewolf-bin",
     "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
     "gpg_key": "031F7104E932F7BD7416E7F6D2845E1305D6E801",
