@@ -8,6 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -74,10 +75,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-            # - name: "battop"
-              # depends: "rust"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "battop"
+              depends: "rust"
 
     container:
       image: "manjarolinux/build"
@@ -164,7 +165,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty FD:1
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
       - name: Build ${{ matrix.name }}
         if: ${{ ! matrix.meta }}
@@ -220,7 +221,7 @@ jobs:
 
           chmod a+x build.sh
           bat --color always --wrap=never build.sh
-          socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty FD:1
+          socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
       - name: Conflict Dependencies of ${{ matrix.name }}
         if: matrix.conflictdepends
@@ -247,7 +248,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty FD:1
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
       - name: Post Dependencies of ${{ matrix.name }}
         if: matrix.postdepends
@@ -258,7 +259,7 @@ jobs:
           
           chmod a+x deps.sh
           bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty FD:1
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
@@ -347,7 +348,7 @@ jobs:
           gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
           
           for package in ./${{ env.REPO }}/* ; do
-            gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "./${{ env.REPO }}/$package"
+            gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
             sleep 1
           done
 
