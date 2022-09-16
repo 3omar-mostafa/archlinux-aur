@@ -130,6 +130,11 @@
     "description": "ClamAV Unofficial Signatures",
   },
   {
+    "name": "clapper",
+    "description": "A GNOME media player built using GJS with GTK4 toolkit and powered by GStreamer with OpenGL rendering",
+    "depends": "gtuber-git",
+  },
+  {
     "name": "clion",
     "description": "Jetbrains C/C++ IDE",
   },
@@ -146,9 +151,10 @@
     "meta": true,
   },
   {
-    "name": "clapper",
-    "description": "A GNOME media player built using GJS with GTK4 toolkit and powered by GStreamer with OpenGL rendering",
-    "depends": "gtuber-git",
+    "name": "conda",
+    "description": "Conda is a cross-platform, language-agnostic binary package manager used by Anaconda",
+    "conflictdepends": "python-conda python-conda-build micromamba mambaforge",
+    "meta": true,
   },
   {
     "name": "crunch",
