@@ -192,6 +192,7 @@
   {
     "name": "droidcam",
     "description": "A tool for using your android device as a wireless/usb webcam",
+    // "postdepends": "droidcam-obs-plugin",
   },
   {
     "name": "etcher-bin",
@@ -725,7 +726,6 @@
   {
     "name": "uno-calculator-bin",
     "description": "Windows Calculator",
-    "apply_script_file": "uno-calculator/uno-calculator.sh",
   },
   {
     "name": "usbguard-notifications",
