@@ -11,6 +11,7 @@ on:
 
 env:
   BAT_PAGER: ''
+  COLUMNS: '140' # Terminal Width
   FORCE_COLOR : 'true' # Force colors in console output
   CLICOLOR: 1
   CLI_COLOR: 1
@@ -175,7 +176,7 @@ jobs:
           #!/bin/bash
           
           if [[ -n "${{ matrix.official }}" ]] ;  then
-            git clone https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
+            git clone -q https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
             cd svntogit-packages/trunk
 
             sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
@@ -185,7 +186,7 @@ jobs:
             cd "${{ matrix.name }}"
           
           else
-            git clone "https://aur.archlinux.org/${{ matrix.name }}.git"
+            git clone -q "https://aur.archlinux.org/${{ matrix.name }}.git"
             cd "${{ matrix.name }}"
           fi
 
@@ -314,7 +315,7 @@ jobs:
           path: "${{ env.REPO }}"
 
       - name: "List packages tree"
-        run: tree "./${REPO}" --du
+        run: tree "./${REPO}" --du -h
 
       - name: "Move all packages to root folder"
         run: find . -iname *.pkg.tar.zst -exec mv -v {} "./${REPO}" \;
@@ -340,16 +341,31 @@ jobs:
           cat /tmp/checksums.sha256
 
       - name: Release Packages Files
+        shell: bash -l {0}
         run: |
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
 
           gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
           
-          for package in ./${{ env.REPO }}/* ; do
-            gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
-            echo -e "\e[1m\e[32m\============================= Uploaded $package =============================\e[0m";
-            sleep 1
+          cd ./${{ env.REPO }}
+          for package in * ; do
+            for attempt in {1..10} ; do
+              if [[ "$attempt" != 1 ]] ; then
+                echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
+              fi
+
+              gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+
+              if [[ $? == 0 ]] ; then
+                echo -e "\e[1m\e[32m Uploaded '$package' \e[0m"
+                break
+              else
+                echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m"
+              fi
+              
+              sleep $attempt
+            done
           done
 
       - name: Generate index.html
