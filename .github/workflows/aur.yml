@@ -176,8 +176,12 @@ jobs:
           #!/bin/bash
           
           if [[ -n "${{ matrix.official }}" ]] ;  then
-            git clone -q https://github.com/archlinux/svntogit-packages --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
-            cd svntogit-packages/trunk
+
+            git clone -q https://github.com/archlinux/svntogit-packages  --single-branch --depth 1 --branch "packages/${{ matrix.name }}" \
+            || \
+            git clone -q https://github.com/archlinux/svntogit-community --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
+
+            cd svntogit-*/trunk
 
             sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
           
@@ -370,7 +374,7 @@ jobs:
                 fi
               fi
               
-              sleep $attempt
+              sleep $(( 2 * $attempt ))
             done
           done
 
