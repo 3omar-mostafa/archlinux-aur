@@ -276,18 +276,12 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
 
-  deploy:
+  release_packages:
     needs: [build]
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true      
     steps:
       - uses: actions/checkout@v3
       
@@ -362,6 +356,18 @@ jobs:
                 break
               else
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m"
+                if [[ "$attempt" == 10 ]] ; then
+                  echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
+                  
+                  echo "[DEBUG]"
+                  gh api -H "Accept: application/vnd.github+json" /rate_limit | jq .resources.core
+                  reset_time=$(gh api -H "Accept: application/vnd.github+json" /rate_limit | jq .resources.core.reset -r)
+                  current_time=$(date '+%s')
+                  time_to_reset=$(( $reset_time - $current_time ))
+
+                  echo "[DEBUG] Seconds to sleep for ratelimit reset: $time_to_reset"
+                  sleep $time_to_reset
+                fi
               fi
               
               sleep $attempt
@@ -391,13 +397,24 @@ jobs:
           path: artifact.tar
           retention-days: 1
 
+  deploy:
+    needs: [release_packages]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true      
+    steps:
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
         with:
-          timeout: '7200000' # 2 hours
-          error_count: '100'
-          reporting_interval: '30000' # 30 seconds
+          timeout: '21600000' # 6 hours
+          error_count: '1000'
+          reporting_interval: '60000' # 60 seconds
 
       - name: Repo details
         run: |
