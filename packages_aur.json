@@ -151,12 +151,6 @@
     "meta": true,
   },
   {
-    "name": "conda",
-    "description": "Conda is a cross-platform, language-agnostic binary package manager used by Anaconda",
-    "conflictdepends": "python-conda python-conda-build micromamba mambaforge",
-    "meta": true,
-  },
-  {
     "name": "crunch",
     "description": "A wordlist which generate all possible combinations and permutations"
   },
@@ -652,6 +646,13 @@
   {
     "name": "sparrow-wifi-git",
     "description": "Next-Gen GUI-based WiFi and Bluetooth Analyzer for Linux",
+  },
+  {
+    "name": "spdlog",
+    "description": "This package install conda and mamba, spdlog is C++ logging library, which requires a patch in order for mamba to compile correctly",
+    "conflictdepends": "python-conda python-conda-build micromamba mambaforge",
+    "apply_script_file": "spdlog/spdlog.sh",
+    "official": true,
   },
   {
     "name": "seclists",
