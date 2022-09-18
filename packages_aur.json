@@ -246,10 +246,10 @@
     "name": "find-the-command",
     "description": "Advanced command-not-found hook for bash, fish and zsh using the power of pacman",
   },
-  {
-    "name": "flutter",
-    "description": "A new mobile app SDK to help developers and designers build modern mobile apps for iOS and Android",
-  },
+  // {
+  //   "name": "flutter",
+  //   "description": "A new mobile app SDK to help developers and designers build modern mobile apps for iOS and Android",
+  // },
   {
     "name": "freedownloadmanager",
     "description": "FDM is a powerful modern download accelerator and organizer",
@@ -369,10 +369,10 @@
     "name": "gobuster",
     "description": "A directory/file & DNS busting tool",
   },
-  {
-    "name": "goland",
-    "description": "Jetbrains Golang IDE",
-  },
+  // {
+  //   "name": "goland",
+  //   "description": "Jetbrains Golang IDE",
+  // },
   {
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
@@ -621,10 +621,10 @@
     "name": "rar",
     "description": "A command-line port of the rar compression utility",
   },
-  {
-    "name": "rubymine",
-    "description": "Jetbrains Ruby/Rails IDE",
-  },
+  // {
+  //   "name": "rubymine",
+  //   "description": "Jetbrains Ruby/Rails IDE",
+  // },
 
 //   rustscan is provided by arch as `rustscan`
 //   {
@@ -765,7 +765,8 @@
     "name": "waydroid",
     "description": "A container-based approach to boot a full Android system on a regular Linux system",
     "depends": "python-pyclip",
-    "conflictdepends": "waydroid-image waydroid-image-gapps",
+    // "conflictdepends": "waydroid-image waydroid-image-gapps",
+    "conflictdepends": "waydroid-image-gapps",
     "postdepends": "waydroid-script-git",
   },
   {
