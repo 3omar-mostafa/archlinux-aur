@@ -76,9 +76,9 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "7-zip-bin"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          # include:
+          #   - name: "7-zip-bin"
 
     container:
       image: "manjarolinux/build"
@@ -353,7 +353,7 @@ jobs:
                 echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
               fi
 
-              # gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+              # gh release upload "$tag_name" --repo ${{ github.repository }} "$package"
               errorcmd
 
               if [[ $? == 0 ]] ; then
@@ -362,13 +362,13 @@ jobs:
               else
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m"
                 if [[ "$attempt" == 9 ]] ; then
-                  echo "[DEBUG] $(gh api /rate_limit)"
+                  echo " [DEBUG] $(gh api /rate_limit)"
                   gh api /rate_limit --jq '.resources.core'
                   reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
                   current_time=$(date '+%s')
                   time_to_reset=$(( $reset_time - $current_time ))
 
-                  echo "[DEBUG] Seconds to sleep for ratelimit reset: $time_to_reset"
+                  echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
                   sleep $time_to_reset
                 fi
 
