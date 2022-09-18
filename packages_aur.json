@@ -315,6 +315,10 @@
     "description": "Extension that enables all notifications in fullscreen mode",
   },
   {
+    "name": "gnome-shell-extension-fuzzy-app-search",
+    "description": "Fuzzy application search results for Gnome Search",
+  },
+  {
     "name": "gnome-shell-extension-forge",
     "description": "Tiling and Window Manager for Gnome-Shell",
   },
@@ -431,6 +435,7 @@
     "name": "librewolf-bin",
     "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
     "gpg_key": "031F7104E932F7BD7416E7F6D2845E1305D6E801",
+    "postdepends": "arkenfox-user.js librewolf-extension-localcdn librewolf-extension-dark-reader librewolf-ublock-origin librewolf-extension-bitwarden",
   },
   {
     "name": "linux-wifi-hotspot",
@@ -582,6 +587,10 @@
   {
     "name": "python-dlib",
     "description": "Dlib is a modern C++ toolkit containing machine learning algorithms",
+  },
+  {
+    "name": "python-frida-tools",
+    "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
   },
   {
     "name": "python-numba",
