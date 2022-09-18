@@ -650,7 +650,7 @@
   {
     "name": "spdlog",
     "description": "This package install conda and mamba, spdlog is C++ logging library, which requires a patch in order for mamba to compile correctly",
-    "conflictdepends": "python-conda python-conda-build micromamba mambaforge",
+    "conflictdepends": "python-conda python-conda-build micromamba",
     "apply_script_file": "spdlog/spdlog.sh",
     "official": true,
   },
