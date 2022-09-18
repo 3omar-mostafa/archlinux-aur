@@ -314,10 +314,11 @@
     "name": "gnome-shell-extension-fullscreen-notifications-git",
     "description": "Extension that enables all notifications in fullscreen mode",
   },
-  {
-    "name": "gnome-shell-extension-fuzzy-app-search",
-    "description": "Fuzzy application search results for Gnome Search",
-  },
+  // Wait until package is more mature and fixed
+  // {
+  //   "name": "gnome-shell-extension-fuzzy-app-search",
+  //   "description": "Fuzzy application search results for Gnome Search",
+  // },
   {
     "name": "gnome-shell-extension-forge",
     "description": "Tiling and Window Manager for Gnome-Shell",
