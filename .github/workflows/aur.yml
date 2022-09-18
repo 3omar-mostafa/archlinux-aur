@@ -8,6 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -75,10 +76,9 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-          #   - name: "battop"
-          #     depends: "rust"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "7-zip-bin"
 
     container:
       image: "manjarolinux/build"
@@ -344,7 +344,7 @@ jobs:
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
 
-          gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
+          # gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
           
           cd ./${{ env.REPO }}
           for package in * ; do
@@ -353,7 +353,8 @@ jobs:
                 echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
               fi
 
-              gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+              # gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+              errorcmd
 
               if [[ $? == 0 ]] ; then
                 echo -e "\e[1m\e[32m Uploaded '$package' \e[0m"
