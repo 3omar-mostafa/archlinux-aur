@@ -347,7 +347,7 @@ jobs:
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
 
-          # gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
+          gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
           
           cd ./${{ env.REPO }}
           for package in * ; do
@@ -356,8 +356,7 @@ jobs:
                 echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
               fi
 
-              # gh release upload "$tag_name" --repo ${{ github.repository }} "$package"
-              errorcmd
+              gh release upload "$tag_name" --repo ${{ github.repository }} "$package"
 
               if [[ $? == 0 ]] ; then
                 echo -e "\e[1m\e[32m Uploaded '$package' \e[0m"
@@ -382,7 +381,7 @@ jobs:
               
               sleep $(( 2 * $attempt ))
             done
-            sleep 3
+            sleep 1
           done
 
       - name: Generate index.html
