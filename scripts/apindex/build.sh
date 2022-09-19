@@ -4,9 +4,9 @@ SCRIPT_DIR=$(dirname -- "$0")
 
 cd /tmp
 
-wget -q "https://github.com/libthinkpad/apindex/archive/refs/tags/2.2.zip"
-7z x 2.2.zip
-cd apindex-2.2
+wget -q "https://github.com/jayanta525/apindex-v2/archive/refs/tags/v3.0-bootstrap.zip"
+7z x v3.0-bootstrap.zip
+cd apindex*
 
 # Patch file to allow custom title
 patch -Np1 --ignore-whitespace -i "$SCRIPT_DIR/apindex.patch"

@@ -105,7 +105,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng python socat
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng python-lxml python-beautifulsoup4 socat
 
       - name: Create Swap file
         if: matrix.need_swap
@@ -364,8 +364,7 @@ jobs:
               else
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m"
                 if [[ "$attempt" == 9 ]] ; then
-                  echo " [DEBUG] $(gh api /rate_limit)"
-                  gh api /rate_limit --jq '.resources.core'
+                  echo " [DEBUG] $(gh api /rate_limit --jq '.resources.core')"
                   reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
                   current_time=$(date '+%s')
                   time_to_reset=$(( $reset_time - $current_time ))
@@ -389,6 +388,8 @@ jobs:
           $PWD/scripts/apindex/build.sh
           cd "${REPO}"
           apindex . "AUR Repository v${VERSION}"
+          python3 $PWD/scripts/apindex/href_patch.py
+          mkdir deploy && cp -v index.html ./deploy/
 
       - run: ls -lRh --color=always
         if: always()
@@ -398,7 +399,7 @@ jobs:
         if: always()
 
       - name: Prepare pages artifact
-        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
+        run: tar --directory "${{ env.REPO }}/deploy" -cvf artifact.tar .
       
       - name: Upload pages artifact
         uses: actions/upload-artifact@v3

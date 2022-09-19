@@ -2,16 +2,28 @@ diff --git a/apindex.py b/apindex.py
 index 5dda071..c94b1b3 100755
 --- a/apindex.py
 +++ b/apindex.py
-@@ -114,7 +114,7 @@ class File:
+@@ -116,8 +116,18 @@ class File:
          if self.isDir():
              fileSize = "-"
          else:
--            fileSize = str(math.floor(os.path.getsize(self.getPath()) / 1000)) + " kB"
-+            fileSize = str(math.floor(os.path.getsize(self.getPath()) / 1000)) + " KB"
+-            fileSize = str(math.floor(
+-                os.path.getsize(self.getPath()) / 1000)) + " kB"
++            origSize = os.path.getsize(self.getPath())
++            if origSize < 1000:
++                fileSize = str(origSize) + " B"
++            elif origSize < (1000 * 1000):
++                fileSize = str(math.floor(origSize / 1000)) + " KB"
++            elif origSize < (1000 * 1000 * 1000):
++                fileSize = str(math.floor(origSize / (1000 * 1000))) + " MB"
++            elif origSize < (1000 * 1000 * 1000 * 1000):
++                fileSize = str(math.floor(origSize / (1000 * 1000 * 1000))) + " GB"
++            else:
++                fileSize = str(math.floor(origSize / (1000 * 1000 * 1000 * 1000))) + " TB"
++
          modifyTime = time.strftime('%d-%b-%Y %H:%M',
-                         time.localtime(os.path.getmtime(self.getPath())))
+                                    time.localtime(os.path.getmtime(self.getPath())))
  
-@@ -195,7 +195,7 @@ def main():
+@@ -212,7 +212,7 @@ def main():
          print("No root directory specified!")
          exit(1)
  
@@ -24,27 +36,18 @@ diff --git a/share/apindex/index.template.html b/share/apindex/index.template.ht
 index c94ac89..25132b6 100644
 --- a/share/apindex/index.template.html
 +++ b/share/apindex/index.template.html
-@@ -8,12 +8,18 @@
-     </style>
- </head>
-     <body>
--        <h1>Index of #DIR</h1>
-+        <h1>#TITLE - Index of #DIR</h1>
-+        Pacman.conf </br>
-+        <div style="border: 3px; border-style: dashed; padding: 0.5%; margin-top: 0.5%; margin-bottom: 0.5%; display: inline-block;">
-+            [aur-repo]</br>
-+            SigLevel = Never</br>
-+            Server = <a href="https://3omar-mostafa.github.io/manjaro/">https://3omar-mostafa.github.io/manjaro/</a></br>
+@@ -9,4 +9,10 @@
+ <body>
+     <div class="container-fluid">
+-    <h3 class="text-muted" style="padding-top: 12px; padding-bottom: 12px; text-decoration-color: rgb(0, 0, 0); color: rgb(0, 0, 0);"><b style="color: rgb(63, 59, 59);">Index of #DIR</b></h3>
++    <h3 class="text-muted" style="padding-top: 12px; padding-bottom: 12px; text-decoration-color: rgb(0, 0, 0); color: rgb(0, 0, 0);"><b style="color: rgb(63, 59, 59);">#TITLE - Index of #DIR</b></h3>
++		Pacman.conf
++        <br><div style="border: 3px; border-style: dashed; padding: 0.5%; margin-top: 0.5%; margin-bottom: 0.5%; display: inline-block;">
++            	[aur-repo]
++            <br>SigLevel = Never
++            <br>Server = <a href="https://3omar-mostafa.github.io/manjaro/">https://3omar-mostafa.github.io/manjaro/</a>
 +        </div>
-         <hr>
-             <table>
-                 <col width="800">
-                 <col width="200">
--                <col width="80">
-+                <col width="150">
-                 <tr>
-                     <th align="left">Filename</th>
-                     <th align="left">Last modified</th>
+    <table class="table table-sm table-hover table-striped">
 diff --git a/share/apindex/icons.xml b/share/apindex/icons.xml
 index 6a8ee8f..ae37098 100644
 --- a/share/apindex/icons.xml
