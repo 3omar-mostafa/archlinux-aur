@@ -55,6 +55,11 @@
     "description": "Fast Remote Desktop Application",
   },
   {
+    "name": "apache-spark",
+    "description": "Apache Spark is a unified analytics engine for large-scale data processing",
+    "postdepends": "python-pyspark",
+  },
+  {
     "name": "apk-editor-studio",
     "description": "APK Editor Studio is a powerful yet easy-to-use APK reverse-engineering tool",
     "depends": "jdk17-openjdk",
@@ -116,6 +121,10 @@
   {
     "name": "capa-bin",
     "description": "The FLARE team's open-source tool to identify capabilities in executable files",
+  },
+  {
+    "name": "cassandra",
+    "description": "Apache Cassandra NoSQL database",
   },
   {
     "name": "chisel-tunnel",
@@ -193,6 +202,7 @@
     "name": "droidcam",
     "description": "A tool for using your android device as a wireless/usb webcam",
     // "postdepends": "droidcam-obs-plugin",
+    "postdepends": "droidcam-obs-plugin-bin",
   },
   {
     "name": "etcher-bin",
@@ -246,10 +256,10 @@
     "name": "find-the-command",
     "description": "Advanced command-not-found hook for bash, fish and zsh using the power of pacman",
   },
-  // {
-  //   "name": "flutter",
-  //   "description": "A new mobile app SDK to help developers and designers build modern mobile apps for iOS and Android",
-  // },
+  {
+    "name": "flutter",
+    "description": "A new mobile app SDK to help developers and designers build modern mobile apps for iOS and Android",
+  },
   {
     "name": "freedownloadmanager",
     "description": "FDM is a powerful modern download accelerator and organizer",
@@ -369,10 +379,10 @@
     "name": "gobuster",
     "description": "A directory/file & DNS busting tool",
   },
-  // {
-  //   "name": "goland",
-  //   "description": "Jetbrains Golang IDE",
-  // },
+  {
+    "name": "goland",
+    "description": "Jetbrains Golang IDE",
+  },
   {
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
@@ -390,6 +400,10 @@
   {
     "name": "guiscrcpy",
     "description": "Open Source GUI based Android Screen Mirroring System"
+  },
+  {
+    "name": "hadoop",
+    "description": "An open-source software for reliable, scalable, distributed computing",
   },
   {
     "name": "hakrawler-git",
@@ -431,6 +445,16 @@
     "description": "Jupyter Notebooks packages",
     "conflictdepends": "python-ipympl python-jupytext jupyter-octave_kernel jupyter_contrib_nbextensions",
     "meta": true,
+  },
+  {
+    "name": "kafka",
+    "description": "A high-throughput distributed messaging system",
+    "postdepends": "python-kafka",
+  },
+  {
+    "name": "lens",
+    "description": "Kubernetes IDE",
+    "depends": "nodejs-lts-gallium",
   },
   {
     "name": "librewolf-bin",
@@ -621,10 +645,15 @@
     "name": "rar",
     "description": "A command-line port of the rar compression utility",
   },
-  // {
-  //   "name": "rubymine",
-  //   "description": "Jetbrains Ruby/Rails IDE",
-  // },
+  {
+    "name": "rare",
+    "description": "A GUI for legendary, an open source replacement for Epic Games Launcher",
+    "depends": "python-pypresence python-pywebview"
+  },
+  {
+    "name": "rubymine",
+    "description": "Jetbrains Ruby/Rails IDE",
+  },
 
 //   rustscan is provided by arch as `rustscan`
 //   {
@@ -743,6 +772,10 @@
     "description": "Arabic fonts by King Fahd Glorious Quran Printing Complex in al-Madinah al-Munawwarah",
   },
   {
+    "name": "uefitool",
+    "description": "UEFI firmware image viewer and editor and utilities",
+  },
+  {
     "name": "uget-integrator-browsers",
     "description": "Configuration to integrate browsers with uget download manager",
   },
@@ -765,8 +798,7 @@
     "name": "waydroid",
     "description": "A container-based approach to boot a full Android system on a regular Linux system",
     "depends": "python-pyclip",
-    // "conflictdepends": "waydroid-image waydroid-image-gapps",
-    "conflictdepends": "waydroid-image-gapps",
+    "conflictdepends": "waydroid-image waydroid-image-gapps",
     "postdepends": "waydroid-script-git",
   },
   {
