@@ -216,7 +216,7 @@ jobs:
           
           bat --color always --wrap=never PKGBUILD
 
-          paru -Ui --noconfirm --color always --nocleanafter --pgpfetch --noredownload --ask 4 --builddir . ${{ matrix.build_flags }}
+          paru -Ui --noconfirm --color always --nocleanafter --noredownload --ask 4 --builddir . ${{ matrix.build_flags }}
           
           EOF
           

@@ -125,6 +125,7 @@
   {
     "name": "cassandra",
     "description": "Apache Cassandra NoSQL database",
+    "gpg_key": "A4C465FEA0C552561A392A61E91335D77E3E87CB",
   },
   {
     "name": "chisel-tunnel",
