@@ -356,7 +356,7 @@ jobs:
                 echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
               fi
 
-              gh release upload "$tag_name" --repo ${{ github.repository }} "$package"
+              gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
 
               if [[ $? == 0 ]] ; then
                 echo -e "\e[1m\e[32m Uploaded '$package' \e[0m"
@@ -385,10 +385,11 @@ jobs:
 
       - name: Generate index.html
         run: |
-          $PWD/scripts/apindex/build.sh
+          export SCRIPTS_DIR="$PWD/scripts/apindex"
+          $SCRIPTS_DIR/build.sh
           cd "${REPO}"
           apindex . "AUR Repository v${VERSION}"
-          python3 $PWD/scripts/apindex/href_patch.py
+          python3 $SCRIPTS_DIR/href_patch.py
           mkdir deploy && cp -v index.html ./deploy/
 
       - run: ls -lRh --color=always
