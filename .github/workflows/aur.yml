@@ -105,7 +105,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng python-lxml python-beautifulsoup4 socat
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat
 
       - name: Create Swap file
         if: matrix.need_swap
@@ -298,7 +298,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget tree zip github-cli asp p7zip manjaro-tools-base manjaro-tools-pkg
+          pacman -Sy --noconfirm --color always --needed base-devel curl wget tree zip github-cli asp p7zip manjaro-tools-base manjaro-tools-pkg python-lxml python-beautifulsoup4
 
       - name: Create Version Env
         run: |
