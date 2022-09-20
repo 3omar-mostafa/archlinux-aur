@@ -358,11 +358,13 @@ jobs:
 
               gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
 
-              if [[ $? == 0 ]] ; then
+              status_code=$?
+
+              if [[ $status_code == 0 ]] ; then
                 echo -e "\e[1m\e[32m Uploaded '$package' \e[0m"
                 break
               else
-                echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m"
+                echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Exit Code $status_code] \e[0m"
                 if [[ "$attempt" == 9 ]] ; then
                   echo " [DEBUG] $(gh api /rate_limit --jq '.resources.core')"
                   reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
