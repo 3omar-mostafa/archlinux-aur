@@ -63,8 +63,19 @@ jobs:
         - name: View Packages
           run: cat packages_aur.json | jq --color-output
 
+
+        - name: Create Version Env
+          id: set-version
+          run: |
+              version=$(date --utc '+%Y%m%d-%H%M')
+              echo "VERSION=${version}" >> $GITHUB_ENV
+              echo "Version: ${version}"
+              echo "::set-output name=version::${version}"
+
+
       outputs:
           matrix: ${{ steps.set-packages.outputs.matrix }}
+          version: ${{ steps.set-version.outputs.version }}
 
 
 
@@ -78,7 +89,7 @@ jobs:
         matrix:
           include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
           # include:
-          #   - name: "7-zip-bin"
+            # - name: "7-zip-bin"
 
     container:
       image: "manjarolinux/build"
@@ -281,7 +292,7 @@ jobs:
           path: "*.pkg.tar.zst"
 
   deploy:
-    needs: [build]
+    needs: [load_balancer, build]
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/build"
@@ -308,7 +319,7 @@ jobs:
 
       - name: Create Version Env
         run: |
-            version=$(date --utc '+%Y%m%d-%H%M')
+            version=${{ needs.load_balancer.outputs.version }}
             echo "VERSION=${version}" >> $GITHUB_ENV
 
             echo "Version: ${version}"
