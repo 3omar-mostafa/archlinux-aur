@@ -273,7 +273,7 @@
   {
     "name": "gdm-settings",
     "description": "A settings app for Gnome's Login Manager (GDM)",
-    "checkdepends": "appstream-glib",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "gedit-plugin-markdown_preview",
