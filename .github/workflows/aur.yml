@@ -408,8 +408,9 @@ jobs:
           $SCRIPTS_DIR/build.sh
           cd "${REPO}"
           apindex . "AUR Repository v${VERSION}"
-          python3 $SCRIPTS_DIR/href_patch.py
-          mkdir deploy && cp -v index.html ./deploy/
+
+      # There was an issue while deploying non writable files
+      - run: chmod -R a+rw .
 
       - run: ls -lRh --color=always
         if: always()
@@ -419,18 +420,18 @@ jobs:
         if: always()
 
       - name: Prepare pages artifact
-        run: tar --directory "${{ env.REPO }}/deploy" -cvf artifact.tar .
+        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
       
       - name: Upload pages artifact
         uses: actions/upload-artifact@v3
         with:
           name: github-pages
           path: artifact.tar
-          retention-days: 1
+          retention-days: 3
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v1.2.0
         with:
           timeout: '21900000' # 6 hours
           error_count: '1000'
