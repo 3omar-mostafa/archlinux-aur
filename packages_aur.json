@@ -310,6 +310,7 @@
     "description": "Censor private information from images",
     "checkdepends": "appstream-glib",
   },
+  //   gnome-console is provided by manjaro `gnome-console`
   // {
   //   "name": "gnome-console",
   //   "description": "A simple user-friendly terminal emulator for the GNOME desktop",
@@ -374,6 +375,7 @@
     "name": "gnome-shell-extension-wintile",
     "description": "Windows 10 window tiling for GNOME",
   },
+  //   gnome-text-editor is provided by manjaro `gnome-text-editor`
   // {
   //   "name": "gnome-text-editor",
   //   "description": "Simple text editor that focuses on session management",
@@ -711,10 +713,11 @@
     "name": "stegseek",
     "description": "Lightning fast steghide cracker",
   },
-  {
-    "name": "sticky",
-    "description": "A sticky notes app for the Linux desktop",
-  },
+  //   sticky is provided by manjaro `sticky`
+  // {
+  //   "name": "sticky",
+  //   "description": "A sticky notes app for the Linux desktop",
+  // },
   {
     "name": "surfshark-gui-bin",
     "description": "Surfshark VPN client"
@@ -728,22 +731,25 @@
   //   "description": "Open source version of audacity without telemetry",
   //   "depends": "wxgtk3"
   // },
-  {
-    "name": "timeshift",
-    "description": "A system restore utility for Linux",
-    "checkdepends": "appstream-glib",
-  },
+
+  //   timeshift is provided by manjaro `timeshift`
+  // {
+  //   "name": "timeshift",
+  //   "description": "A system restore utility for Linux",
+  //   "checkdepends": "appstream-glib",
+  // },
   {
     "name": "tor-browser",
     "description": "Anonymous browsing using Firefox and Tor",
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
-  {
-    "name": "touche",
-    "description": "Linux multi-touch gesture recognizer",
-    "postdepends": "gnome-shell-extension-x11gestures",
-    "checkdepends": "appstream-glib",
-  },
+  //   touche is provided by manjaro `touche`
+  // {
+  //   "name": "touche",
+  //   "description": "Linux multi-touch gesture recognizer",
+  //   "postdepends": "gnome-shell-extension-x11gestures",
+  //   "checkdepends": "appstream-glib",
+  // },
   {
     "name": "trufflehog",
     "description": "Tool for finding secrets like private keys and credentials",
@@ -752,10 +758,11 @@
     "name": "ttf-amiri",
     "description": "A Classical Arabic Naskh typeface poineered by Amiria/Bulaq Press in Cairo",
   },
-  {
-    "name": "ttf-meslo-nerd-font-powerlevel10k",
-    "description": "Meslo Nerd Font patched for Powerlevel10k",
-  },
+  //   ttf-meslo-nerd-font-powerlevel10k is provided by manjaro `ttf-meslo-nerd-font-powerlevel10k`
+  // {
+  //   "name": "ttf-meslo-nerd-font-powerlevel10k",
+  //   "description": "Meslo Nerd Font patched for Powerlevel10k",
+  // },
   {
     "name": "ttf-ms-win10",
     "description": "Microsoft Windows 10 TrueType fonts",
@@ -861,11 +868,12 @@
     "name": "xnviewmp-system-libs",
     "description": "An efficient multimedia viewer, browser and converter (using system libraries)",
   },
-  {
-    "name": "xviewer",
-    "description": "A simple and easy to use image viewer",
-    "depends": "xviewer-plugins",
-  },
+  //   xviewer is provided by manjaro `xviewer` and `xviewer-plugins`
+  // {
+  //   "name": "xviewer",
+  //   "description": "A simple and easy to use image viewer",
+  //   "depends": "xviewer-plugins",
+  // },
   {
     "name": "zoom",
     "description": "Video Conferencing and Web Conferencing Service",
