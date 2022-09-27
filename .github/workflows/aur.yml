@@ -439,7 +439,7 @@ jobs:
           remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
           echo " [DEBUG] $rate_limit_json"
 
-          if [[ $remaining_api <= 400 ]] ; then
+          if [[ $remaining_api -le 400 ]] ; then
             reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
             current_time=$(date '+%s')
             time_to_reset=$(( $reset_time - $current_time + 10 ))
