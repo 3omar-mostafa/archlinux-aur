@@ -17,6 +17,7 @@
 // - local [boolean to determine that PKGBUILD is local in this repo inside packages folder]
 // - need_swap [boolean to create swap file]
 // - build_flags [flags to add to paru when building PKGBUILD]
+// - disable_mold [boolean to disable using mold linker]
 // - meta [boolean which indicates that this is a virtual package that should not be built]
 
 
@@ -788,6 +789,7 @@
     "name": "usbguard-notifications",
     "description": "USBGuard GUI and Notification tools",
     "conflictdepends": "usbguard-notifier usbguard-applet-qt",
+    "disable_mold": true,
     "meta": true,
   },
   {

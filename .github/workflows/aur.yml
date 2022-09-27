@@ -118,7 +118,9 @@ jobs:
           pacman -Syu --noconfirm --color always
           pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat
 
-      - uses: rui314/setup-mold@v1
+      - name: Setup mold linker
+        if: ${{ ! matrix.disable_mold }}
+        uses: rui314/setup-mold@v1
 
       - name: Create Swap file
         if: matrix.need_swap
