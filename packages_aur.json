@@ -611,10 +611,10 @@
     "name": "python-androguard",
     "description": "Python framework for Android application analysis",
   },
-  {
-    "name": "python-dlib",
-    "description": "Dlib is a modern C++ toolkit containing machine learning algorithms",
-  },
+  // {
+  //   "name": "python-dlib",
+  //   "description": "Dlib is a modern C++ toolkit containing machine learning algorithms",
+  // },
   {
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
