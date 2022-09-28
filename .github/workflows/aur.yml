@@ -295,18 +295,12 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
 
-  deploy:
+  release:
     needs: [load_balancer, build]
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v3
       
@@ -378,13 +372,15 @@ jobs:
               fi
 
               gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+              status_code=$?
 
-              if [[ $? == 0 ]] ; then
-                echo -e "\e[1m\e[32m Uploaded '$package' \e[0m"
+              rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
+              remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
+
+              if [[ $status_code == 0 ]] ; then
+                echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
                 break
               else
-                rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
-                remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
                 if [[ "$attempt" == 9 ]] ; then
                   echo " [DEBUG] $rate_limit_json"
@@ -426,13 +422,6 @@ jobs:
       - name: Prepare pages artifact
         run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
       
-      - name: Upload pages artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: github-pages
-          path: artifact.tar
-          retention-days: 3
-
       - name: Relax until api ratelimit reset
         run: |
           rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
@@ -448,6 +437,24 @@ jobs:
             sleep $time_to_reset
           fi
 
+      - name: Upload pages artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: artifact.tar
+          retention-days: 3
+
+  deploy:
+    needs: [release]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+    steps:
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
@@ -455,6 +462,7 @@ jobs:
           timeout: '21900000' # 6 hours
           error_count: '1000'
           reporting_interval: '10000' # 10 seconds
+          token: "${{ secrets.PAT_TOKEN }}"
 
       - name: Repo details
         run: |
