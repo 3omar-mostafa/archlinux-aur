@@ -44,438 +44,438 @@ defaults:
     shell: bash -l -e -o pipefail {0}
 
 jobs:
-  load_balancer:
-      runs-on: ubuntu-latest
+  # load_balancer:
+  #     runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/checkout@v3
+  #     steps:
+  #       - uses: actions/checkout@v3
 
-        - name: Set Output packages
-          id: set-packages
-          run: |
-            # Note: jq -c does not work well with `fromJson` as its outtput contains spaces
-            #       Python json works well as it removes spaces
-            pip3 install json5 # Allows using C-style comments in json
-            python3 -c "import json5, json; json.dump(json5.load(open('packages_aur.json', 'r')), open('packages_aur.json', 'w'))"
-            echo "::set-output name=matrix::$(cat packages_aur.json)"
-
-
-        - name: View Packages
-          run: cat packages_aur.json | jq --color-output
+  #       - name: Set Output packages
+  #         id: set-packages
+  #         run: |
+  #           # Note: jq -c does not work well with `fromJson` as its outtput contains spaces
+  #           #       Python json works well as it removes spaces
+  #           pip3 install json5 # Allows using C-style comments in json
+  #           python3 -c "import json5, json; json.dump(json5.load(open('packages_aur.json', 'r')), open('packages_aur.json', 'w'))"
+  #           echo "::set-output name=matrix::$(cat packages_aur.json)"
 
 
-        - name: Create Version Env
-          id: set-version
-          run: |
-              version=$(date --utc '+%Y%m%d-%H%M')
-              echo "VERSION=${version}" >> $GITHUB_ENV
-              echo "Version: ${version}"
-              echo "::set-output name=version::${version}"
+  #       - name: View Packages
+  #         run: cat packages_aur.json | jq --color-output
 
 
-      outputs:
-          matrix: ${{ steps.set-packages.outputs.matrix }}
-          version: ${{ steps.set-version.outputs.version }}
+  #       - name: Create Version Env
+  #         id: set-version
+  #         run: |
+  #             version=$(date --utc '+%Y%m%d-%H%M')
+  #             echo "VERSION=${version}" >> $GITHUB_ENV
+  #             echo "Version: ${version}"
+  #             echo "::set-output name=version::${version}"
+
+
+  #     outputs:
+  #         matrix: ${{ steps.set-packages.outputs.matrix }}
+  #         version: ${{ steps.set-version.outputs.version }}
 
 
 
-  build:
-    name: "Build ${{ matrix.name }}"
-    needs: load_balancer
-    runs-on: ubuntu-latest
+  # build:
+  #   name: "Build ${{ matrix.name }}"
+  #   needs: load_balancer
+  #   runs-on: ubuntu-latest
     
-    strategy:
-        fail-fast: false
-        matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-            # - name: "7-zip-bin"
+  #   strategy:
+  #       fail-fast: false
+  #       matrix:
+  #         include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+  #         # include:
+  #           # - name: "7-zip-bin"
 
-    container:
-      image: "manjarolinux/build"
-      # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty"
+  #   container:
+  #     image: "manjarolinux/build"
+  #     # https://docs.docker.com/engine/reference/commandline/create/
+  #     options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty"
 
-    steps:
-      - uses: actions/checkout@v3
+  #   steps:
+  #     - uses: actions/checkout@v3
   
-      - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat aria2
+  #     - name: Install bat
+  #       run: pacman -Sy --noconfirm --color always --needed bat aria2
 
-      - name: Pacman Config
-        run: ./scripts/pacmanconf.sh
+  #     - name: Pacman Config
+  #       run: ./scripts/pacmanconf.sh
 
-      - name: makepkg Config
-        run: |
-          sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
-          sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
-          sed -i 's/--retry 3 --retry-delay 3/--retry 15 --retry-delay 10 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
-          echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
-          bat --color always --wrap=never /etc/makepkg.conf
+  #     - name: makepkg Config
+  #       run: |
+  #         sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
+  #         sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
+  #         sed -i 's/--retry 3 --retry-delay 3/--retry 15 --retry-delay 10 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
+  #         echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
+  #         bat --color always --wrap=never /etc/makepkg.conf
 
-      - name: Install basic dependencies
-        run: |
-          pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat
+  #     - name: Install basic dependencies
+  #       run: |
+  #         pacman -Syu --noconfirm --color always
+  #         pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat
 
-      - name: Setup mold linker
-        if: ${{ ! matrix.disable_mold }}
-        uses: rui314/setup-mold@v1
+  #     - name: Setup mold linker
+  #       if: ${{ ! matrix.disable_mold }}
+  #       uses: rui314/setup-mold@v1
 
-      - name: Create Swap file
-        if: matrix.need_swap
-        run: |
-          export SWAPFILE=/__w/swapfile
-          dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
-          chmod 0600 $SWAPFILE
-          mkswap -U clear $SWAPFILE
-          swapon --verbose $SWAPFILE
+  #     - name: Create Swap file
+  #       if: matrix.need_swap
+  #       run: |
+  #         export SWAPFILE=/__w/swapfile
+  #         dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
+  #         chmod 0600 $SWAPFILE
+  #         mkswap -U clear $SWAPFILE
+  #         swapon --verbose $SWAPFILE
           
-          swapon --show 
-          df -Th
-          free -h
+  #         swapon --show 
+  #         df -Th
+  #         free -h
 
-      - name: Create non root user
-        run: |
-            cp -v /etc/skel/.* ~ || true
-            # Wheel group is the sudo group in Arch Linux
-            useradd --create-home --groups wheel  user
-            echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-            chown -R user ..
+  #     - name: Create non root user
+  #       run: |
+  #           cp -v /etc/skel/.* ~ || true
+  #           # Wheel group is the sudo group in Arch Linux
+  #           useradd --create-home --groups wheel  user
+  #           echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+  #           chown -R user ..
 
-      - name: yay configuration
-        run: |
-          echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
+  #     - name: yay configuration
+  #       run: |
+  #         echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
           
-          yay --answerclean None --builddir $PWD --save
-          yay --show --currentconfig
+  #         yay --answerclean None --builddir $PWD --save
+  #         yay --show --currentconfig
 
-      - name: Install Paru
-        run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
+  #     - name: Install Paru
+  #       run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
 
-      - name: Install GPG Key
-        if: matrix.gpg_key
-        run: |
-          if [[ -n "${{ matrix.gpg_key_server }}" ]] ;  then
-            export args="--keyserver ${{ matrix.gpg_key_server }}"
-          fi
+  #     - name: Install GPG Key
+  #       if: matrix.gpg_key
+  #       run: |
+  #         if [[ -n "${{ matrix.gpg_key_server }}" ]] ;  then
+  #           export args="--keyserver ${{ matrix.gpg_key_server }}"
+  #         fi
 
-          sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
-          gpg $args --recv-keys "${{ matrix.gpg_key }}"
+  #         sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
+  #         gpg $args --recv-keys "${{ matrix.gpg_key }}"
 
-      - name: Install GPG Key
-        if: matrix.gpg_url
-        run: |
-          wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
+  #     - name: Install GPG Key
+  #       if: matrix.gpg_url
+  #       run: |
+  #         wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
           
-          sudo -u user gpg --import /tmp/gpg.key
-          gpg --import /tmp/gpg.key
+  #         sudo -u user gpg --import /tmp/gpg.key
+  #         gpg --import /tmp/gpg.key
 
-      - name: Install/Build Dependencies of ${{ matrix.name }}
-        if: matrix.depends || matrix.checkdepends
-        run: |
-          cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' ${{ matrix.depends }} ${{ matrix.checkdepends }}
-          EOF
+  #     - name: Install/Build Dependencies of ${{ matrix.name }}
+  #       if: matrix.depends || matrix.checkdepends
+  #       run: |
+  #         cat <<EOF > deps.sh
+  #           sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' ${{ matrix.depends }} ${{ matrix.checkdepends }}
+  #         EOF
           
-          chmod a+x deps.sh
-          bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+  #         chmod a+x deps.sh
+  #         bat --color always --wrap=never deps.sh
+  #         socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
-      - name: Build ${{ matrix.name }}
-        if: ${{ ! matrix.meta }}
-        run: |
-          export SCRIPTS_DIR=`pwd`/scripts
+  #     - name: Build ${{ matrix.name }}
+  #       if: ${{ ! matrix.meta }}
+  #       run: |
+  #         export SCRIPTS_DIR=`pwd`/scripts
 
-          cat <<EOF > build.sh
-          #!/bin/bash
+  #         cat <<EOF > build.sh
+  #         #!/bin/bash
           
-          if [[ -n "${{ matrix.official }}" ]] ;  then
+  #         if [[ -n "${{ matrix.official }}" ]] ;  then
 
-            git clone -q https://github.com/archlinux/svntogit-packages  --single-branch --depth 1 --branch "packages/${{ matrix.name }}" \
-            || \
-            git clone -q https://github.com/archlinux/svntogit-community --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
+  #           git clone -q https://github.com/archlinux/svntogit-packages  --single-branch --depth 1 --branch "packages/${{ matrix.name }}" \
+  #           || \
+  #           git clone -q https://github.com/archlinux/svntogit-community --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
 
-            cd svntogit-*/trunk
+  #           cd svntogit-*/trunk
 
-            sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
+  #           sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
           
-          elif [[ -n "${{ matrix.local }}" ]] ; then
-            cp -a "./packages/${{ matrix.name }}" .
-            cd "${{ matrix.name }}"
+  #         elif [[ -n "${{ matrix.local }}" ]] ; then
+  #           cp -a "./packages/${{ matrix.name }}" .
+  #           cd "${{ matrix.name }}"
           
-          else
-            git clone -q "https://aur.archlinux.org/${{ matrix.name }}.git"
-            cd "${{ matrix.name }}"
-          fi
+  #         else
+  #           git clone -q "https://aur.archlinux.org/${{ matrix.name }}.git"
+  #           cd "${{ matrix.name }}"
+  #         fi
 
-          if [[ -n "${{ matrix.checkout }}" ]] ;  then
-            git checkout "${{ matrix.checkout }}"
-          fi
+  #         if [[ -n "${{ matrix.checkout }}" ]] ;  then
+  #           git checkout "${{ matrix.checkout }}"
+  #         fi
           
-          find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \; || true
+  #         find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \; || true
           
-          if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
-            echo "Applying Patch from ${{ matrix.apply_script_file }} file"
+  #         if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
+  #           echo "Applying Patch from ${{ matrix.apply_script_file }} file"
             
-            chmod a+x "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
-            "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
-          fi
+  #           chmod a+x "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
+  #           "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
+  #         fi
 
-          if [[ -n "${{ matrix.apply_cmd }}" ]] ;  then
-            echo "Applying Patch from command:"
-            echo "${{ matrix.apply_cmd }}"
+  #         if [[ -n "${{ matrix.apply_cmd }}" ]] ;  then
+  #           echo "Applying Patch from command:"
+  #           echo "${{ matrix.apply_cmd }}"
             
-            ${{ matrix.apply_cmd }}
-          fi
+  #           ${{ matrix.apply_cmd }}
+  #         fi
           
-          bat --color always --wrap=never PKGBUILD
+  #         bat --color always --wrap=never PKGBUILD
 
-          paru -Ui --noconfirm --color always --nocleanafter --noredownload --ask 4 --overwrite '*' --builddir . ${{ matrix.build_flags }}
+  #         paru -Ui --noconfirm --color always --nocleanafter --noredownload --ask 4 --overwrite '*' --builddir . ${{ matrix.build_flags }}
           
-          EOF
+  #         EOF
           
-          chown -R user:user /github
-          chown -R user:user $HOME
+  #         chown -R user:user /github
+  #         chown -R user:user $HOME
 
-          chmod a+x build.sh
-          bat --color always --wrap=never build.sh
-          socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+  #         chmod a+x build.sh
+  #         bat --color always --wrap=never build.sh
+  #         socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
-      - name: Conflict Dependencies of ${{ matrix.name }}
-        if: matrix.conflictdepends
-        run: |
-          cat <<EOF > deps.sh
-            function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
-            function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
-            function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
+  #     - name: Conflict Dependencies of ${{ matrix.name }}
+  #       if: matrix.conflictdepends
+  #       run: |
+  #         cat <<EOF > deps.sh
+  #           function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
+  #           function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
+  #           function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
 
-            read -a packages <<< "${{ matrix.conflictdepends }}"
-            for package in "\${packages[@]}"; do
-              YELLOW "################################################################################"
-              if [[ -n "\$old_package" ]]; then
-                RED "****************************** Removing \$old_package ******************************"
-                pacman -R --color always --noconfirm --ask 4 "\$old_package"
-                RED "********************************************************************************"
-              fi
-              GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
-              export old_package="\$package"
-              GREEN "================================================================================"
-            done
-          EOF
+  #           read -a packages <<< "${{ matrix.conflictdepends }}"
+  #           for package in "\${packages[@]}"; do
+  #             YELLOW "################################################################################"
+  #             if [[ -n "\$old_package" ]]; then
+  #               RED "****************************** Removing \$old_package ******************************"
+  #               pacman -R --color always --noconfirm --ask 4 "\$old_package"
+  #               RED "********************************************************************************"
+  #             fi
+  #             GREEN "==================================== Installing \$package ===================================="
+  #             sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
+  #             export old_package="\$package"
+  #             GREEN "================================================================================"
+  #           done
+  #         EOF
           
-          chmod a+x deps.sh
-          bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+  #         chmod a+x deps.sh
+  #         bat --color always --wrap=never deps.sh
+  #         socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
-      - name: Post Dependencies of ${{ matrix.name }}
-        if: matrix.postdepends
-        run: |
-          cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' ${{ matrix.postdepends }}
-          EOF
+  #     - name: Post Dependencies of ${{ matrix.name }}
+  #       if: matrix.postdepends
+  #       run: |
+  #         cat <<EOF > deps.sh
+  #           sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' ${{ matrix.postdepends }}
+  #         EOF
           
-          chmod a+x deps.sh
-          bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+  #         chmod a+x deps.sh
+  #         bat --color always --wrap=never deps.sh
+  #         socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
-      - name: "Fix File Names [Replace : with - ]"
-        run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
+  #     - name: "Fix File Names [Replace : with - ]"
+  #       run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
 
-      - name: "Copy all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec cp {} . \;
+  #     - name: "Copy all packages to root folder"
+  #       run: find . -iname *.pkg.tar.zst -exec cp {} . \;
 
-      - run: ls -lRh --color=always
-        if: always()
+  #     - run: ls -lRh --color=always
+  #       if: always()
 
-      - name: Upload Package
-        uses: actions/upload-artifact@v3
-        with:
-          name: "${{ matrix.name }}"
-          path: "*.pkg.tar.zst"
+  #     - name: Upload Package
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: "${{ matrix.name }}"
+  #         path: "*.pkg.tar.zst"
 
-  release:
-    needs: [load_balancer, build]
-    runs-on: ubuntu-latest
-    container:
-      image: "manjarolinux/build"
-      options: "--privileged=true --tty=true"
-    steps:
-      - uses: actions/checkout@v3
+  # release:
+  #   needs: [load_balancer, build]
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: "manjarolinux/build"
+  #     options: "--privileged=true --tty=true"
+  #   steps:
+  #     - uses: actions/checkout@v3
       
-      - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat aria2
+  #     - name: Install bat
+  #       run: pacman -Sy --noconfirm --color always --needed bat aria2
 
-      - name: Pacman Config
-        run: ./scripts/pacmanconf.sh
+  #     - name: Pacman Config
+  #       run: ./scripts/pacmanconf.sh
 
-      - name: Install basic dependencies
-        run: |
-          pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget tree zip github-cli asp p7zip manjaro-tools-base manjaro-tools-pkg python-lxml python-beautifulsoup4
+  #     - name: Install basic dependencies
+  #       run: |
+  #         pacman -Syu --noconfirm --color always
+  #         pacman -Sy --noconfirm --color always --needed base-devel curl wget tree zip github-cli asp p7zip manjaro-tools-base manjaro-tools-pkg python-lxml python-beautifulsoup4
 
-      - name: Create Version Env
-        run: |
-            version=${{ needs.load_balancer.outputs.version }}
-            echo "VERSION=${version}" >> $GITHUB_ENV
+  #     - name: Create Version Env
+  #       run: |
+  #           version=${{ needs.load_balancer.outputs.version }}
+  #           echo "VERSION=${version}" >> $GITHUB_ENV
 
-            echo "Version: ${version}"
+  #           echo "Version: ${version}"
 
-      - name: Download All Packages
-        uses: actions/download-artifact@v3
-        with:
-          path: "${{ env.REPO }}"
+  #     - name: Download All Packages
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         path: "${{ env.REPO }}"
 
-      - name: "List packages tree"
-        run: tree "./${REPO}" --du -h
+  #     - name: "List packages tree"
+  #       run: tree "./${REPO}" --du -h
 
-      - name: "Move all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec mv -v {} "./${REPO}" \;
+  #     - name: "Move all packages to root folder"
+  #       run: find . -iname *.pkg.tar.zst -exec mv -v {} "./${REPO}" \;
 
-      - name: "Delete Empty Directories"
-        continue-on-error: true
-        run: find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
+  #     - name: "Delete Empty Directories"
+  #       continue-on-error: true
+  #       run: find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
 
-      - name: Generate database files
-        run: |
-          cd "${REPO}"
-          repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
+  #     - name: Generate database files
+  #       run: |
+  #         cd "${REPO}"
+  #         repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
 
-      - name: Generate Checksum for packages
-        run: |
-          cd "${REPO}"
-          echo "## SHA256 Checksum" > /tmp/checksums.sha256
-          echo "<details><summary>Click to expand</summary>" >> /tmp/checksums.sha256
-          echo -e "\n\n" >> /tmp/checksums.sha256
-          echo "| SHA256 | Filename |" >> /tmp/checksums.sha256
-          echo "| ------ | -------- |" >> /tmp/checksums.sha256
-          for file in *; do
-            echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
-          done
-          echo -e "\n\n</details>" >> /tmp/checksums.sha256
-          cat /tmp/checksums.sha256
+  #     - name: Generate Checksum for packages
+  #       run: |
+  #         cd "${REPO}"
+  #         echo "## SHA256 Checksum" > /tmp/checksums.sha256
+  #         echo "<details><summary>Click to expand</summary>" >> /tmp/checksums.sha256
+  #         echo -e "\n\n" >> /tmp/checksums.sha256
+  #         echo "| SHA256 | Filename |" >> /tmp/checksums.sha256
+  #         echo "| ------ | -------- |" >> /tmp/checksums.sha256
+  #         for file in *; do
+  #           echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
+  #         done
+  #         echo -e "\n\n</details>" >> /tmp/checksums.sha256
+  #         cat /tmp/checksums.sha256
 
-      - name: Release Packages Files
-        shell: bash -l {0}
-        run: |
-          echo ${{ github.token }} | gh auth login --with-token
-          tag_name="${{ env.VERSION }}"
+  #     - name: Release Packages Files
+  #       shell: bash -l {0}
+  #       run: |
+  #         echo ${{ github.token }} | gh auth login --with-token
+  #         tag_name="${{ env.VERSION }}"
 
-          gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
+  #         gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256 || echo "release already exists"
           
-          cd ./${{ env.REPO }}
-          for package in * ; do
-            for attempt in {1..10} ; do
-              if [[ "$attempt" != 1 ]] ; then
-                echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
-              fi
+  #         cd ./${{ env.REPO }}
+  #         for package in * ; do
+  #           for attempt in {1..10} ; do
+  #             if [[ "$attempt" != 1 ]] ; then
+  #               echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
+  #             fi
 
-              gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
-              status_code=$?
+  #             gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+  #             status_code=$?
 
-              rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
-              remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
+  #             rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
+  #             remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
 
-              if [[ $status_code == 0 ]] ; then
-                echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
-                break
-              else
-                echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
-                if [[ "$attempt" == 9 ]] ; then
-                  echo " [DEBUG] $rate_limit_json"
-                  reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
-                  current_time=$(date '+%s')
-                  time_to_reset=$(( $reset_time - $current_time ))
+  #             if [[ $status_code == 0 ]] ; then
+  #               echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
+  #               break
+  #             else
+  #               echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
+  #               if [[ "$attempt" == 9 ]] ; then
+  #                 echo " [DEBUG] $rate_limit_json"
+  #                 reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
+  #                 current_time=$(date '+%s')
+  #                 time_to_reset=$(( $reset_time - $current_time ))
 
-                  echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
-                  sleep $time_to_reset
-                fi
+  #                 echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
+  #                 sleep $time_to_reset
+  #               fi
 
-                if [[ "$attempt" == 10 ]] ; then
-                  echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
-                fi
-              fi
+  #               if [[ "$attempt" == 10 ]] ; then
+  #                 echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
+  #               fi
+  #             fi
               
-              sleep $(( 2 * $attempt ))
-            done
-            sleep 1
-          done
+  #             sleep $(( 2 * $attempt ))
+  #           done
+  #           sleep 1
+  #         done
 
-      - name: Generate index.html
-        run: |
-          export SCRIPTS_DIR="$PWD/scripts/apindex"
-          $SCRIPTS_DIR/build.sh
-          cd "${REPO}"
-          apindex . "AUR Repository v${VERSION}"
+  #     - name: Generate index.html
+  #       run: |
+  #         export SCRIPTS_DIR="$PWD/scripts/apindex"
+  #         $SCRIPTS_DIR/build.sh
+  #         cd "${REPO}"
+  #         apindex . "AUR Repository v${VERSION}"
 
-      # There was an issue while deploying non writable files
-      - run: chmod -R a+rw .
+  #     # There was an issue while deploying non writable files
+  #     - run: chmod -R a+rw .
 
-      - run: ls -lRh --color=always
-        if: always()
+  #     - run: ls -lRh --color=always
+  #       if: always()
 
-      - run: du -sh ${{ env.REPO }} ; du -sh ${{ env.REPO }}/* | sort -rh
-        continue-on-error: true
-        if: always()
+  #     - run: du -sh ${{ env.REPO }} ; du -sh ${{ env.REPO }}/* | sort -rh
+  #       continue-on-error: true
+  #       if: always()
 
-      - name: Prepare pages artifact
-        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
+  #     - name: Prepare pages artifact
+  #       run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
       
-      - name: Relax until api ratelimit reset
-        run: |
-          rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
-          remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
-          echo " [DEBUG] $rate_limit_json"
+  #     - name: Relax until api ratelimit reset
+  #       run: |
+  #         rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
+  #         remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
+  #         echo " [DEBUG] $rate_limit_json"
 
-          if [[ $remaining_api -le 400 ]] ; then
-            reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
-            current_time=$(date '+%s')
-            time_to_reset=$(( $reset_time - $current_time + 10 ))
+  #         if [[ $remaining_api -le 400 ]] ; then
+  #           reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
+  #           current_time=$(date '+%s')
+  #           time_to_reset=$(( $reset_time - $current_time + 10 ))
 
-            echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
-            sleep $time_to_reset
-          fi
+  #           echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
+  #           sleep $time_to_reset
+  #         fi
 
-      - name: Upload pages artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: github-pages
-          path: artifact.tar
-          retention-days: 3
+  #     - name: Upload pages artifact
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: github-pages
+  #         path: artifact.tar
+  #         retention-days: 3
 
-  deploy:
-    needs: [release]
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true
-    steps:
+  # deploy:
+  #   needs: [release]
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   concurrency:
+  #     group: "pages"
+  #     cancel-in-progress: true
+  #   steps:
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-        with:
-          timeout: '21900000' # 6 hours
-          error_count: '1000'
-          reporting_interval: '10000' # 10 seconds
-          token: "${{ secrets.PAT_TOKEN }}"
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v1
+  #       with:
+  #         timeout: '21900000' # 6 hours
+  #         error_count: '1000'
+  #         reporting_interval: '10000' # 10 seconds
+  #         token: "${{ secrets.PAT_TOKEN }}"
 
-      - name: Repo details
-        run: |
-          echo "=========================================================================="
-          echo "[${REPO}]"
-          echo "SigLevel = Never"
-          echo "Server = ${{ steps.deployment.outputs.page_url }}"
-          echo "=========================================================================="
+  #     - name: Repo details
+  #       run: |
+  #         echo "=========================================================================="
+  #         echo "[${REPO}]"
+  #         echo "SigLevel = Never"
+  #         echo "Server = ${{ steps.deployment.outputs.page_url }}"
+  #         echo "=========================================================================="
 
 
   test:
     runs-on: ubuntu-latest
-    needs: [deploy]
+    # needs: [deploy]
     container:
       image: "manjarolinux/build"
       options: "--privileged=true --tty=true"
