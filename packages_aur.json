@@ -83,11 +83,11 @@
     "depends": "electron",
     "meta": true,
   },
-  // {
-  //   "name": "authenticator",
-  //   "description": "2FA code generator for GNOME",
-  //   "checkdepends": "appstream-glib",
-  // },
+  {
+    "name": "authenticator",
+    "description": "2FA code generator for GNOME",
+    "checkdepends": "appstream-glib",
+  },
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
@@ -146,10 +146,10 @@
     "description": "A GNOME media player built using GJS with GTK4 toolkit and powered by GStreamer with OpenGL rendering",
     "depends": "gtuber-git",
   },
-  // {
-  //   "name": "clion",
-  //   "description": "Jetbrains C/C++ IDE",
-  // },
+  {
+    "name": "clion",
+    "description": "Jetbrains C/C++ IDE",
+  },
   {
     "name": "cloak",
     "description": "A Command Line OTP (One Time Password) Authenticator application",
@@ -231,10 +231,10 @@
     "description": "FAT filesystems explore, extract, repair, and forensic tool",
     "apply_script_file": "fatcat/fatcat.sh",
   },
-  // {
-  //   "name": "fawkes-bin",
-  //   "description": "Image cloaking tool for personal privacy",
-  // },
+  {
+    "name": "fawkes-bin",
+    "description": "Image cloaking tool for personal privacy",
+  },
   {
     "name": "feroxbuster",
     "description": "A fast, simple, recursive content discovery tool written in Rust",
@@ -286,12 +286,12 @@
     "name": "genymotion",
     "description": "Complete set of tools that provides a virtual environment for Android",
   },
-  // {
-  //   "name": "github-desktop",
-  //   "description": "GUI for managing Git and GitHub",
-  //   // add `nodejs-lts-gallium` to solve inner conflicts
-  //   "depends": "nodejs-lts-gallium gconf gnome-keyring"
-  // },
+  {
+    "name": "github-desktop",
+    "description": "GUI for managing Git and GitHub",
+    // add `nodejs-lts-gallium` to solve inner conflicts
+    "depends": "nodejs-lts-gallium gconf gnome-keyring"
+  },
   {
     "name": "gitkraken",
     "description": "Intuitive, fast, and beautiful cross-platform Git client",
@@ -384,10 +384,10 @@
     "name": "gobuster",
     "description": "A directory/file & DNS busting tool",
   },
-  // {
-  //   "name": "goland",
-  //   "description": "Jetbrains Golang IDE",
-  // },
+  {
+    "name": "goland",
+    "description": "Jetbrains Golang IDE",
+  },
   {
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
@@ -437,10 +437,10 @@
     "need_swap": true,
     "meta": true,
   },
-  // {
-  //   "name": "intellij-idea-ultimate-edition",
-  //   "description": "Jetbrains Java IDE (Professional Edition)",
-  // },
+  {
+    "name": "intellij-idea-ultimate-edition",
+    "description": "Jetbrains Java IDE (Professional Edition)",
+  },
   {
     "name": "junction",
     "description": "Application/browser chooser",
@@ -552,12 +552,12 @@
     "name": "noto-fonts-variable-ar",
     "description": "Google Noto TTF variable fonts for Arabic Scripts",
   },
-  // {
-  //   "name": "octave-plugins-all",
-  //   "description": "A meta package which depends on all other octave packages",
-  //   "local": true,
-  //   "depends": "openssh gmsh-bin scotch slepc",
-  // },
+  {
+    "name": "octave-plugins-all",
+    "description": "A meta package which depends on all other octave packages",
+    "local": true,
+    "depends": "openssh gmsh-bin scotch slepc",
+  },
   {
     "name": "openrazer",
     "description": "Drivers for razer devices",
@@ -605,10 +605,10 @@
     "gpg_key": "6A5571928D2222D83BC7456E4EDE055B645F044F",
     "gpg_key_server": "keys.openpgp.org",
   },
-  // {
-  //   "name": "pycharm-professional",
-  //   "description": "Jetbrains Python IDE (Professional Edition)",
-  // },
+  {
+    "name": "pycharm-professional",
+    "description": "Jetbrains Python IDE (Professional Edition)",
+  },
   {
     "name": "python-androguard",
     "description": "Python framework for Android application analysis",
@@ -654,10 +654,10 @@
     "description": "A GUI for legendary, an open source replacement for Epic Games Launcher",
     "depends": "python-pypresence python-pywebview"
   },
-  // {
-  //   "name": "rubymine",
-  //   "description": "Jetbrains Ruby/Rails IDE",
-  // },
+  {
+    "name": "rubymine",
+    "description": "Jetbrains Ruby/Rails IDE",
+  },
 
 //   rustscan is provided by arch as `rustscan`
 //   {
@@ -726,11 +726,11 @@
     "name": "system-monitoring-center",
     "description": "System performance and usage monitoring tool",
   },
-  // {
-  //   "name": "tenacity-git",
-  //   "description": "Open source version of audacity without telemetry",
-  //   "depends": "wxgtk3"
-  // },
+  {
+    "name": "tenacity-git",
+    "description": "Open source version of audacity without telemetry",
+    "depends": "wxgtk3"
+  },
 
   //   timeshift is provided by manjaro `timeshift`
   // {
@@ -804,13 +804,13 @@
     "description": "Thumbnail file parser that can process a variety of file types (Thumbs.db, Thumbcache_*.db)",
     "local": true,
   },
-  // {
-  //   "name": "waydroid",
-  //   "description": "A container-based approach to boot a full Android system on a regular Linux system",
-  //   "depends": "python-pyclip",
-  //   "conflictdepends": "waydroid-image waydroid-image-gapps",
-  //   "postdepends": "waydroid-script-git",
-  // },
+  {
+    "name": "waydroid",
+    "description": "A container-based approach to boot a full Android system on a regular Linux system",
+    "depends": "python-pyclip",
+    "conflictdepends": "waydroid-image waydroid-image-gapps",
+    "postdepends": "waydroid-script-git",
+  },
   {
     "name": "wfuzz",
     "description": "Utility to bruteforce (fuzz) web applications to find their not linked resources",
