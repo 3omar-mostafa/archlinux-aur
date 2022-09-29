@@ -435,7 +435,9 @@ jobs:
         if: always()
 
       - name: Prepare pages artifact
-        run: tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
+        run: |
+          tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
+          rm -rf "${{ env.REPO }}"
       
       - name: Relax until api ratelimit reset
         run: |
