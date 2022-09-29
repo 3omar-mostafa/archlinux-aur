@@ -512,7 +512,9 @@ jobs:
           pacman -Sy --noconfirm --color always --needed base-devel python-json5 asp
 
       - name: Config Repo
-        run: patch -Np1 -i ./scripts/pacman_repo.patch /etc/pacman.conf
+        run: |
+          patch -Np1 -i ./scripts/pacman_repo.patch /etc/pacman.conf
+          pacman -Syy --noconfirm --color always
       
       - name: Intall Packages
         shell: bash -l {0}
@@ -521,7 +523,7 @@ jobs:
 
           while read -r package; do
               echo -e "\e[1m\e[32m =================================== Installing '$package' =================================== \e[0m"
-              pacman -Sy --noconfirm --color always --ask 4 --overwrite '*' $package 
+              pacman -S --noconfirm --color always --ask 4 --overwrite '*' $package 
 
               if [[ $? != 0 ]] ; then
                 echo -e "\e[1m\e[31m ============================== Failed to install '$package' ============================== \e[0m"
