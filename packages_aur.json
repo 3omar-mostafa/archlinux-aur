@@ -384,10 +384,10 @@
     "name": "gobuster",
     "description": "A directory/file & DNS busting tool",
   },
-  // {
-  //   "name": "goland",
-  //   "description": "Jetbrains Golang IDE",
-  // },
+  {
+    "name": "goland",
+    "description": "Jetbrains Golang IDE",
+  },
   {
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
@@ -489,6 +489,10 @@
     "name": "megatools",
     "description": "Command line client application for Mega.nz",
     "depends": "nodejs-lts-gallium",
+  },
+  {
+    "name": "memtest86-efi",
+    "description": "A free, thorough, stand alone memory test as an EFI application",
   },
   {
     "name": "metadata-cleaner",
@@ -606,10 +610,10 @@
     "gpg_key": "6A5571928D2222D83BC7456E4EDE055B645F044F",
     "gpg_key_server": "keys.openpgp.org",
   },
-  // {
-  //   "name": "pycharm-professional",
-  //   "description": "Jetbrains Python IDE (Professional Edition)",
-  // },
+  {
+    "name": "pycharm-professional",
+    "description": "Jetbrains Python IDE (Professional Edition)",
+  },
   {
     "name": "python-androguard",
     "description": "Python framework for Android application analysis",
@@ -655,10 +659,10 @@
     "description": "A GUI for legendary, an open source replacement for Epic Games Launcher",
     "depends": "python-pypresence python-pywebview"
   },
-  // {
-  //   "name": "rubymine",
-  //   "description": "Jetbrains Ruby/Rails IDE",
-  // },
+  {
+    "name": "rubymine",
+    "description": "Jetbrains Ruby/Rails IDE",
+  },
 
 //   rustscan is provided by arch as `rustscan`
 //   {
