@@ -6,7 +6,7 @@ index 3982bbe..655af6f 100644
 +
 +[aur-repo]
 +SigLevel = Never
-+Server = https://3omar-mostafa.github.io/manjaro/
++Server = {{PM_REPO_PATCH_URL}}
 +
  [core]
  Include = /etc/pacman.d/mirrorlist

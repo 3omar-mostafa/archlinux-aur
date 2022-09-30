@@ -45,7 +45,7 @@ index c94ac89..25132b6 100644
 +        <br><div style="border: 3px; border-style: dashed; padding: 0.5%; margin-top: 0.5%; margin-bottom: 0.5%; display: inline-block;">
 +            	[aur-repo]
 +            <br>SigLevel = Never
-+            <br>Server = <a href="https://3omar-mostafa.github.io/manjaro/">https://3omar-mostafa.github.io/manjaro/</a>
++            <br>Server = <a href="https://aur-repo.pages.dev/">https://aur-repo.pages.dev/</a>
 +        </div>
     <table class="table table-sm table-hover table-striped">
 diff --git a/share/apindex/icons.xml b/share/apindex/icons.xml

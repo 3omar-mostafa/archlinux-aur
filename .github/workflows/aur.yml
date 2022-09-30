@@ -38,6 +38,7 @@ permissions:
   contents: write # For creating releases
   pages: write
   id-token: write
+  deployments: write
 
 defaults:
   run:
@@ -296,7 +297,7 @@ jobs:
           path: "*.pkg.tar.zst"
           retention-days: 3
 
-  release:
+  deploy:
     needs: [load_balancer, build]
     runs-on: ubuntu-latest
     container:
@@ -424,6 +425,12 @@ jobs:
           cd "${REPO}"
           apindex . "AUR Repository v${VERSION}"
 
+      - name: Add deploy redirects
+        run: |
+          cd "${REPO}" && mkdir deploy && cd deploy
+          cp -v ../index.html .
+          echo "/:file https://github.com/3omar-mostafa/manjaro/releases/download/${VERSION}/:file 301" > _redirects
+
       # There was an issue while deploying non writable files
       - run: chmod -R a+rw .
 
@@ -434,61 +441,31 @@ jobs:
         continue-on-error: true
         if: always()
 
-      - name: Prepare pages artifact
+      - name: Prepare Cloudflare deploy
         run: |
-          tar --dereference --hard-dereference --directory "${{ env.REPO }}" -cvf artifact.tar --exclude=.git --exclude=.github .
-          rm -rf "${{ env.REPO }}"
-      
-      - name: Relax until api ratelimit reset
-        run: |
-          rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
-          remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
-          echo " [DEBUG] $rate_limit_json"
+          pacman -Sy --noconfirm --color always --needed nodejs-lts-gallium npm
+          npm install -g wrangler@2
 
-          if [[ $remaining_api -le 400 ]] ; then
-            reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
-            current_time=$(date '+%s')
-            time_to_reset=$(( $reset_time - $current_time + 10 ))
-
-            echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
-            sleep $time_to_reset
-          fi
-
-      - name: Upload pages artifact
-        uses: actions/upload-artifact@v3
+      - name: Publish to Cloudflare Pages
+        id: cloudflare-pages-deploy
+        uses: cloudflare/pages-action@1
         with:
-          name: github-pages
-          path: artifact.tar
-          retention-days: 3
-
-  deploy:
-    needs: [release]
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: "pages"
-      cancel-in-progress: true
-    steps:
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
-        with:
-          timeout: '21900000' # 6 hours
-          error_count: '1000'
-          reporting_interval: '10000' # 10 seconds
-          token: "${{ secrets.PAT_TOKEN }}"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: "${{ env.REPO }}"
+          directory: "${{ env.REPO }}/deploy"
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Repo details
         run: |
           echo "=========================================================================="
           echo "[${REPO}]"
           echo "SigLevel = Never"
-          echo "Server = ${{ steps.deployment.outputs.page_url }}"
+          echo "Server = ${{ steps.cloudflare-pages-deploy.outputs.url }}"
           echo "=========================================================================="
 
+    outputs:
+      deploy_url: ${{ steps.cloudflare-pages-deploy.outputs.url }}
 
   test:
     runs-on: ubuntu-latest
@@ -513,6 +490,7 @@ jobs:
 
       - name: Config Repo
         run: |
+          sed -i "s^{{PM_REPO_PATCH_URL}}^${{ needs.deploy.outputs.deploy_url }}^g" ./scripts/pacman_repo.patch
           patch -Np1 -i ./scripts/pacman_repo.patch /etc/pacman.conf
           pacman -Syy --noconfirm --color always
       
