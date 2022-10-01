@@ -506,6 +506,8 @@ jobs:
               if [[ $? != 0 ]] ; then
                 echo -e "\e[1m\e[31m ============================== Failed to install '$package' ============================== \e[0m"
                 echo "$package" >> failed_to_install.txt
+              else
+                pacman -R --color always --noconfirm --ask 4 "$package" >/dev/null
               fi
 
               echo -e "\e[1m\e[33m =========================================================================================== \e[0m"
