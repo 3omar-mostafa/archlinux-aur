@@ -48,9 +48,14 @@
   },
   {
     "name": "android-sdk-tools",
-    "description": "Build-Tools for Google Android SDK (aapt, aidl, dexdump, dx, llvm-rs-cc)",
-    "conflictdepends": "android-sdk-build-tools android-sdk-platform-tools",
+    "description": "Android SDK Tools (adb, fastboot, aapt, aidl, dexdump, dx, llvm-rs-cc, ...)",
+    "conflictdepends": "android-sdk-build-tools android-sdk-platform-tools android-sdk-cmdline-tools-latest",
     "meta": true,
+  },
+  {
+    "name": "android-studio",
+    "description": "The official Android IDE (Stable branch)",
+    "postdepends": "android-emulator",
   },
   {
     "name": "anydesk-bin",
@@ -287,6 +292,10 @@
     "description": "Complete set of tools that provides a virtual environment for Android",
   },
   {
+    "name": "gextractwinicons",
+    "description": "Extract cursors and icons from MS Windows compatible resource files",
+  },
+  {
     "name": "github-desktop",
     "description": "GUI for managing Git and GitHub",
     // add `nodejs-lts-gallium` to solve inner conflicts
@@ -319,6 +328,10 @@
   {
     "name": "gnome-search-providers-jetbrains",
     "description": "Add Jetbrains IDE projects to Gnome Search",
+  },
+  {
+    "name": "gnome-shell-extension-bluetooth-quick-connect",
+    "description": "Allow to connect bluetooth paired devices from gnome control panel",
   },
   {
     "name": "gnome-shell-extension-dash-to-dock-animator-git",
@@ -480,6 +493,10 @@
     "name": "logisim-evolution",
     "description": "An educational tool for designing and simulating digital logic circuits (with more features)",
     "depends": "jdk17-openjdk",
+  },
+  {
+    "name": "macchina",
+    "description": "A system information fetcher, with an emphasis on performance",
   },
   {
     "name": "masterpdfeditor-free",
@@ -730,6 +747,10 @@
   {
     "name": "system-monitoring-center",
     "description": "System performance and usage monitoring tool",
+  },
+  {
+    "name": "teamviewer",
+    "description": "All-In-One Software for Remote Support and Online Meetings",
   },
   {
     "name": "tenacity-git",
