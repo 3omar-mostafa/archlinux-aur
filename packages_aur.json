@@ -168,6 +168,15 @@
     "meta": true,
   },
   {
+    "name": "coreboot-utils",
+    "description": "Tools and utilities to work with coreboot firmware",
+  },
+  {
+    "name": "cpu-x",
+    "description": "A Free software that gathers information on CPU, motherboard and more",
+    "depends": "glfw-x11",
+  },
+  {
     "name": "crunch",
     "description": "A wordlist which generate all possible combinations and permutations"
   },
@@ -449,6 +458,10 @@
     "conflictdepends": "insomnia insomnia-electron",
     "need_swap": true,
     "meta": true,
+  },
+  {
+    "name": "instaloader",
+    "description": "Download pictures, videos and metadata from Instagram",
   },
   {
     "name": "intellij-idea-ultimate-edition",
