@@ -30,13 +30,12 @@
     "description": "Professional hex editing with Binary Templates",
     "depends": "qt5-tools tcl"
   },
-  // TODO
-  // {
-  //   "name": "7-zip",
-  //   "description": "File archiver with a high compression ratio",
-  //   "conflictdepends": "7-zip 7-zip-bin 7-zip-full",
-  //   "meta": true,
-  // },
+  {
+    "name": "7-zip",
+    "description": "File archiver with a high compression ratio",
+    "conflictdepends": "7-zip 7-zip-bin 7-zip-full",
+    "meta": true,
+  },
   {
     "name": "android-apktool",
     "description": "A tool for reverse engineering Android apk files",
@@ -91,7 +90,7 @@
   {
     "name": "authenticator",
     "description": "2FA code generator for GNOME",
-    "checkdepends": "appstream-glib",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "balena-etcher",
@@ -238,7 +237,7 @@
     "name": "extension-manager",
     "description": "A native tool for browsing, installing, and managing GNOME Shell Extensions",
     "depends": "python-gobject",
-    "checkdepends": "appstream-glib",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "fatcat",
@@ -286,12 +285,11 @@
     "description": "An open source desktop YouTube player built with privacy in mind",
     "depends": "electron16-bin",
   },
-  // TODO
-  // {
-  //   "name": "gdm-settings",
-  //   "description": "A settings app for Gnome's Login Manager (GDM)",
-  //   "checkdepends": "appstream appstream-glib",
-  // },
+  {
+    "name": "gdm-settings",
+    "description": "A settings app for Gnome's Login Manager (GDM)",
+    "checkdepends": "appstream appstream-glib",
+  },
   {
     "name": "gedit-plugin-markdown_preview",
     "description": "A gedit plugin previewing markdown (.md) documents",
@@ -326,13 +324,13 @@
   {
     "name": "gnome-obfuscate",
     "description": "Censor private information from images",
-    "checkdepends": "appstream-glib",
+    "checkdepends": "appstream appstream-glib",
   },
   //   gnome-console is provided by manjaro `gnome-console`
   // {
   //   "name": "gnome-console",
   //   "description": "A simple user-friendly terminal emulator for the GNOME desktop",
-  //   "checkdepends": "appstream-glib",
+  //   "checkdepends": "appstream appstream-glib",
   // },
   {
     "name": "gnome-search-providers-jetbrains",
@@ -417,11 +415,8 @@
   {
     "name": "gradience",
     "description": "Customize the look of Adwaita",
-    // After this commit, `libadwaita-git` was replaced with `libadwaita>=1:1.2.0` which has not been in manjaro stable yet
-    // TODO
-    "checkout": "9621e3efc552fdb6d5bb5d73375f713294a15d16",
     "depends": "adw-gtk3",
-    "checkdepends": "appstream-glib",
+    "checkdepends": "appstream appstream-glib",
     "postdepends": "gradience-plugins",
   },
   {
@@ -527,7 +522,7 @@
   {
     "name": "metadata-cleaner",
     "description": "Python GTK application to view and clean metadata in files, using mat2",
-    "checkdepends": "appstream mypy python-pycodestyle python-pydocstyle python-tomli reuse",
+    "checkdepends": "appstream appstream-glib mypy python-pycodestyle python-pydocstyle python-tomli reuse",
   },
   {
     "name": "mongodb-bin",
@@ -775,7 +770,7 @@
   // {
   //   "name": "timeshift",
   //   "description": "A system restore utility for Linux",
-  //   "checkdepends": "appstream-glib",
+  //   "checkdepends": "appstream appstream-glib",
   // },
   {
     "name": "tor-browser",
@@ -787,7 +782,7 @@
   //   "name": "touche",
   //   "description": "Linux multi-touch gesture recognizer",
   //   "postdepends": "gnome-shell-extension-x11gestures",
-  //   "checkdepends": "appstream-glib",
+  //   "checkdepends": "appstream appstream-glib",
   // },
   {
     "name": "trufflehog",
