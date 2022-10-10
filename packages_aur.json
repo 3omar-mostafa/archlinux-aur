@@ -167,6 +167,11 @@
     "meta": true,
   },
   {
+    "name": "commit",
+    "description": "Commit message editor for GNOME",
+    "checkdepends": "appstream appstream-glib",
+  },
+  {
     "name": "coreboot-utils",
     "description": "Tools and utilities to work with coreboot firmware",
   },
@@ -189,6 +194,15 @@
     "name": "depix-git",
     "description": "A tool for recovering passwords from pixelized screenshots",
     "apply_script_file": "depix/depix.sh"
+  },
+  {
+    "name": "dex2jar",
+    "description": "Tools to work with android .dex and java .class files",
+  },
+  {
+    "name": "dialect",
+    "description": "A translation app for GNOME",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "dirb",
@@ -349,11 +363,10 @@
     "name": "gnome-shell-extension-fullscreen-notifications-git",
     "description": "Extension that enables all notifications in fullscreen mode",
   },
-  // Wait until package is more mature and fixed
-  // {
-  //   "name": "gnome-shell-extension-fuzzy-app-search",
-  //   "description": "Fuzzy application search results for Gnome Search",
-  // },
+  {
+    "name": "gnome-shell-extension-fuzzy-app-search",
+    "description": "Fuzzy application search results for Gnome Search",
+  },
   {
     "name": "gnome-shell-extension-forge",
     "description": "Tiling and Window Manager for Gnome-Shell",
@@ -368,6 +381,10 @@
     "name": "gnome-shell-extension-improvedosk-git",
     "description": "Makes GNOME's onscreen keyboard more useable",
     "depends": "ttf-symbola",
+  },
+  {
+    "name": "gnome-shell-extension-pano",
+    "description": "Next-gen Clipboard Manager",
   },
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
@@ -461,6 +478,14 @@
   {
     "name": "intellij-idea-ultimate-edition",
     "description": "Jetbrains Java IDE (Professional Edition)",
+  },
+  {
+    "name": "jadx-gui-desktop",
+    "description": "A .desktop file for JADX-GUI, with an icon",
+  },
+  {
+    "name": "jd-gui",
+    "description": "A standalone graphical utility that displays Java source codes of .class files",
   },
   {
     "name": "junction",
@@ -676,6 +701,12 @@
     "gpg_key": "1F521FF0F87E9E1CDE46B8A9F4928C4DD24D4DF8"
   },
   {
+    "name": "raider-file-shredder",
+    "description": "Securely delete your files",
+    "depends": "python-gobject",
+    "checkdepends": "appstream appstream-glib",
+  },
+  {
     "name": "rar",
     "description": "A command-line port of the rar compression utility",
   },
@@ -730,6 +761,11 @@
   {
     "name": "seclists",
     "description": "A collection of multiple types of lists used during security assessments, collected in one place",
+  },
+  {
+    "name": "secrets",
+    "description": "Password manager for GNOME",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "spiderfoot",
