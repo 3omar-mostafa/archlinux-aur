@@ -179,6 +179,7 @@
     "name": "cpu-x",
     "description": "A Free software that gathers information on CPU, motherboard and more",
     "depends": "glfw-x11",
+    "checkdepends": "mawk nawk",
   },
   {
     "name": "crunch",
@@ -397,6 +398,7 @@
   {
     "name": "gnome-shell-extension-pano",
     "description": "Next-gen Clipboard Manager",
+    "depends": "zip",
   },
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
