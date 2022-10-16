@@ -221,6 +221,13 @@
     "name": "dosbox-x",
     "description": "x86 emulator with builtin DOS, with patches with more features",
   },
+
+//   downgrade is provided by manjaro `downgrade`  
+//   {
+//     "name": "downgrade",
+//     "description": "Bash script for downgrading one or more packages to a version in your cache or the A.L.A",
+//   },
+
   {
     "name": "drawio",
     "description": "Diagram drawing application built on web technology",
@@ -320,7 +327,7 @@
     "name": "github-desktop",
     "description": "GUI for managing Git and GitHub",
     // add `nodejs-lts-gallium` to solve inner conflicts
-    "depends": "nodejs-lts-gallium gconf gnome-keyring"
+    "depends": "python2-bin nodejs-lts-gallium gconf gnome-keyring"
   },
   {
     "name": "gitkraken",
@@ -346,6 +353,11 @@
   //   "description": "A simple user-friendly terminal emulator for the GNOME desktop",
   //   "checkdepends": "appstream appstream-glib",
   // },
+
+  {
+    "name": "gnome-search-provider-emoji-shortcodes",
+    "description": "GNOME Search Provider for Emoji Shortcodes",
+  },
   {
     "name": "gnome-search-providers-jetbrains",
     "description": "Add Jetbrains IDE projects to Gnome Search",
@@ -859,8 +871,17 @@
     "description": "Configuration to integrate browsers with uget download manager",
   },
   {
+    "name": "unity-editor-lts",
+    "description": "Development platform for creating 2D and 3D multiplatform games and interactive experiences",
+    "postdepends": "unity-editor-lts-android unity-editor-lts-doc unity-editor-lts-ios unity-editor-lts-mac unity-editor-lts-webgl unity-editor-lts-windows",
+  },
+  {
     "name": "uno-calculator-bin",
     "description": "Windows Calculator",
+  },
+  {
+    "name": "unreal-engine",
+    "description": "A 3D game engine by Epic Games which can be used non-commercially for free",
   },
   {
     "name": "usbguard-notifications",
@@ -873,6 +894,10 @@
     "name": "vinetto",
     "description": "Thumbnail file parser that can process a variety of file types (Thumbs.db, Thumbcache_*.db)",
     "local": true,
+  },
+  {
+    "name": "vt-cli",
+    "description": "VirusTotal Command Line Interface",
   },
   {
     "name": "waydroid",

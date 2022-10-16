@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
-  # push:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -117,7 +117,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core
 
       - name: Setup mold linker
         if: ${{ ! matrix.disable_mold }}
