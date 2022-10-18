@@ -103,6 +103,12 @@
     "depends": "rust",
   },
   {
+    "name": "beats",
+    "description": "Data shippers, send data from multi-systems to Logstash or Elasticsearch (ELK Stack)",
+    "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
+    "depends": "jdk17-openjdk",
+  },
+  {
     "name": "binfmt-java",
     "description": "Allow running .jar files directly as executable",
   },
@@ -242,6 +248,14 @@
     // "postdepends": "droidcam-obs-plugin",
     "postdepends": "droidcam-obs-plugin-bin",
   },
+  {
+    "name": "elasticsearch",
+    "description": "Distributed RESTful search engine built on top of Lucene (ELK Stack)",
+    "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
+    "depends": "jdk17-openjdk",
+    "meta": true,
+    "conflictdepends": "elasticsearch elasticsearch-xpack",
+  }
   {
     "name": "etcher-bin",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
@@ -517,6 +531,14 @@
     "postdepends": "python-kafka",
   },
   {
+    "name": "kibana",
+    "description": "Browser based analytics and search dashboard for Elasticsearch (ELK Stack)",
+    "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
+    "depends": "jdk17-openjdk",
+    "meta": true,
+    "conflictdepends": "kibana kibana-xpack",
+  },
+  {
     "name": "lens",
     "description": "Kubernetes IDE",
     "depends": "nodejs-lts-gallium",
@@ -540,6 +562,14 @@
     "name": "logisim-evolution",
     "description": "An educational tool for designing and simulating digital logic circuits (with more features)",
     "depends": "jdk17-openjdk",
+  },
+  {
+    "name": "logstash",
+    "description": "Tool for managing events and logs (ELK Stack)",
+    "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
+    "depends": "jdk17-openjdk",
+    "meta": true,
+    "conflictdepends": "logstash logstash-xpack python-logstash",
   },
   {
     "name": "macchina",
