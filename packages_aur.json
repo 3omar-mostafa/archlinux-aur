@@ -255,7 +255,7 @@
     "depends": "jdk17-openjdk",
     "meta": true,
     "conflictdepends": "elasticsearch elasticsearch-xpack",
-  }
+  },
   {
     "name": "etcher-bin",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
