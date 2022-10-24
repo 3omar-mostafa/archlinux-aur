@@ -162,7 +162,7 @@ jobs:
           fi
 
           sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
-          sudo -u user chmod -R a+rw $HOME
+          sudo -u user chmod -R a+rw ~
           gpg $args --recv-keys "${{ matrix.gpg_key }}"
           chmod -R a+rw ~
 
@@ -172,7 +172,7 @@ jobs:
           wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
           
           sudo -u user gpg --import /tmp/gpg.key
-          sudo -u user chmod -R a+rw $HOME
+          sudo -u user chmod -R a+rw ~
           gpg --import /tmp/gpg.key
           chmod -R a+rw ~
 
