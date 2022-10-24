@@ -178,6 +178,10 @@
     "checkdepends": "appstream appstream-glib",
   },
   {
+    "name": "conan",
+    "description": "A distributed, open source, C/C++ package manager",
+  },
+  {
     "name": "coreboot-utils",
     "description": "Tools and utilities to work with coreboot firmware",
   },
@@ -813,6 +817,10 @@
     "checkdepends": "appstream appstream-glib",
   },
   {
+    "name": "semgrep-bin",
+    "description": "Fast static analysis engine for finding bugs, detecting vulnerabilities, and enforcing code standards",
+  },
+  {
     "name": "spiderfoot",
     "description": "SpiderFoot is an open source intelligence (OSINT) automation tool",
     "depends": "python2-bin",
@@ -914,10 +922,11 @@
     "name": "uno-calculator-bin",
     "description": "Windows Calculator",
   },
-  {
-    "name": "unreal-engine",
-    "description": "A 3D game engine by Epic Games which can be used non-commercially for free",
-  },
+  // Needs access
+  // {
+  //   "name": "unreal-engine",
+  //   "description": "A 3D game engine by Epic Games which can be used non-commercially for free",
+  // },
   {
     "name": "usbguard-notifications",
     "description": "USBGuard GUI and Notification tools",
