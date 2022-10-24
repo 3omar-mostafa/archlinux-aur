@@ -162,15 +162,19 @@ jobs:
           fi
 
           sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
+          sudo -u user chmod -R a+rw $HOME
           gpg $args --recv-keys "${{ matrix.gpg_key }}"
+          chmod -R a+rw ~
 
-      - name: Install GPG Key
+      - name: Install GPG Key (From URL)
         if: matrix.gpg_url
         run: |
           wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
           
           sudo -u user gpg --import /tmp/gpg.key
+          sudo -u user chmod -R a+rw $HOME
           gpg --import /tmp/gpg.key
+          chmod -R a+rw ~
 
       - name: Install/Build Dependencies of ${{ matrix.name }}
         if: matrix.depends || matrix.checkdepends

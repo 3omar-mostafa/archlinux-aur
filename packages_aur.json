@@ -95,7 +95,7 @@
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
-    "depends": "nodejs-lts-gallium electron12-bin",
+    "depends": "nodejs-lts-gallium electron12-bin python2-bin",
   },  
   {
     "name": "battop",
@@ -342,7 +342,7 @@
     "name": "github-desktop",
     "description": "GUI for managing Git and GitHub",
     // add `nodejs-lts-gallium` to solve inner conflicts
-    "depends": "python2-bin nodejs-lts-gallium gconf gnome-keyring"
+    "depends": "nodejs-lts-gallium gconf gnome-keyring"
   },
   {
     "name": "gitkraken",
@@ -462,7 +462,7 @@
     "description": "Customize the look of Adwaita",
     "depends": "adw-gtk3",
     "checkdepends": "appstream appstream-glib",
-    "postdepends": "gradience-plugins",
+    // "postdepends": "gradience-plugins",
   },
   {
     "name": "guiscrcpy",
@@ -518,6 +518,7 @@
   {
     "name": "junction",
     "description": "Application/browser chooser",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "jupyter",
@@ -534,7 +535,7 @@
     "name": "kibana",
     "description": "Browser based analytics and search dashboard for Elasticsearch (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
-    "depends": "jdk17-openjdk",
+    "depends": "jdk17-openjdk nodejs-lts-gallium",
     "meta": true,
     "conflictdepends": "kibana kibana-xpack",
   },
@@ -567,7 +568,7 @@
     "name": "logstash",
     "description": "Tool for managing events and logs (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
-    "depends": "jdk17-openjdk",
+    "depends": "jdk17-openjdk python2-bin",
     "meta": true,
     "conflictdepends": "logstash logstash-xpack python-logstash",
   },
@@ -814,6 +815,7 @@
   {
     "name": "spiderfoot",
     "description": "SpiderFoot is an open source intelligence (OSINT) automation tool",
+    "depends": "python2-bin",
   },
   {
     "name": "steghide",
@@ -905,6 +907,7 @@
   {
     "name": "unity-editor-lts",
     "description": "Development platform for creating 2D and 3D multiplatform games and interactive experiences",
+    "depends": "python2-bin",
     "postdepends": "unity-editor-lts-android unity-editor-lts-doc unity-editor-lts-ios unity-editor-lts-mac unity-editor-lts-webgl unity-editor-lts-windows",
   },
   {
