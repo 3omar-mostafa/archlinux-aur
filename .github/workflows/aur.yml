@@ -163,7 +163,7 @@ jobs:
 
           sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
           gpg $args --recv-keys "${{ matrix.gpg_key }}"
-          chmod -R a+rw ~
+          chown -R user:user ~
 
       - name: Install GPG Key (From URL)
         if: matrix.gpg_url
@@ -172,7 +172,7 @@ jobs:
           
           sudo -u user gpg --import /tmp/gpg.key
           gpg --import /tmp/gpg.key
-          chmod -R a+rw ~
+          chown -R user:user ~
 
       - name: Install/Build Dependencies of ${{ matrix.name }}
         if: matrix.depends || matrix.checkdepends
@@ -262,7 +262,7 @@ jobs:
                 RED "********************************************************************************"
               fi
               GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
+              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
               export old_package="\$package"
               GREEN "================================================================================"
             done
