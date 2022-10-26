@@ -117,7 +117,13 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
+
+      - name: Install python2
+        run: |
+          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
+          export DOWNGRADE_FROM_ALA=1
+          yes | downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
 
       - name: Setup mold linker
         if: ${{ ! matrix.disable_mold }}
@@ -340,6 +346,9 @@ jobs:
       - name: "Delete Empty Directories"
         continue-on-error: true
         run: find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
+
+      - name: "Delete Python 2 Packages"
+        run: rm -rfv python2* || true
 
       - name: Generate database files
         run: |
