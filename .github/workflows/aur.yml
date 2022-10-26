@@ -88,14 +88,14 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-            # - name: "7-zip-bin"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "ttf-ms-win10-auto"
 
     container:
       image: "manjarolinux/build"
       # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty"
+      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup"
 
     steps:
       - uses: actions/checkout@v3
@@ -197,6 +197,11 @@ jobs:
           chmod a+x deps.sh
           bat --color always --wrap=never deps.sh
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+
+      - name: Test systemctl & udisks
+        run: |
+          systemctl status udisks || true
+          /usr/lib/udisks2/udisksd
 
       - name: Build ${{ matrix.name }}
         if: ${{ ! matrix.meta }}
