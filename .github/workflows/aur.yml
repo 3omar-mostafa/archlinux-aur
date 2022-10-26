@@ -203,6 +203,7 @@ jobs:
       - name: Test systemctl & udisks
         run: |
           systemctl status udisks || true
+          pacman -Sy udisks2 --color always --noconfirm
           /usr/lib/udisks2/udisksd
 
       - name: Build ${{ matrix.name }}
