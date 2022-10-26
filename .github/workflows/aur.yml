@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
-  push:
+  # push:
 
 env:
   BAT_PAGER: ''
@@ -88,9 +88,9 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "ttf-ms-win10-auto"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          # include:
+            # - name: "ttf-ms-win10-auto"
 
     container:
       image: "manjarolinux/build"
@@ -199,12 +199,6 @@ jobs:
           chmod a+x deps.sh
           bat --color always --wrap=never deps.sh
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
-
-      - name: Test systemctl & udisks
-        run: |
-          systemctl status udisks || true
-          pacman -Sy udisks2 --color always --noconfirm
-          /usr/lib/udisks2/udisksd
 
       - name: Build ${{ matrix.name }}
         if: ${{ ! matrix.meta }}
