@@ -58,7 +58,7 @@ jobs:
             #       Python json works well as it removes spaces
             pip3 install json5 # Allows using C-style comments in json
             python3 -c "import json5, json; json.dump(json5.load(open('packages_aur.json', 'r')), open('packages_aur.json', 'w'))"
-            echo "::set-output name=matrix::$(cat packages_aur.json)"
+            echo "matrix=$(cat packages_aur.json)" >> $GITHUB_OUTPUT
 
 
         - name: View Packages
@@ -71,7 +71,7 @@ jobs:
               version=$(date --utc '+%Y%m%d-%H%M')
               echo "VERSION=${version}" >> $GITHUB_ENV
               echo "Version: ${version}"
-              echo "::set-output name=version::${version}"
+              echo "version=${version}" >> $GITHUB_OUTPUT
 
 
       outputs:
