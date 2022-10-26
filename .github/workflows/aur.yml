@@ -112,7 +112,7 @@ jobs:
           sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
           sed -i 's/--retry 3 --retry-delay 3/--retry 15 --retry-delay 10 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
           echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
-          bat --color always --wrap=never /etc/makepkg.conf
+          bat --color always --wrap=never /etc/makepkg.conf -l conf
 
       - name: Install basic dependencies
         run: |
