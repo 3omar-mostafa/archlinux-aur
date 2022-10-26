@@ -180,6 +180,13 @@ jobs:
           gpg --import /tmp/gpg.key
           chown -R user:user ~
 
+      - name: Install Arch Linux Dependencies
+        if: matrix.archdepends
+        run: |
+          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
+          export DOWNGRADE_FROM_ALA=1
+          yes | downgrade ${{ matrix.archdepends }} --ala-only -- $PACMAN_OPTIONS
+
       - name: Install/Build Dependencies of ${{ matrix.name }}
         if: matrix.depends || matrix.checkdepends
         run: |

@@ -6,6 +6,7 @@
 // - depends [dependencies required to solve conflicts or optional dependencies ...]
 // - checkdepends [dependencies required to check packaging]
 // - postdepends [install these dependencies after original package]
+// - archdepends [install these dependencies before original package from Arch Linux Repos]
 // - conflictdepends [install each of these dependencies one at a time]
 // - checkout [a commit hash or branch to checkout to after cloning aur repo]
 // - apply_cmd [bash commands to run after cloning aur repo]
@@ -672,6 +673,7 @@
     "name": "opensnitch",
     "description": "GNU/Linux port of the Little Snitch application firewall",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn",
+    "archdepends": "python-grpcio-tools==1.50.0-1"
   },
   {
     "name": "pam_usb",
