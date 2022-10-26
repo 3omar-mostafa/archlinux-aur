@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun'
   workflow_dispatch:
-  # push:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -121,9 +121,11 @@ jobs:
 
       - name: Install python2
         run: |
+          mv /usr/share/libalpm/hooks/package-cleanup.hook /tmp/package-cleanup.hook
           PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
           export DOWNGRADE_FROM_ALA=1
           yes | downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
+          mv /tmp/package-cleanup.hook /usr/share/libalpm/hooks/package-cleanup.hook
 
       - name: Setup mold linker
         if: ${{ ! matrix.disable_mold }}
