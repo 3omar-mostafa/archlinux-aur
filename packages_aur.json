@@ -470,6 +470,10 @@
     // "postdepends": "gradience-plugins",
   },
   {
+    "name": "grub-hook",
+    "description": "Pacman hook to update GRUB after a kernel update",
+  },
+  {
     "name": "guiscrcpy",
     "description": "Open Source GUI based Android Screen Mirroring System"
   },
@@ -496,6 +500,10 @@
   {
     "name": "icoextract",
     "description": "Icon extractor for Windows PE files (.exe/.dll) with optional thumbnailer functionality",
+  },
+  {
+    "name": "inception",
+    "description": "A FireWire physical memory manipulation and hacking tool exploiting IEEE 1394 SBP-2 DMA",
   },
   {
     "name": "insomnia",
