@@ -96,7 +96,7 @@
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
-    "depends": "nodejs-lts-gallium electron12-bin python2-bin",
+    "depends": "nodejs-lts-gallium electron12-bin",
   },  
   {
     "name": "battop",
@@ -240,6 +240,13 @@
 //     "description": "Bash script for downgrading one or more packages to a version in your cache or the A.L.A",
 //   },
 
+  {
+    "name": "downloaders",
+    "description": "Collection of file downloaders",
+    "gpg_key": "5680CA389D365A88", // for gallery-dl
+    "meta": true,
+    "conflictdepends": "moodle-dl gallery-dl twitch-dl cyberdrop-dl edx-dl coursera-dl lynda-dl cyberdropdownloader soundcloud-dl music-dl instaloader zoomdl",
+  },
   {
     "name": "drawio",
     "description": "Diagram drawing application built on web technology",
@@ -511,10 +518,6 @@
     "conflictdepends": "insomnia insomnia-electron",
     "need_swap": true,
     "meta": true,
-  },
-  {
-    "name": "instaloader",
-    "description": "Download pictures, videos and metadata from Instagram",
   },
   {
     "name": "intellij-idea-ultimate-edition",
@@ -1025,10 +1028,6 @@
   {
     "name": "zoom",
     "description": "Video Conferencing and Web Conferencing Service",
-  },
-  {
-    "name": "zoomdl",
-    "description": "Download Zoom recorded meetings easily",
   },
   {
     "name": "zsh-autocomplete-git",
