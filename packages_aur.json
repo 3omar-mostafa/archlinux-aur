@@ -243,8 +243,10 @@
   {
     "name": "downloaders",
     "description": "Collection of file downloaders",
-    "gpg_key": "5680CA389D365A88", // for gallery-dl
     "meta": true,
+    "gpg_key": "5680CA389D365A88", // for gallery-dl
+    "depends": "yt-dlp-drop-in",
+    "checkdepends": "python-nose python-pytest python-bottle",
     "conflictdepends": "moodle-dl gallery-dl twitch-dl cyberdrop-dl edx-dl coursera-dl lynda-dl cyberdropdownloader soundcloud-dl music-dl instaloader zoomdl",
   },
   {
