@@ -582,7 +582,7 @@
     "name": "logstash",
     "description": "Tool for managing events and logs (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
-    "depends": "jdk17-openjdk python2-bin",
+    "depends": "jdk17-openjdk",
     "meta": true,
     "conflictdepends": "logstash logstash-xpack python-logstash",
   },
@@ -834,7 +834,6 @@
   {
     "name": "spiderfoot",
     "description": "SpiderFoot is an open source intelligence (OSINT) automation tool",
-    "depends": "python2-bin",
   },
   {
     "name": "steghide",
@@ -926,7 +925,6 @@
   // {
   //   "name": "unity-editor-lts",
   //   "description": "Development platform for creating 2D and 3D multiplatform games and interactive experiences",
-  //   "depends": "python2-bin",
   //   "postdepends": "unity-editor-lts-android unity-editor-lts-doc unity-editor-lts-ios unity-editor-lts-mac unity-editor-lts-webgl unity-editor-lts-windows",
   // },
   {
