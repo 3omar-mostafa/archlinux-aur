@@ -738,6 +738,7 @@
   {
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
+    "checkout": "23b6216f23a3a6b6495e521854cf0ee37b899420", // remove when python-frida is updated >= 16
   },
   {
     "name": "python-numba",
