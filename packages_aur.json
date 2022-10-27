@@ -247,7 +247,7 @@
     "gpg_key": "5680CA389D365A88", // for gallery-dl
     "depends": "yt-dlp-drop-in",
     "checkdepends": "python-nose python-pytest python-bottle",
-    "conflictdepends": "moodle-dl gallery-dl twitch-dl cyberdrop-dl edx-dl coursera-dl lynda-dl cyberdropdownloader soundcloud-dl music-dl instaloader zoomdl",
+    "conflictdepends": "gallery-dl twitch-dl cyberdrop-dl edx-dl coursera-dl lynda-dl cyberdropdownloader soundcloud-dl music-dl instaloader zoomdl",
   },
   {
     "name": "drawio",
@@ -1021,6 +1021,11 @@
   {
     "name": "xnviewmp-system-libs",
     "description": "An efficient multimedia viewer, browser and converter (using system libraries)",
+  },
+  {
+    "name": "xnvme",
+    "description": "Cross-platform libraries and tools for NVMe devices",
+    "depends": "util-linux-libs",
   },
   //   xviewer is provided by manjaro `xviewer` and `xviewer-plugins`
   // {
