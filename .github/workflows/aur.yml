@@ -200,7 +200,7 @@ jobs:
         if: matrix.depends || matrix.checkdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' ${{ matrix.depends }} ${{ matrix.checkdepends }}
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ matrix.depends }} ${{ matrix.checkdepends }}
           EOF
           
           chmod a+x deps.sh
@@ -256,7 +256,7 @@ jobs:
           
           bat --color always --wrap=never PKGBUILD
 
-          paru -Ui --noconfirm --color always --nocleanafter --noredownload --ask 4 --overwrite '*' --builddir . ${{ matrix.build_flags }}
+          paru -Ui --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ matrix.build_flags }}
           
           EOF
           
@@ -284,7 +284,7 @@ jobs:
                 RED "********************************************************************************"
               fi
               GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' "\$package"
+              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' "\$package"
               export old_package="\$package"
               GREEN "================================================================================"
             done
@@ -298,7 +298,7 @@ jobs:
         if: matrix.postdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --ask 4 --overwrite '*' ${{ matrix.postdepends }}
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ matrix.postdepends }}
           EOF
           
           chmod a+x deps.sh
