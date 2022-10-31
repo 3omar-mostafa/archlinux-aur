@@ -8,7 +8,7 @@ url="https://www.github.com/prateekmedia/netspeedsimplified"
 license=('GPL')
 depends=('gnome-shell')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('03340e67d8c9543caae0666d6059727e84d2b6f07712579e2680eab81fbdd7c8')
+sha256sums=('e513b0b3dfbeb308053dd7c01f871146f2dda2bf8bb65a1e31371b08f2fda25f')
 
 package() {
     cd "${srcdir}/${_pkgname}-${pkgver}"
