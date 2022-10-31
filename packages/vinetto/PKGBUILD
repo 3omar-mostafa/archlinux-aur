@@ -1,6 +1,6 @@
 pkgname=vinetto
 _pkgname=Vinetto
-pkgver=0.9.11
+pkgver=0.9.12
 pkgrel=1
 pkgdesc="Thumbnail file parser that can process a variety of file types (Thumbs.db, Thumbcache_*.db)"
 url="https://github.com/AtesComp/Vinetto"
