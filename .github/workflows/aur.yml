@@ -305,7 +305,7 @@ jobs:
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
 
       - name: "Copy all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec cp {} . \;
+        run: find . -iname '*.pkg.tar.zst' -exec cp {} . \;
 
       - run: ls -lRh --color=always
         if: always()
@@ -353,14 +353,14 @@ jobs:
         run: tree "./${REPO}" --du -h
 
       - name: "Move all packages to root folder"
-        run: find . -iname *.pkg.tar.zst -exec mv -v {} "./${REPO}" \;
+        run: find . -iname '*.pkg.tar.zst' -exec mv -v {} "./${REPO}" \;
 
       - name: "Delete Empty Directories"
         continue-on-error: true
         run: find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
 
       - name: "Delete Python 2 Packages"
-        run: rm -rfv python2* || true
+        run: find . -iname 'python2*' -exec rm -rfv {} \; || true
 
       - name: Generate database files
         run: |
