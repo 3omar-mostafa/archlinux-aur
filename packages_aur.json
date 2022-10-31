@@ -908,14 +908,14 @@
     "description": "Microsoft Windows 10 TrueType fonts",
     "depends": "unzip wget",
     "apply_script_file": "ttf-ms-win10/ttf-ms-win10.sh",
-    "build_flags": "--skipchecksums",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "ttf-ms-win11",
     "description": "Microsoft Windows 11 TrueType fonts",
     "depends": "unzip wget",
     "apply_script_file": "ttf-ms-win11/ttf-ms-win11.sh",
-    "build_flags": "--skipchecksums",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "ttf-qurancomplex-fonts",
