@@ -1026,6 +1026,7 @@
     "name": "xnvme",
     "description": "Cross-platform libraries and tools for NVMe devices",
     "depends": "util-linux-libs",
+    "disable_mold": true,
   },
   //   xviewer is provided by manjaro `xviewer` and `xviewer-plugins`
   // {
