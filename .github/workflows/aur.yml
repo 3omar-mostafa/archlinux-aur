@@ -189,8 +189,11 @@ jobs:
           PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
           export DOWNGRADE_FROM_ALA=1
           rm -rfv /usr/share/libalpm/hooks/package-cleanup.hook
-          downgrade ${{ matrix.archdepends }} --ala-only -- $PACMAN_OPTIONS
-          find /var/cache/pacman/pkg/ -type f -exec mv -v {} . \;
+
+          for package in $(./scripts/split_package_name.py "${{ matrix.archdepends }}"); do
+            downgrade "$package" --ala-only -- $PACMAN_OPTIONS
+            find /var/cache/pacman/pkg/ -iname "*$package*" -type f -exec mv -v {} . \;
+          done
 
       - name: Install/Build Dependencies of ${{ matrix.name }}
         if: matrix.depends || matrix.checkdepends
