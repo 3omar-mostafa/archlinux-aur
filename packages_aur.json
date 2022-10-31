@@ -686,7 +686,7 @@
     "name": "opensnitch",
     "description": "GNU/Linux port of the Little Snitch application firewall",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn",
-    "archdepends": "python-grpcio-tools==1.50.0-1"
+    "archdepends": "python-grpcio-tools==1.50.1-1"
   },
   {
     "name": "pam_usb",
