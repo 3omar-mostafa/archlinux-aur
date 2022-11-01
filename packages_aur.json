@@ -20,6 +20,7 @@
 // - build_flags [flags to add to paru when building PKGBUILD]
 // - disable_mold [boolean to disable using mold linker]
 // - meta [boolean which indicates that this is a virtual package that should not be built]
+// - group [groups value to add to PKGBUILD]
 
 
 // TODO:
@@ -108,6 +109,7 @@
     "description": "Data shippers, send data from multi-systems to Logstash or Elasticsearch (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
     "depends": "jdk17-openjdk",
+    "group": "beats",
   },
   {
     "name": "binfmt-java",
@@ -160,6 +162,7 @@
   {
     "name": "clion",
     "description": "Jetbrains C/C++ IDE",
+    "group": "clion-full",
   },
   {
     "name": "cloak",
@@ -466,6 +469,7 @@
   {
     "name": "goland",
     "description": "Jetbrains Golang IDE",
+    "group": "goland-full",
   },
   {
     "name": "google-cloud-sdk",
@@ -524,6 +528,7 @@
   {
     "name": "intellij-idea-ultimate-edition",
     "description": "Jetbrains Java IDE (Professional Edition)",
+    "group": "intellij-idea-ultimate-edition-full",
   },
   {
     "name": "jadx-gui-desktop",
@@ -681,6 +686,7 @@
     "description": "Drivers for razer devices",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
+    "group": "openrazer",
   },
   {
     "name": "opensnitch",
@@ -909,6 +915,7 @@
     "depends": "unzip wget",
     "apply_script_file": "ttf-ms-win10/ttf-ms-win10.sh",
     "build_flags": "--mflags '--skipchecksums'",
+    "group": "ttf-ms-win10-full",
   },
   {
     "name": "ttf-ms-win11",
@@ -916,6 +923,7 @@
     "depends": "unzip wget",
     "apply_script_file": "ttf-ms-win11/ttf-ms-win11.sh",
     "build_flags": "--mflags '--skipchecksums'",
+    "group": "ttf-ms-win11-full",
   },
   {
     "name": "ttf-qurancomplex-fonts",
@@ -928,6 +936,7 @@
   {
     "name": "uget-integrator-browsers",
     "description": "Configuration to integrate browsers with uget download manager",
+    "group": "uget-integrator-browsers",
   },
   // {
   //   "name": "unity-editor-lts",

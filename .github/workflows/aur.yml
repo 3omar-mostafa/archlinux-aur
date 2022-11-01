@@ -254,6 +254,10 @@ jobs:
             ${{ matrix.apply_cmd }}
           fi
           
+          if [[ -n "${{ matrix.group }}" ]] ;  then
+            sed -i "s^pkgname=^groups=(${{ matrix.group }})\npkgname=^g" PKGBUILD
+          fi
+          
           bat --color always --wrap=never PKGBUILD
 
           paru -Ui --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ matrix.build_flags }}
