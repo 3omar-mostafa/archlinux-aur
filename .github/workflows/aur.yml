@@ -407,6 +407,8 @@ jobs:
             if [[ $assets_count == $files_count ]] ; then
               exit 0
             fi
+
+            gh release edit "$tag_name" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
           fi
 
           for package in * ; do
