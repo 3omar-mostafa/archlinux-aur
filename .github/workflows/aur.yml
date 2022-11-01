@@ -388,6 +388,8 @@ jobs:
       - name: Release Packages Files
         shell: bash -l {0}
         run: |
+          cd ./${{ env.REPO }}
+
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
 
@@ -400,14 +402,13 @@ jobs:
             assets_count=$(gh release view "$tag_name" --repo ${{ github.repository }} --json assets --jq '.[]|length')
             files_count=$(ls -1 | wc -l)
 
-            echo "[DEBUG] assets_count=$assets_count     files_count=$files_count"
+            echo "[DEBUG] assets_count = $assets_count    files_count = $files_count"
             
             if [[ $assets_count == $files_count ]] ; then
               exit 0
             fi
           fi
 
-          cd ./${{ env.REPO }}
           for package in * ; do
             for attempt in {1..10} ; do
               if [[ "$attempt" != 1 ]] ; then
