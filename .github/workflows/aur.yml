@@ -412,7 +412,7 @@ jobs:
           fi
 
           for package in * ; do
-            for attempt in {1..10} ; do
+            for attempt in {1..15} ; do
               if [[ "$attempt" != 1 ]] ; then
                 echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
               fi
@@ -428,7 +428,7 @@ jobs:
                 break
               else
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
-                if [[ "$attempt" == 9 ]] ; then
+                if [[ "$attempt" == 10 ]] ; then
                   echo " [DEBUG] $rate_limit_json"
                   reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
                   current_time=$(date '+%s')
