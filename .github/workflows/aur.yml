@@ -255,7 +255,7 @@ jobs:
           fi
           
           if [[ -n "${{ matrix.group }}" ]] ;  then
-            sed -i "s^pkgname=^groups=(${{ matrix.group }})\npkgname=^g" PKGBUILD
+            sed -i "s^\^pkgname=^groups=(${{ matrix.group }})\npkgname=^g" PKGBUILD
           fi
           
           bat --color always --wrap=never PKGBUILD
