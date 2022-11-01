@@ -9,6 +9,9 @@ for j in packages_aur:
     
     if j.get("conflictdepends"):
         packages += j.get("conflictdepends").split(' ')
+    
+    if j.get("postdepends"):
+        packages += j.get("postdepends").split(' ')
 
 
 with open('packages_aur.txt', 'w') as f:
