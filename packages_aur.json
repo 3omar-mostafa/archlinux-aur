@@ -206,6 +206,16 @@
     "meta": true,
   },
   {
+    "name": "datagrip",
+    "description": "Jetbrains SQL Editor and Advanced Database Client IDE",
+    "group": "datagrip-full",
+  },
+  {
+    "name": "dataspell",
+    "description": "Jetbrains Python IDE for data scientists",
+    "group": "dataspell-full",
+  },
+  {
     "name": "depix-git",
     "description": "A tool for recovering passwords from pixelized screenshots",
     "apply_script_file": "depix/depix.sh"
@@ -537,6 +547,10 @@
   {
     "name": "jd-gui",
     "description": "A standalone graphical utility that displays Java source codes of .class files",
+  },
+  {
+    "name": "jetbrains-fleet",
+    "description": "Jetbrains Next-generation IDE",
   },
   {
     "name": "junction",
@@ -974,6 +988,11 @@
     "depends": "python-pyclip",
     "conflictdepends": "waydroid-image waydroid-image-gapps",
     "postdepends": "waydroid-script-git",
+  },
+  {
+    "name": "webstorm",
+    "description": "Jetbrains Web Development IDE",
+    "group": "webstorm-full",
   },
   {
     "name": "wfuzz",
