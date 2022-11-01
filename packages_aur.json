@@ -162,7 +162,7 @@
   {
     "name": "clion",
     "description": "Jetbrains C/C++ IDE",
-    "group": "clion-full",
+    "group": "clion-full jetbrains-ides",
   },
   {
     "name": "cloak",
@@ -208,12 +208,12 @@
   {
     "name": "datagrip",
     "description": "Jetbrains SQL Editor and Advanced Database Client IDE",
-    "group": "datagrip-full",
+    "group": "datagrip-full jetbrains-ides",
   },
   {
     "name": "dataspell",
     "description": "Jetbrains Python IDE for data scientists",
-    "group": "dataspell-full",
+    "group": "dataspell-full jetbrains-ides",
   },
   {
     "name": "depix-git",
@@ -403,6 +403,7 @@
   {
     "name": "gnome-search-providers-jetbrains",
     "description": "Add Jetbrains IDE projects to Gnome Search",
+    "group": "jetbrains-ides",
   },
   {
     "name": "gnome-shell-extension-bluetooth-quick-connect",
@@ -479,7 +480,7 @@
   {
     "name": "goland",
     "description": "Jetbrains Golang IDE",
-    "group": "goland-full",
+    "group": "goland-full jetbrains-ides",
   },
   {
     "name": "google-cloud-sdk",
@@ -538,7 +539,7 @@
   {
     "name": "intellij-idea-ultimate-edition",
     "description": "Jetbrains Java IDE (Professional Edition)",
-    "group": "intellij-idea-ultimate-edition-full",
+    "group": "intellij-idea-ultimate-edition-full jetbrains-ides",
   },
   {
     "name": "jadx-gui-desktop",
@@ -551,6 +552,7 @@
   {
     "name": "jetbrains-fleet",
     "description": "Jetbrains Next-generation IDE",
+    "group": "jetbrains-ides",
   },
   {
     "name": "junction",
@@ -748,6 +750,7 @@
   {
     "name": "pycharm-professional",
     "description": "Jetbrains Python IDE (Professional Edition)",
+    "group": "jetbrains-ides",
   },
   {
     "name": "python-androguard",
@@ -804,6 +807,7 @@
   {
     "name": "rubymine",
     "description": "Jetbrains Ruby/Rails IDE",
+    "group": "jetbrains-ides",
   },
 
 //   rustscan is provided by arch as `rustscan`
@@ -992,7 +996,7 @@
   {
     "name": "webstorm",
     "description": "Jetbrains Web Development IDE",
-    "group": "webstorm-full",
+    "group": "webstorm-full jetbrains-ides",
   },
   {
     "name": "wfuzz",
