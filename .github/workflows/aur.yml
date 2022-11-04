@@ -128,6 +128,7 @@ jobs:
           downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
 
       - name: Setup mold linker
+        continue-on-error: true
         if: ${{ ! matrix.disable_mold }}
         uses: rui314/setup-mold@v1
 
