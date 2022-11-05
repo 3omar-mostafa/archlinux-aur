@@ -368,8 +368,9 @@
   {
     "name": "github-desktop",
     "description": "GUI for managing Git and GitHub",
-    // add `nodejs-lts-gallium` to solve inner conflicts
-    "depends": "nodejs-lts-gallium gconf gnome-keyring"
+    "depends": "nodejs-lts-gallium gconf gnome-keyring",
+    "meta": true,
+    "conflictdepends": "github-desktop github-desktop-bin",
   },
   {
     "name": "gitkraken",
@@ -735,6 +736,7 @@
   {
     "name": "openvas-scanner",
     "description": "Vulnerability scanning Daemon",
+    "depends": "json-glib",
   },
   {
     "name": "pam_usb",
