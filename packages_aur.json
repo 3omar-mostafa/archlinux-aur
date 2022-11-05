@@ -415,6 +415,10 @@
     "depends": "zip",
   },
   {
+    "name": "gnome-shell-extension-desktop-icons-ng",
+    "description": "A fork from the official desktop icons project, with several enhancements like Drag'n'Drop",
+  },
+  {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
     "description": "Extension that enables all notifications in fullscreen mode",
   },
@@ -494,6 +498,13 @@
     // "postdepends": "gradience-plugins",
   },
   {
+    "name": "grub-customizer",
+    "description": "Graphical grub2 settings manager",
+    "meta": true,
+    // Upgrade to 5.2.2-2 when manjaro uses openssl3
+    "archdepends": "grub-customizer==5.2.2-1",
+  },
+  {
     "name": "grub-hook",
     "description": "Pacman hook to update GRUB after a kernel update",
   },
@@ -516,6 +527,10 @@
   {
     "name": "hardinfo",
     "description": "A system information and benchmark tool",
+  },
+  {
+    "name": "httptoolkit",
+    "description": "Beautiful, cross-platform & open-source HTTP(S) proxy, analyzer and client",
   },
   {
     "name": "httpx",
@@ -664,6 +679,12 @@
     "description": "View media information in properties window",
   },
   {
+    "name": "nessus",
+    "description": "Nessus vulnerability scanner",
+    "meta": true,
+    "conflictdepends": "nessus nessus-agent",
+  },
+  {
     "name": "networkmanager",
     "description": "Network Management daemon",
     "checkdepends": "python-dbus",
@@ -708,7 +729,12 @@
     "name": "opensnitch",
     "description": "GNU/Linux port of the Little Snitch application firewall",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn",
+    // Upgrade to 1.50.1-2 when manjaro uses openssl3
     "archdepends": "python-grpcio-tools==1.50.1-1"
+  },
+  {
+    "name": "openvas-scanner",
+    "description": "Vulnerability scanning Daemon",
   },
   {
     "name": "pam_usb",
@@ -734,6 +760,10 @@
   {
     "name": "pensela-bin",
     "description": "The Swiss Army Knife of Screen Annotation Tools",
+  },
+  {
+    "name": "pocsuite3",
+    "description": "Open-sourced remote vulnerability testing framework",
   },
   {
     "name": "postman-bin",
@@ -763,7 +793,6 @@
   {
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
-    "checkout": "23b6216f23a3a6b6495e521854cf0ee37b899420", // remove when python-frida is updated >= 16
   },
   {
     "name": "python-numba",
