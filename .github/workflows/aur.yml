@@ -285,11 +285,11 @@ jobs:
               YELLOW "################################################################################"
               if [[ -n "\$old_package" ]]; then
                 RED "****************************** Removing \$old_package ******************************"
-                pacman -R --color always --noconfirm --ask 4 "\$old_package"
+                pacman -R --color always --noconfirm --ask 4 "\$old_package" || true
                 RED "********************************************************************************"
               fi
               GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' "\$package"
+              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' "\$package" || true
               export old_package="\$package"
               GREEN "================================================================================"
             done
