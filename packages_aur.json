@@ -542,6 +542,10 @@
     "description": "Icon extractor for Windows PE files (.exe/.dll) with optional thumbnailer functionality",
   },
   {
+    "name": "imgcat",
+    "description": "Output images as RGB ANSI graphics on the terminal (like cat, but for images)",
+  },
+  {
     "name": "inception",
     "description": "A FireWire physical memory manipulation and hacking tool exploiting IEEE 1394 SBP-2 DMA",
   },
@@ -564,6 +568,10 @@
   {
     "name": "jd-gui",
     "description": "A standalone graphical utility that displays Java source codes of .class files",
+  },
+  {
+    "name": "jd-tool",
+    "description": "JSON diff and patch",
   },
   {
     "name": "jetbrains-fleet",
@@ -720,6 +728,11 @@
     "depends": "openssh gmsh-bin scotch slepc",
   },
   {
+    "name": "omnetpp",
+    "description": "Component-based simulation package designed for modeling communication networks",
+    "depends":"jdk17-openjdk",
+  },
+  {
     "name": "openrazer",
     "description": "Drivers for razer devices",
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
@@ -734,9 +747,10 @@
     "archdepends": "python-grpcio-tools==1.50.1-1"
   },
   {
-    "name": "openvas-scanner",
+    "name": "ospd-openvas",
     "description": "Vulnerability scanning Daemon",
-    "depends": "json-glib",
+    "depends": "nodejs-lts-gallium json-glib libbsd",
+    "postdepends": "gsa gvmd",
   },
   {
     "name": "pam_usb",
