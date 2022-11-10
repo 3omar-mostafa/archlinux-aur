@@ -344,6 +344,10 @@
     "description": "FDM is a powerful modern download accelerator and organizer",
   },
   {
+    "name": "fred",
+    "description": "Digital forensics tool for viewing and reporting on Windows registry files",
+  },
+  {
     "name": "freetube",
     "description": "An open source desktop YouTube player built with privacy in mind",
     "depends": "electron16-bin",
@@ -835,6 +839,12 @@
     "gpg_key": "1F521FF0F87E9E1CDE46B8A9F4928C4DD24D4DF8"
   },
   {
+    "name": "r-file-recovey",
+    "description": "Undelete and data recovery software",
+    "meta": true,
+    "conflictdepends": "r-linux r-studio-for-linux-bin rtt-rstudio",
+  },
+  {
     "name": "raider-file-shredder",
     "description": "Securely delete your files",
     "depends": "python-gobject",
@@ -1055,6 +1065,10 @@
   {
     "name": "whatsapp-for-linux",
     "description": "An unofficial WhatsApp desktop application for linux",
+  },
+  {
+    "name": "whdd",
+    "description": "Diagnostic and recovery tool for block devices",
   },
   {
     "name": "woeusb",
