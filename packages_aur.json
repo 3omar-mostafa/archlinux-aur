@@ -474,6 +474,10 @@
     "description": "Configure and customize GNOME Shell with advanced settings",
   },
   {
+    "name": "gnome-shell-extension-wifiqrcode",
+    "description": "Add a switch to the WiFi menu, in the GNOME system menu, that show a QrCode of the active connection",
+  },
+  {
     "name": "gnome-shell-extension-wintile",
     "description": "Windows 10 window tiling for GNOME",
   },
