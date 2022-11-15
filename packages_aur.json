@@ -350,7 +350,6 @@
   {
     "name": "freetube",
     "description": "An open source desktop YouTube player built with privacy in mind",
-    "depends": "electron16-bin",
   },
   {
     "name": "gdm-settings",

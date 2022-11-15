@@ -326,6 +326,8 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
           retention-days: 3
+          if-no-files-found: error
+
 
   deploy:
     needs: [load_balancer, build]
