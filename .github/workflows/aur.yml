@@ -6,7 +6,7 @@ name: AUR
 
 on:
   schedule:
-    - cron: '0 0 * * sun'
+    - cron: '0 0 * * sun,tue,thu'
   workflow_dispatch:
   # push:
 
@@ -121,6 +121,7 @@ jobs:
           pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
 
       - name: Install python2
+        if: ${{ matrix.python2 }}
         run: |
           echo '#!/usr/bin/env bash' > /bin/pacignore
           PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"

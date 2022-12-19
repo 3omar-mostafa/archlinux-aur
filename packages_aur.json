@@ -19,6 +19,7 @@
 // - need_swap [boolean to create swap file]
 // - build_flags [flags to add to paru when building PKGBUILD]
 // - disable_mold [boolean to disable using mold linker]
+// - python2 [boolean to allow instaling python2]
 // - meta [boolean which indicates that this is a virtual package that should not be built]
 // - group [groups value to add to PKGBUILD]
 
@@ -98,6 +99,7 @@
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
     "depends": "nodejs-lts-gallium electron12-bin",
+    "python2": true,
   },  
   {
     "name": "battop",
@@ -110,11 +112,19 @@
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
     "depends": "jdk17-openjdk",
     "group": "beats",
+    "python2": true,
   },
   {
     "name": "binfmt-java",
     "description": "Allow running .jar files directly as executable",
   },
+  {
+    "name": "bloodhound",
+    "description": "Use graph theory to reveal the hidden and often unintended relationships within an Active Directory",
+    "depends": "jdk17-openjdk",
+    "postdepends": "python-bloodhound",
+  },
+
 //   Brave is provided by manjaro `brave-browser`
   {
     "name": "brave-bin",
@@ -143,6 +153,10 @@
     "gpg_key": "A4C465FEA0C552561A392A61E91335D77E3E87CB",
   },
   {
+    "name": "cheat",
+    "description": "Allows you to create and view interactive cheatsheets on the command-line",
+  },
+  {
     "name": "chisel-tunnel",
     "description": "A fast TCP/UDP tunnel over HTTP",
   },
@@ -163,6 +177,10 @@
     "name": "clion",
     "description": "Jetbrains C/C++ IDE",
     "group": "clion-full jetbrains-ides",
+  },
+  {
+    "name": "clipboard",
+    "description": "Cut, copy, and paste anything in your terminal",
   },
   {
     "name": "cloak",
@@ -194,6 +212,10 @@
     "description": "A Free software that gathers information on CPU, motherboard and more",
     "depends": "glfw-x11",
     "checkdepends": "mawk nawk",
+  },
+  {
+    "name": "crackmapexec",
+    "description": "A swiss army knife for pentesting Windows/Active Directory environments",
   },
   {
     "name": "crunch",
@@ -282,6 +304,7 @@
     "depends": "jdk17-openjdk",
     "meta": true,
     "conflictdepends": "elasticsearch elasticsearch-xpack",
+    "python2": true,
   },
   {
     "name": "etcher-bin",
@@ -448,7 +471,7 @@
   {
     "name": "gnome-shell-extension-pano",
     "description": "Next-gen Clipboard Manager",
-    "depends": "zip",
+    "depends": "zip cogl",
   },
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
@@ -573,6 +596,10 @@
     "description": "A .desktop file for JADX-GUI, with an icon",
   },
   {
+    "name": "jaeles",
+    "description": "The Swiss Army knife for automated Web Application Testing",
+  },
+  {
     "name": "jd-gui",
     "description": "A standalone graphical utility that displays Java source codes of .class files",
   },
@@ -609,6 +636,7 @@
     "depends": "jdk17-openjdk nodejs-lts-gallium",
     "meta": true,
     "conflictdepends": "kibana kibana-xpack",
+    "python2": true,
   },
   {
     "name": "lens",
@@ -642,6 +670,7 @@
     "depends": "jdk17-openjdk",
     "meta": true,
     "conflictdepends": "logstash logstash-xpack python-logstash",
+    "python2": true,
   },
   {
     "name": "macchina",
@@ -737,7 +766,7 @@
   {
     "name": "omnetpp",
     "description": "Component-based simulation package designed for modeling communication networks",
-    "depends":"jdk17-openjdk",
+    "depends":"jdk17-openjdk python-matplotlib osgearth",
   },
   {
     "name": "openrazer",
@@ -875,6 +904,19 @@
 //   },
 
   {
+    "name": "seclists",
+    "description": "A collection of multiple types of lists used during security assessments, collected in one place",
+  },
+  {
+    "name": "secrets",
+    "description": "Password manager for GNOME",
+    "checkdepends": "appstream appstream-glib",
+  },
+  {
+    "name": "semgrep-bin",
+    "description": "Fast static analysis engine for finding bugs, detecting vulnerabilities, and enforcing code standards",
+  },
+  {
     "name": "shellcheck-bin",
     "description": "Shell script analysis tool (binary release, static)",
   },
@@ -907,21 +949,13 @@
     "official": true,
   },
   {
-    "name": "seclists",
-    "description": "A collection of multiple types of lists used during security assessments, collected in one place",
-  },
-  {
-    "name": "secrets",
-    "description": "Password manager for GNOME",
-    "checkdepends": "appstream appstream-glib",
-  },
-  {
-    "name": "semgrep-bin",
-    "description": "Fast static analysis engine for finding bugs, detecting vulnerabilities, and enforcing code standards",
+    "name": "speedifyui",
+    "description": "Use multiple internet connections in parallel (combine wifi + ethernet ...)",
   },
   {
     "name": "spiderfoot",
     "description": "SpiderFoot is an open source intelligence (OSINT) automation tool",
+    "python2": true,
   },
   {
     "name": "steghide",
@@ -1083,6 +1117,10 @@
     "name": "wps-office",
     "description": "Kingsoft Office (WPS Office) - an office productivity suite",
     "postdepends": "ttf-wps-fonts",
+  },
+  {
+    "name": "wxhexeditor",
+    "description": "A free hex editor / disk editor",
   },
 
 //   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
