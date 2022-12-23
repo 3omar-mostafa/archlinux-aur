@@ -121,7 +121,7 @@
   {
     "name": "bloodhound",
     "description": "Use graph theory to reveal the hidden and often unintended relationships within an Active Directory",
-    "depends": "jdk17-openjdk",
+    "depends": "jdk17-openjdk nodejs-lts-gallium",
     "postdepends": "python-bloodhound",
   },
 
@@ -471,7 +471,7 @@
   {
     "name": "gnome-shell-extension-pano",
     "description": "Next-gen Clipboard Manager",
-    "depends": "zip cogl",
+    "depends": "zip cogl appstream-glib glib2",
   },
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
@@ -767,6 +767,7 @@
     "name": "omnetpp",
     "description": "Component-based simulation package designed for modeling communication networks",
     "depends":"jdk17-openjdk python-matplotlib osgearth",
+    "need_swap": true,
   },
   {
     "name": "openrazer",

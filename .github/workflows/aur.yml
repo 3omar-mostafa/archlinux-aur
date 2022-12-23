@@ -13,7 +13,8 @@ on:
 env:
   BAT_PAGER: ''
   COLUMNS: '140' # Terminal Width
-  FORCE_COLOR : 'true' # Force colors in console output
+  FORCE_COLOR : '1' # Force colors in console output
+  MYPY_FORCE_COLOR: '1'
   CLICOLOR: 1
   CLI_COLOR: 1
   CLICOLOR_FORCE: 'yes'
