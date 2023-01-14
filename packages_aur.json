@@ -98,7 +98,7 @@
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
-    "depends": "nodejs-lts-gallium electron12-bin",
+    "depends": "nodejs-lts-gallium electron13-bin",
     "python2": true,
   },  
   {
@@ -532,8 +532,7 @@
     "name": "grub-customizer",
     "description": "Graphical grub2 settings manager",
     "meta": true,
-    // Upgrade to 5.2.2-2 when manjaro uses openssl3
-    "archdepends": "grub-customizer==5.2.2-1",
+    "archdepends": "grub-customizer==5.2.2-2",
   },
   {
     "name": "grub-hook",
@@ -541,7 +540,8 @@
   },
   {
     "name": "guiscrcpy",
-    "description": "Open Source GUI based Android Screen Mirroring System"
+    "description": "Open Source GUI based Android Screen Mirroring System",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "hadoop",
@@ -558,6 +558,10 @@
   {
     "name": "hardinfo",
     "description": "A system information and benchmark tool",
+  },
+  {
+    "name": "httpdirfs",
+    "description": "A filesystem which allows you to mount HTTP directory listings",
   },
   {
     "name": "httptoolkit",
@@ -780,8 +784,6 @@
     "name": "opensnitch",
     "description": "GNU/Linux port of the Little Snitch application firewall",
     "depends": "hicolor-icon-theme python-qt-material python-pyasn",
-    // Upgrade to 1.50.1-2 when manjaro uses openssl3
-    "archdepends": "python-grpcio-tools==1.50.1-1"
   },
   {
     "name": "ospd-openvas",
@@ -854,6 +856,8 @@
   {
     "name": "python-scikit-image",
     "description": "Image processing routines for SciPy",
+    // Remove when added to manjaro
+    "archdepends": "python-pooch==1.6.0-3",
     "checkdepends":"python-matplotlib python-pooch python-pyqt5 python-pytest python-pytest-cov python-pytest-flake8 python-pytest-localserver",
   },
   {
@@ -934,6 +938,11 @@
     "description": "Enumerate samba share drives across an entire domain",
   },
   {
+    "name": "soapui",
+    "description": "A graphical Java program for inspecting, invoking, monitoring, simulating/mocking and functional/load/compliance/surveillance testing of REST/WADL and SOAP/WSDL-based Web Services over HTTP.",
+    "depends":"jdk17-openjdk",
+  },
+  {
     "name": "social-engineer-toolkit",
     "description": "Open-source penetration testing framework designed for social engineering",
     "depends": "jre17-openjdk",
@@ -995,6 +1004,11 @@
   //   "description": "A system restore utility for Linux",
   //   "checkdepends": "appstream appstream-glib",
   // },
+  
+  {
+    "name": "timeswitch",
+    "description": "Power off, reboot, suspend or send a notification on timer.",
+  },
   {
     "name": "tor-browser",
     "description": "Anonymous browsing using Firefox and Tor",
@@ -1069,6 +1083,10 @@
     "conflictdepends": "usbguard-notifier usbguard-applet-qt",
     "disable_mold": true,
     "meta": true,
+  },
+  {
+    "name": "vcpkg",
+    "description": "Microsoft Visual Studio C++ library manager for Windows, Linux, and MacOS",
   },
   {
     "name": "vinetto",
