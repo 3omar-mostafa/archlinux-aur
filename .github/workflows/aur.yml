@@ -64,7 +64,6 @@ jobs:
             packages = json5.load(open('packages_aur.json', 'r'))
             
             env = ${{ toJSON(env) }}
-            print(env)
 
             for package in packages:
               if 'env' not in package:

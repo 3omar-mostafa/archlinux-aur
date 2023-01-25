@@ -78,7 +78,7 @@
   {
     "name": "apk-mitm",
     "description": "A CLI application that automatically prepares Android APK files for HTTPS inspection",
-    "depends": "nodejs-lts-gallium",
+    "depends": "nodejs-lts-hydrogen",
   },
   {
     "name": "arjun",
@@ -99,7 +99,7 @@
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
-    "depends": "nodejs-lts-gallium electron13-bin",
+    "depends": "nodejs-lts-hydrogen electron13-bin",
     "python2": true,
   },  
   {
@@ -122,11 +122,8 @@
   {
     "name": "bloodhound",
     "description": "Use graph theory to reveal the hidden and often unintended relationships within an Active Directory",
-    "depends": "jdk17-openjdk nodejs-lts-gallium",
+    "depends": "jdk17-openjdk nodejs-lts-hydrogen",
     "postdepends": "python-bloodhound",
-    "env": {
-      "NODE_OPTIONS": "--max_old_space_size=8192 --openssl-legacy-provider",
-    },
   },
 
 //   Brave is provided by manjaro `brave-browser`
@@ -292,7 +289,7 @@
     "name": "drawio",
     "description": "Diagram drawing application built on web technology",
     "conflictdepends": "drawio-desktop drawio-desktop-bin",
-    "depends": "nodejs-lts-gallium",
+    "depends": "nodejs-lts-hydrogen",
     "meta": true,
   },
   {
@@ -398,7 +395,7 @@
   {
     "name": "github-desktop",
     "description": "GUI for managing Git and GitHub",
-    "depends": "nodejs-lts-gallium gconf gnome-keyring",
+    "depends": "nodejs-lts-hydrogen gconf gnome-keyring",
     "meta": true,
     "conflictdepends": "github-desktop github-desktop-bin",
   },
@@ -641,7 +638,7 @@
     "name": "kibana",
     "description": "Browser based analytics and search dashboard for Elasticsearch (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
-    "depends": "jdk17-openjdk nodejs-lts-gallium",
+    "depends": "jdk17-openjdk nodejs-lts-hydrogen",
     "meta": true,
     "conflictdepends": "kibana kibana-xpack",
     "python2": true,
@@ -649,7 +646,7 @@
   {
     "name": "lens",
     "description": "Kubernetes IDE",
-    "depends": "nodejs-lts-gallium",
+    "depends": "nodejs-lts-hydrogen",
   },
   {
     "name": "librewolf-bin",
@@ -691,7 +688,7 @@
   {
     "name": "megatools",
     "description": "Command line client application for Mega.nz",
-    "depends": "nodejs-lts-gallium",
+    "depends": "nodejs-lts-hydrogen",
   },
   {
     "name": "memtest86-efi",
@@ -792,7 +789,7 @@
   {
     "name": "ospd-openvas",
     "description": "Vulnerability scanning Daemon",
-    "depends": "nodejs-lts-gallium json-glib libbsd",
+    "depends": "nodejs-lts-hydrogen json-glib libbsd",
     "postdepends": "gsa gvmd",
   },
   {
