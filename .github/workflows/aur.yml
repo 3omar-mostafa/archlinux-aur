@@ -85,6 +85,7 @@ jobs:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
     runs-on: ubuntu-latest
+    env: ${{ matrix.env }}
     continue-on-error: true
     
     strategy:

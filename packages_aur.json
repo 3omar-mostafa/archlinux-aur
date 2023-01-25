@@ -22,6 +22,7 @@
 // - python2 [boolean to allow instaling python2]
 // - meta [boolean which indicates that this is a virtual package that should not be built]
 // - group [groups value to add to PKGBUILD]
+// - env: [key value pair for environment variables]
 
 
 // TODO:
@@ -123,6 +124,9 @@
     "description": "Use graph theory to reveal the hidden and often unintended relationships within an Active Directory",
     "depends": "jdk17-openjdk nodejs-lts-gallium",
     "postdepends": "python-bloodhound",
+    "env": {
+      "NODE_OPTIONS": "--max_old_space_size=8192 --openssl-legacy-provider",
+    },
   },
 
 //   Brave is provided by manjaro `brave-browser`
@@ -856,8 +860,6 @@
   {
     "name": "python-scikit-image",
     "description": "Image processing routines for SciPy",
-    // Remove when added to manjaro
-    "archdepends": "python-pooch==1.6.0-3",
     "checkdepends":"python-matplotlib python-pooch python-pyqt5 python-pytest python-pytest-cov python-pytest-flake8 python-pytest-localserver",
   },
   {
