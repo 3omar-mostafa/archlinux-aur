@@ -1,6 +1,6 @@
 pkgname=apk-editor-studio
-pkgver=1.6.0
-pkgrel=2
+pkgver=1.7.0
+pkgrel=1
 pkgdesc="APK Editor Studio is a powerful yet easy-to-use APK reverse-engineering tool"
 arch=('x86_64')
 url='https://qwertycube.com/apk-editor-studio'
@@ -15,7 +15,7 @@ depends=('qt5-base'
 makedepends=('cmake' 'ninja' 'qt5-base' 'qt5-tools' 'libsecret')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/kefir500/apk-editor-studio/archive/v${pkgver}.tar.gz"
         "disable-translations.patch")
-sha256sums=('427d0398acfa3cd5f33d741a4fe660e0b2235b6d62b125e4761b219f9ebc060e'
+sha256sums=('c656e7f934b042b75b1e04931adb759fefe4b86e71714f63f5e8f65ed2257c6a'
             '3b6bb145ee8f6072e7f94a860407436e07fc8390cf8b93dd9adb402c1b0da4fd')
 
 build() {

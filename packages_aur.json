@@ -782,11 +782,6 @@
     "group": "openrazer",
   },
   {
-    "name": "opensnitch",
-    "description": "GNU/Linux port of the Little Snitch application firewall",
-    "depends": "hicolor-icon-theme python-qt-material python-pyasn",
-  },
-  {
     "name": "ospd-openvas",
     "description": "Vulnerability scanning Daemon",
     "depends": "nodejs-lts-hydrogen json-glib libbsd",
@@ -849,10 +844,6 @@
   {
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
-  },
-  {
-    "name": "python-numba",
-    "description": "NumPy aware dynamic Python compiler using LLVM",
   },
   {
     "name": "python-scikit-image",
@@ -949,13 +940,6 @@
   {
     "name": "sparrow-wifi-git",
     "description": "Next-Gen GUI-based WiFi and Bluetooth Analyzer for Linux",
-  },
-  {
-    "name": "spdlog",
-    "description": "This package install conda and mamba, spdlog is C++ logging library, which requires a patch in order for mamba to compile correctly",
-    "conflictdepends": "python-conda python-conda-build micromamba",
-    "apply_script_file": "spdlog/spdlog.sh",
-    "official": true,
   },
   {
     "name": "speedifyui",

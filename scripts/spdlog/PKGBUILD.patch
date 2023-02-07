@@ -1,9 +1,0 @@
-diff --git a/PKGBUILD b/PKGBUILD
-index 0d477ef..bc73127 100644
---- a/PKGBUILD
-+++ b/PKGBUILD
-@@ -23,3 +23,4 @@
- build() {
-+    sed -i 's|// #define SPDLOG_FMT_EXTERNAL|#define SPDLOG_FMT_EXTERNAL|g' "$pkgname-$pkgver/include/spdlog/tweakme.h"
-     export CFLAGS+=" ${CPPFLAGS}"
-     export CXXFLAGS+=" ${CPPFLAGS}"
