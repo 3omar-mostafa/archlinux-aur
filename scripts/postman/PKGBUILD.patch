@@ -2,9 +2,14 @@ diff --git a/PKGBUILD b/PKGBUILD
 index 5fdce5a..1aedc54 100644
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -13,4 +13,4 @@
- source=(
+@@ -13,8 +13,8 @@
+ source_x86_64=(
 -	"postman-${pkgver}-linux-x64.tar.gz::https://dl.pstmn.io/download/version/${pkgver}/linux64"
 +	"postman-${pkgver}-linux-x64.tar.xz::https://github.com/3omar-mostafa/Postman-Scratchpad-Banner-Fix/releases/download/${pkgver}/postman-linux64-${pkgver}.tar.xz"
+	"postman.desktop"
+ )
+ source_aarch64=(
+-	"postman-${pkgver}-linux-arm64.tar.gz::https://dl.pstmn.io/download/version/${pkgver}/linux_arm64"
++	"postman-${pkgver}-linux-arm64.tar.xz::https://github.com/3omar-mostafa/Postman-Scratchpad-Banner-Fix/releases/download/${pkgver}/postman-linux_arm64-${pkgver}.tar.xz"
 	"postman.desktop"
  )

@@ -472,7 +472,7 @@
   {
     "name": "gnome-shell-extension-pano",
     "description": "Next-gen Clipboard Manager",
-    "depends": "zip cogl appstream-glib glib2",
+    // "depends": "zip cogl appstream-glib glib2",
   },
   {
     "name": "gnome-shell-extension-just-perfection-desktop",
@@ -533,7 +533,7 @@
     "name": "grub-customizer",
     "description": "Graphical grub2 settings manager",
     "meta": true,
-    "archdepends": "grub-customizer==5.2.2-2",
+    "archdepends": "grub-customizer==5.2.3-1",
   },
   {
     "name": "grub-hook",
@@ -970,6 +970,7 @@
   {
     "name": "system-monitoring-center",
     "description": "System performance and usage monitoring tool",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "teamviewer",
