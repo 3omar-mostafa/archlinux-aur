@@ -473,7 +473,7 @@
   //   "description": "KDE Connect implementation with GNOME Shell integration",
   // },
   {
-    "name": "gnome-shell-extension-improvedosk-git",
+    "name": "gnome-shell-extension-improvedosk",
     "description": "Makes GNOME's onscreen keyboard more useable",
     "depends": "ttf-symbola",
   },
@@ -638,9 +638,9 @@
     "meta": true,
   },
   {
-    "name": "kafka",
-    "description": "A high-throughput distributed messaging system",
-    "postdepends": "python-kafka",
+    // "name": "kafka", kafka is in manjaro repos now
+    "name": "python-kafka",
+    "description": "Python client for Apache Kafka(A high-throughput distributed messaging system)",
   },
   {
     "name": "kibana",

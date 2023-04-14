@@ -333,6 +333,7 @@ jobs:
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
 
       - name: "Copy all packages to root folder"
+        if: always()
         run: find . -iname '*.pkg.tar.zst' -exec cp {} . \;
 
       - run: ls -lRh --color=always
