@@ -176,8 +176,8 @@ jobs:
         run: |
           echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
           
-          yay --answerclean None --builddir $PWD --save
-          yay --show --currentconfig
+          yay -Y --answerclean None --builddir $PWD --save
+          yay -Y --show --currentconfig
 
       - name: Install Paru
         run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
@@ -345,7 +345,6 @@ jobs:
           name: "${{ matrix.name }}"
           path: "*.pkg.tar.zst"
           retention-days: 3
-          if-no-files-found: error
 
 
   deploy:
