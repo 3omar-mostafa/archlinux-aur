@@ -177,7 +177,7 @@ jobs:
           echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
           
           yay -Y --answerclean None --builddir $PWD --save
-          yay -Y --show --currentconfig
+          yay --show --currentconfig
 
       - name: Install Paru
         run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
