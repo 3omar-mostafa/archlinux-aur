@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=pe-bear %u
+Icon=pe-bear
+Terminal=false
+Name=PE-Bear
+GenericName=Portable Executable reversing tool with a friendly GUI
+Categories=Development;IDE;

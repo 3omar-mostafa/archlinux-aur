@@ -1,0 +1,8 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 512da38..9d22865 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -45,2 +45,3 @@
+   install -D logo/main_ico.png "${pkgdir}/usr/share/pixmaps/pe-bear.png"
++  install "{{PE_BEAR_PATCH_DIR}}/${pkgname}.desktop" -m 0644 -D "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+ }
