@@ -308,6 +308,10 @@
     "python2": true,
   },
   {
+    "name": "erdtree",
+    "description": "Multi-threaded file-tree visualizer and disk usage analyzer",
+  },
+  {
     "name": "etcher-bin",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
   },
@@ -334,6 +338,10 @@
   {
     "name": "fawkes-bin",
     "description": "Image cloaking tool for personal privacy",
+  },
+  {
+    "name": "ferdium-electron",
+    "description": "A messaging browser that allows you to combine your favorite messaging services into one application",
   },
   {
     "name": "feroxbuster",
@@ -809,6 +817,10 @@
     "description": "Privilege Escalation Awesome Scripts SUITE for Windows and Linux: LinPEAS and WinPEAS",
   },
   {
+    "name": "pe-bear",
+    "description": "Portable Executable reversing tool with a friendly GUI",
+  },
+  {
     "name": "pensela-bin",
     "description": "The Swiss Army Knife of Screen Annotation Tools",
   },
@@ -1037,6 +1049,11 @@
   {
     "name": "ttf-qurancomplex-fonts",
     "description": "Arabic fonts by King Fahd Glorious Quran Printing Complex in al-Madinah al-Munawwarah",
+  },
+  {
+    "name": "uber-apk-signer-bin",
+    "description": "A cli tool that helps signing and zip aligning APKs with certificates",
+    "depends":"jdk17-openjdk",
   },
   {
     "name": "uefitool",
