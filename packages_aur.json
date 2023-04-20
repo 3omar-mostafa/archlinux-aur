@@ -229,6 +229,10 @@
     "meta": true,
   },
   {
+    "name": "dangerzone",
+    "description": "Take potentially dangerous PDFs, office documents, or images and convert them to a safe PDF",
+  },
+  {
     "name": "datagrip",
     "description": "Jetbrains SQL Editor and Advanced Database Client IDE",
     "group": "datagrip-full jetbrains-ides",
@@ -781,6 +785,10 @@
     "description": "Component-based simulation package designed for modeling communication networks",
     "depends":"jdk17-openjdk python-matplotlib osgearth",
     "need_swap": true,
+  },
+  {
+    "name": "openfaas-cli",
+    "description": "OpenFaaS makes it simple to deploy both functions and existing code to Kubernetes",
   },
   {
     "name": "openrazer",
