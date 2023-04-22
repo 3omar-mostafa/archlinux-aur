@@ -907,6 +907,10 @@
     "depends": "python-pypresence python-pywebview"
   },
   {
+    "name": "rehex",
+    "description": "A cross-platform hex editor, with binary templates (similar to 010 Editor).",
+  },
+  {
     "name": "rubymine",
     "description": "Jetbrains Ruby/Rails IDE",
     "group": "jetbrains-ides",
