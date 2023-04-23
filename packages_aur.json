@@ -303,6 +303,10 @@
     "postdepends": "droidcam-obs-plugin-bin",
   },
   {
+    "name": "eagle",
+    "description": "Powerful suite for schematic capture and printed circuit board (PCB) design",
+  },
+  {
     "name": "elasticsearch",
     "description": "Distributed RESTful search engine built on top of Lucene (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
@@ -720,6 +724,10 @@
     "checkdepends": "appstream appstream-glib mypy python-pycodestyle python-pydocstyle python-tomli reuse",
   },
   {
+    "name": "modelsim-intel-starter",
+    "description": "ModelSim-Intel FPGA Starter Edition",
+  },
+  {
     "name": "mongodb-bin",
     "description": "A high-performance, open source, schema-free document-oriented database",
   },
@@ -795,8 +803,23 @@
     "need_swap": true,
   },
   {
+    "name": "opendrop",
+    "description": "An open Apple AirDrop implementation",
+  },
+  {
     "name": "openfaas-cli",
     "description": "OpenFaaS makes it simple to deploy both functions and existing code to Kubernetes",
+  },
+  {
+    "name": "openface",
+    "description": "A state-of-the art tool intended for facial landmark detection, head pose estimation, facial action unit recognition, and eye-gaze estimation",
+  },
+  {
+    "name": "openfoam",
+    "description": "OpenFOAM is the leading free, open source software for computational fluid dynamics (CFD)",
+    "meta": true,
+    "conflictdepends": "openfoam openfoam-com",
+    "postdepends": "python-pyfoam adol-c",
   },
   {
     "name": "openrazer",
@@ -804,6 +827,10 @@
     "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
     "group": "openrazer",
+  },
+  {
+    "name": "openstego",
+    "description": "Steganography application that provides data hiding and watermarking functionality",
   },
   {
     "name": "ospd-openvas",
