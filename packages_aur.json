@@ -450,6 +450,10 @@
     "description": "Allow to connect bluetooth paired devices from gnome control panel",
   },
   {
+    "name": "gnome-shell-extension-caffeine",
+    "description": "Extension for GNOME shell to disable screensaver and auto suspend",
+  },
+  {
     "name": "gnome-shell-extension-dash-to-dock-animator-git",
     "description": "Animate the icons of dash to dock",
     "depends": "zip",
@@ -507,6 +511,10 @@
   {
     "name": "gnome-shell-extension-shell-configurator",
     "description": "Configure and customize GNOME Shell with advanced settings",
+  },
+  {
+    "name": "gnome-shell-extension-tiling-assistant",
+    "description": "A GNOME Shell extension to expand GNOME's native 2 column design",
   },
   {
     "name": "gnome-shell-extension-wifiqrcode",
@@ -1199,6 +1207,12 @@
   //   "description": "A simple and easy to use image viewer",
   //   "depends": "xviewer-plugins",
   // },
+
+  {
+    "name": "yaru",
+    "description": "Yaru default ubuntu gnome shell theme",
+    "group": "yaru"
+  },
   {
     "name": "zoom",
     "description": "Video Conferencing and Web Conferencing Service",
