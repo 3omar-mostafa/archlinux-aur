@@ -1,6 +1,6 @@
 pkgname=gnome-shell-extension-net-speed-simplified
 _pkgname=netspeedsimplified
-pkgver=36
+pkgver=39
 pkgrel=1
 pkgdesc="A Net Speed extension With Loads of Customization. Fork of simplenetspeed"
 arch=('any')
@@ -8,7 +8,7 @@ url="https://www.github.com/prateekmedia/netspeedsimplified"
 license=('GPL')
 depends=('gnome-shell')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('e513b0b3dfbeb308053dd7c01f871146f2dda2bf8bb65a1e31371b08f2fda25f')
+sha256sums=('f651f87d1ea3a65e31fecb82f162a3e24ee328f1bdea533ca23e06efb939bc98')
 
 package() {
     cd "${srcdir}/${_pkgname}-${pkgver}"
