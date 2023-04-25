@@ -946,6 +946,15 @@
     "description": "A cross-platform hex editor, with binary templates (similar to 010 Editor).",
   },
   {
+    "name": "ros-noetic-desktop-full",
+    "description": "ROS 1 - A metapackage to aggregate several packages",
+  },
+  {
+    "name": "ros2-humble-desktop-full",
+    "description": "A meta package which depends on all ROS 2 humble packages",
+    "local": true,
+  },
+  {
     "name": "rubymine",
     "description": "Jetbrains Ruby/Rails IDE",
     "group": "jetbrains-ides",
@@ -1150,7 +1159,7 @@
     "description": "A container-based approach to boot a full Android system on a regular Linux system",
     "depends": "python-pyclip",
     "conflictdepends": "waydroid-image waydroid-image-gapps",
-    "postdepends": "waydroid-script-git",
+    "postdepends": "waydroid-script-git binder_linux-dkms",
   },
   {
     "name": "webstorm",
