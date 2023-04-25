@@ -81,6 +81,11 @@
     "depends": "nodejs-lts-hydrogen",
   },
   {
+    "name": "arduino-ide-bin",
+    "description": "Arduino platform IDE v2",
+    "postdepends": "platformio",
+  },
+  {
     "name": "arjun",
     "description": "HTTP parameter discovery suite",
   },
@@ -187,6 +192,10 @@
     "name": "cloak",
     "description": "A Command Line OTP (One Time Password) Authenticator application",
     "depends": "rust",
+  },
+  {
+    "name": "cloak-obfuscation",
+    "description": "A pluggable transport that works alongside traditional proxy tools like OpenVPN to evade deep-packet-inspection based censorship",
   },
   {
     "name": "code-unblock-features",
@@ -533,6 +542,13 @@
   //   "name": "gnome-text-editor",
   //   "description": "Simple text editor that focuses on session management",
   // },
+
+  {
+    "name": "gns3-server",
+    "description": "GNS3 network simulator",
+    "depends": "dynamips ubridge vpcs",
+    "postdepends": "gns3-gui",
+  },
   {
     "name": "gobuster",
     "description": "A directory/file & DNS busting tool",
@@ -585,6 +601,13 @@
     "description": "A system information and benchmark tool",
   },
   {
+    "name": "horsicq-packages",
+    "description": "horsicq packages for parsing Windows/Linux/MacOS/Android files",
+    "depends": "detect-it-easy-bin xmachoviewer-bin xelfviewer-bin xpeviewer-bin xapkdetector-bin",
+    "postdepends": "elfcat",
+    "meta": true,
+  },
+  {
     "name": "httpdirfs",
     "description": "A filesystem which allows you to mount HTTP directory listings",
   },
@@ -627,6 +650,12 @@
   {
     "name": "jaeles",
     "description": "The Swiss Army knife for automated Web Application Testing",
+  },
+  {
+    "name": "jaspersoftstudio",
+    "description": "Eclipse based Jasper Reports generator",
+    "depends": "jdk17-openjdk",
+    "postdepends": "jasperstarter",
   },
   {
     "name": "jd-gui",
@@ -876,6 +905,11 @@
     "description": "Build, test, and document your APIs faster",
     "apply_script_file": "postman/postman.sh",
     "postdepends": "newman",
+  },
+  {
+    "name": "procmon",
+    "description": "Trace syscall activity tool",
+    "checkdepends": "iperf3 netperf",
   },
   {
     "name": "protonvpn",
