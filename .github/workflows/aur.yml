@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun,tue,thu'
   workflow_dispatch:
-  push:
+  # push:
 
 env:
   BAT_PAGER: ''
@@ -101,20 +101,16 @@ jobs:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
     runs-on: ubuntu-latest
-    # env: "${{ matrix.env }}"
+    env: "${{ matrix.env }}"
     continue-on-error: true
     
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          include:
-            - name: "yaru"
-              group: "yaru"
-            
-            - name: "openrazer"
-              group: "openrazer"
-              apply_cmd: "export PATH=/usr/bin:$PATH"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          # include:
+          #   - name: "yaru"
+          #     group: "yaru"
             
     container:
       image: "manjarolinux/build"
@@ -342,6 +338,7 @@ jobs:
         run: |
           find . -mindepth 3 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
           echo "====================================================="
+          echo "Copy Top Level Packages"
           find . -mindepth 2 -maxdepth 2 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
 
       - run: ls -lRh --color=always
