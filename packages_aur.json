@@ -471,10 +471,11 @@
     "description": "Animate the icons of dash to dock",
     "depends": "zip",
   },
-  {
-    "name": "gnome-shell-extension-desktop-icons-ng",
-    "description": "A fork from the official desktop icons project, with several enhancements like Drag'n'Drop",
-  },
+    //   gnome-shell-extension-desktop-icons-ng is provided by manjaro `gnome-shell-extension-desktop-icons-ng`
+  // {
+  //   "name": "gnome-shell-extension-desktop-icons-ng",
+  //   "description": "A fork from the official desktop icons project, with several enhancements like Drag'n'Drop",
+  // },
   {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
     "description": "Extension that enables all notifications in fullscreen mode",
@@ -562,13 +563,14 @@
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
   },
-  {
-    "name": "gradience",
-    "description": "Customize the look of Adwaita",
-    "depends": "adw-gtk3",
-    "checkdepends": "appstream appstream-glib",
-    // "postdepends": "gradience-plugins",
-  },
+  //   gradience is provided by manjaro `gradience`
+  // {
+  //   "name": "gradience",
+  //   "description": "Customize the look of Adwaita",
+  //   "depends": "adw-gtk3",
+  //   "checkdepends": "appstream appstream-glib",
+  //   // "postdepends": "gradience-plugins",
+  // },
   {
     "name": "grub-customizer",
     "description": "Graphical grub2 settings manager",
@@ -743,10 +745,11 @@
     "description": "Command line client application for Mega.nz",
     "depends": "nodejs-lts-hydrogen",
   },
-  {
-    "name": "memtest86-efi",
-    "description": "A free, thorough, stand alone memory test as an EFI application",
-  },
+  //   memtest86-efi is provided by manjaro `memtest86-efi`
+  // {
+  //   "name": "memtest86-efi",
+  //   "description": "A free, thorough, stand alone memory test as an EFI application",
+  // },
   {
     "name": "metadata-cleaner",
     "description": "Python GTK application to view and clean metadata in files, using mat2",
@@ -1066,10 +1069,12 @@
   //   "name": "sticky",
   //   "description": "A sticky notes app for the Linux desktop",
   // },
-  {
-    "name": "surfshark-gui-bin",
-    "description": "Surfshark VPN client"
-  },
+
+  //   surfshark-gui-bin is provided by manjaro `surfshark-gui-bin`
+  // {
+  //   "name": "surfshark-gui-bin",
+  //   "description": "Surfshark VPN client"
+  // },
   {
     "name": "system-monitoring-center",
     "description": "System performance and usage monitoring tool",
