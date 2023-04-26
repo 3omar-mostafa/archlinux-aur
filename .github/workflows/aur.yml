@@ -340,9 +340,9 @@ jobs:
       - name: "Copy all packages to root folder"
         if: always()
         run: |
-          find . -mindepth 2 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
+          find . -mindepth 3 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
           echo "====================================================="
-          find . -mindepth 1 -maxdepth 2 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
+          find . -mindepth 2 -maxdepth 2 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
 
       - run: ls -lRh --color=always
         if: always()
