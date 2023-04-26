@@ -834,6 +834,7 @@
   {
     "name": "opendrop",
     "description": "An open Apple AirDrop implementation",
+    "python2": true,
   },
   {
     "name": "openfaas-cli",
