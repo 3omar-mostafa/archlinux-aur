@@ -332,12 +332,11 @@ jobs:
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
 
-      - run: ls -lRh --color=always
-        if: always()
-
       - name: "Copy all packages to root folder"
         if: always()
-        run: find . -depth -iname '*.pkg.tar.zst' -exec cp -v {} . \;
+        run: |
+          find . -mindepth 1 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
+          find . -maxdepth 1 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
 
       - run: ls -lRh --color=always
         if: always()
