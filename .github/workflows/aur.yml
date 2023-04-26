@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun,tue,thu'
   workflow_dispatch:
-  # push:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -101,16 +101,21 @@ jobs:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
     runs-on: ubuntu-latest
-    env: "${{ matrix.env }}"
+    # env: "${{ matrix.env }}"
     continue-on-error: true
     
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
-          # include:
-            # - name: "ttf-ms-win10-auto"
-
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include:
+            - name: "yaru"
+              group: "yaru"
+            
+            - name: "openrazer"
+              group: "openrazer"
+              apply_cmd: "export PATH=/usr/bin:$PATH"
+            
     container:
       image: "manjarolinux/build"
       # https://docs.docker.com/engine/reference/commandline/create/
