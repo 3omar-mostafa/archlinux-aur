@@ -1,6 +1,6 @@
 name: AUR
 
-# use `--ask 4` in pacman to allow defeault yes in case of conflicts
+# use `--ask 4` in pacman to allow default yes in case of conflicts
 # https://unix.stackexchange.com/questions/274727/how-to-force-pacman-to-answer-yes-to-all-questions
 
 
@@ -332,9 +332,12 @@ jobs:
       - name: "Fix File Names [Replace : with - ]"
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
 
+      - run: ls -lRh --color=always
+        if: always()
+
       - name: "Copy all packages to root folder"
         if: always()
-        run: find . -iname '*.pkg.tar.zst' -exec cp {} . \;
+        run: find . -depth -iname '*.pkg.tar.zst' -exec cp -v {} . \;
 
       - run: ls -lRh --color=always
         if: always()
