@@ -605,7 +605,7 @@
   {
     "name": "horsicq-packages",
     "description": "horsicq packages for parsing Windows/Linux/MacOS/Android files",
-    "depends": "detect-it-easy-bin xmachoviewer-bin xelfviewer-bin xpeviewer-bin xapkdetector-bin",
+    "conflictdepends": "detect-it-easy-bin xmachoviewer-bin xelfviewer-bin xpeviewer-bin xapkdetector-bin",
     "postdepends": "elfcat",
     "meta": true,
   },
@@ -914,6 +914,7 @@
     "name": "procmon",
     "description": "Trace syscall activity tool",
     "checkdepends": "iperf3 netperf",
+    "disable_mold": true,
   },
   {
     "name": "protonvpn",
@@ -990,6 +991,7 @@
   {
     "name": "ros2-humble-desktop-full",
     "description": "A meta package which depends on all ROS 2 humble packages",
+    "depends": "sip4 python-pyqt5-sip4",
     "local": true,
   },
   {
