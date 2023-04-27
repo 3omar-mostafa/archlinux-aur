@@ -139,6 +139,9 @@ jobs:
           pacman -Syu --noconfirm --color always
           pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
 
+      - name: git config
+        run: git config --global protocol.file.allow always
+        
       - name: Install python2
         if: ${{ matrix.python2 }}
         run: |
