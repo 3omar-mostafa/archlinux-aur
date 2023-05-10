@@ -359,6 +359,7 @@
   {
     "name": "ferdium-electron",
     "description": "A messaging browser that allows you to combine your favorite messaging services into one application",
+    "depends": "systemd-sysvcompat",
   },
   {
     "name": "feroxbuster",
@@ -837,7 +838,7 @@
   {
     "name": "opendrop",
     "description": "An open Apple AirDrop implementation",
-    "python2": true,
+    "checkdepends": "python-pytest-runner",
   },
   {
     "name": "openfaas-cli",
@@ -914,7 +915,11 @@
     "name": "procmon",
     "description": "Trace syscall activity tool",
     "checkdepends": "iperf3 netperf",
-    "disable_mold": true,
+    "env" : {
+      "CC": "/usr/bin/clang",
+      "CXX": "/usr/bin/clang++",
+      "CPP": "/usr/bin/clang-cpp",
+    }
   },
   {
     "name": "protonvpn",
@@ -987,12 +992,14 @@
   {
     "name": "ros-noetic-desktop-full",
     "description": "ROS 1 - A metapackage to aggregate several packages",
+    "need_swap": true,
   },
   {
     "name": "ros2-humble-desktop-full",
     "description": "A meta package which depends on all ROS 2 humble packages",
     "depends": "sip4 python-pyqt5-sip4",
     "local": true,
+    "need_swap": true,
   },
   {
     "name": "rubymine",
@@ -1018,6 +1025,7 @@
   {
     "name": "semgrep-bin",
     "description": "Fast static analysis engine for finding bugs, detecting vulnerabilities, and enforcing code standards",
+    "depends": "python-pip",
   },
   {
     "name": "shellcheck-bin",
