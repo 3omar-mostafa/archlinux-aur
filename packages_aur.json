@@ -706,7 +706,7 @@
   {
     "name": "librewolf-bin",
     "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
-    "gpg_key": "031F7104E932F7BD7416E7F6D2845E1305D6E801",
+    "gpg_key": "662E3CDD6FE329002D0CA5BB40339DD82B12EF16",
     "postdepends": "arkenfox-user.js librewolf-extension-localcdn librewolf-extension-dark-reader librewolf-ublock-origin librewolf-extension-bitwarden",
   },
   {
