@@ -455,7 +455,7 @@ jobs:
               gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
               status_code=$?
 
-              rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
+              rate_limit_json=$(gh api /rate_limit --jq -c '.resources.core')
               remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
 
               if [[ $status_code == 0 ]] ; then
@@ -466,7 +466,8 @@ jobs:
                 if [[ "$attempt" == 10 ]] ; then
                   echo " [DEBUG] $rate_limit_json"
                   reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
-                  current_time=$(date '+%s')
+                  current_time=$(date --utc '+%s')
+                  echo " [DEBUG] current_time: $current_time"
                   time_to_reset=$(( $reset_time - $current_time ))
 
                   echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
