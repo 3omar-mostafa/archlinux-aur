@@ -432,7 +432,7 @@ jobs:
           gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
           status_code=$?
 
-          if [[ $status_code != 0 ]] ; then
+          if [[ $status_code -ne 0 ]] ; then
             echo -e "\e[1m\e[31m ============== Release '$tag_name' already exists ============== \e[0m"
             
             assets_count=$(gh release view "$tag_name" --repo ${{ github.repository }} --json assets --jq '.[]|length')
@@ -449,17 +449,19 @@ jobs:
 
           for package in * ; do
             for attempt in {1..15} ; do
-              if [[ "$attempt" != 1 ]] ; then
+              if [[ "$attempt" -ne 1 ]] ; then
                 echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
               fi
 
-              gh release upload "$tag_name" --repo ${{ github.repository }} --clobber "$package"
+              gh release upload "$tag_name" --repo "${{ github.repository }}" --clobber "$package"
               status_code=$?
 
-              rate_limit_json=$(gh api /rate_limit --jq '.resources.core' | jq -c )
+              rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
+              echo " [DEBUG] $rate_limit_json"
               remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
+              echo " [DEBUG] remaining_api: $remaining_api"
 
-              if [[ $status_code == 0 ]] ; then
+              if [[ $status_code -eq 0 ]] ; then
                 echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
                 break
               else
@@ -468,6 +470,7 @@ jobs:
                   echo " [DEBUG] $rate_limit_json"
                   reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
                   current_time=$(date --utc '+%s')
+                  echo " [DEBUG] reset_time: $reset_time"
                   echo " [DEBUG] current_time: $current_time"
                   time_to_reset=$(( $reset_time - $current_time ))
 
@@ -475,7 +478,7 @@ jobs:
                   sleep $time_to_reset
                 fi
 
-                if [[ "$attempt" == 10 ]] ; then
+                if [[ "$attempt" -eq 10 ]] ; then
                   echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
                 fi
               fi
