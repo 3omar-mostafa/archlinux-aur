@@ -334,6 +334,7 @@ jobs:
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
 
       - name: "Fix File Names [Replace : with - ]"
+        if: always()
         run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
 
       - name: "Copy all packages to root folder"
