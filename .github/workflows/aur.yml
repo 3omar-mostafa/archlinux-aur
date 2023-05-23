@@ -456,9 +456,7 @@ jobs:
               gh release upload "$tag_name" --repo "${{ github.repository }}" --clobber "$package"
               status_code=$?
 
-              rate_limit_json=$(gh api /rate_limit --jq '.resources.core')
-              echo " [DEBUG] $rate_limit_json"
-              remaining_api=$(echo "$rate_limit_json" | jq -r '.remaining')
+              remaining_api=$(gh api /rate_limit --jq '.resources.core.remaining')
               echo " [DEBUG] remaining_api: $remaining_api"
 
               if [[ $status_code -eq 0 ]] ; then
@@ -467,8 +465,7 @@ jobs:
               else
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
                 if [[ "$attempt" == 10 ]] ; then
-                  echo " [DEBUG] $rate_limit_json"
-                  reset_time=$(echo "$rate_limit_json" | jq -r '.reset')
+                  reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
                   current_time=$(date --utc '+%s')
                   echo " [DEBUG] reset_time: $reset_time"
                   echo " [DEBUG] current_time: $current_time"
