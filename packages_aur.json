@@ -990,18 +990,18 @@
     "name": "rehex",
     "description": "A cross-platform hex editor, with binary templates (similar to 010 Editor).",
   },
-  {
-    "name": "ros-noetic-desktop-full",
-    "description": "ROS 1 - A metapackage to aggregate several packages",
-    "need_swap": true,
-  },
-  {
-    "name": "ros2-humble-desktop-full",
-    "description": "A meta package which depends on all ROS 2 humble packages",
-    "depends": "sip4 python-pyqt5-sip4",
-    "local": true,
-    "need_swap": true,
-  },
+//  {
+//    "name": "ros-noetic-desktop-full",
+//    "description": "ROS 1 - A metapackage to aggregate several packages",
+//    "need_swap": true,
+//  },
+//  {
+//    "name": "ros2-humble-desktop-full",
+//    "description": "A meta package which depends on all ROS 2 humble packages",
+//    "depends": "sip4 python-pyqt5-sip4",
+//    "local": true,
+//    "need_swap": true,
+//  },
   {
     "name": "rubymine",
     "description": "Jetbrains Ruby/Rails IDE",
