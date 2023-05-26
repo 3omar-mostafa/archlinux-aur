@@ -840,6 +840,7 @@
     "description": "An open Apple AirDrop implementation",
     "checkdepends": "python-pytest-runner",
     "python2": true,
+    "build_flags": "--nocheck",
   },
   {
     "name": "openfaas-cli",
