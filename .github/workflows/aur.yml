@@ -457,14 +457,13 @@ jobs:
               status_code=$?
 
               remaining_api=$(gh api /rate_limit --jq '.resources.core.remaining')
-              echo " [DEBUG] remaining_api: $remaining_api"
 
               if [[ $status_code -eq 0 ]] ; then
                 echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
                 break
               else
                 echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
-                if [[ "$attempt" == 10 ]] ; then
+                if [[ "$attempt" -eq 10 || "$remaining_api" -le 1 ]] ; then
                   reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
                   current_time=$(date --utc '+%s')
                   echo " [DEBUG] reset_time: $reset_time"
