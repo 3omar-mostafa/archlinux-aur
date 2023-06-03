@@ -156,7 +156,7 @@
   {
     "name": "cassandra",
     "description": "Apache Cassandra NoSQL database",
-    "gpg_key": "7464AAD9068241C50BA6A26232F35CB2F546D93E",
+    "gpg_key": "A4C465FEA0C552561A392A61E91335D77E3E87CB",
   },
   {
     "name": "cheat",
