@@ -499,6 +499,7 @@
     "name": "gnome-shell-extension-improvedosk",
     "description": "Makes GNOME's onscreen keyboard more useable",
     "depends": "ttf-symbola",
+    "local": true,
   },
   {
     "name": "gnome-shell-extension-pano",
