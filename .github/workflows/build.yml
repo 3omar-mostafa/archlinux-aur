@@ -35,9 +35,9 @@ on:
         type: boolean
         required: false
         default: false
-      env:
-        type: string
-        required: true
+      # env:
+      #   type: string
+      #   required: true
       gpg_key:
         type: string
         required: false
