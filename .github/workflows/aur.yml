@@ -115,7 +115,7 @@ jobs:
           # include:
           #   - name: "yaru"
           #     group: "yaru"
-    uses: .github/workflows/build.yml
+    uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
       apply_script_file: ${{ matrix.apply_script_file }}
@@ -152,7 +152,7 @@ jobs:
           # include:
           #   - name: "yaru"
           #     group: "yaru"
-    uses: .github/workflows/build.yml
+    uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
       apply_script_file: ${{ matrix.apply_script_file }}
