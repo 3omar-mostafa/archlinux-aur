@@ -75,7 +75,13 @@ jobs:
 
             python3 packages.py
 
-            echo "matrix=$(cat packages_aur.json)" >> $GITHUB_OUTPUT
+            # Due to github actions matrix limits
+            # Split packages to multiple files, each containing max of 250 packages
+            # Generates: packages_aur_00.json, packages_aur_01.json ...
+            cat packages_aur.json | jq -c '_nwise(250)' | split -d -l 1 - packages_aur_ --additional-suffix=.json --suffix-length=2
+            
+            echo "matrix_1=$(cat packages_aur_00.json)" >> $GITHUB_OUTPUT
+            echo "matrix_2=$(cat packages_aur_01.json)" >> $GITHUB_OUTPUT
 
 
         - name: View Packages
@@ -92,7 +98,8 @@ jobs:
 
 
       outputs:
-          matrix: ${{ steps.set-packages.outputs.matrix }}
+          matrix_1: ${{ steps.set-packages.outputs.matrix_1 }}
+          matrix_2: ${{ steps.set-packages.outputs.matrix_2 }}
           version: ${{ steps.set-version.outputs.version }}
 
 
@@ -101,264 +108,82 @@ jobs:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
     runs-on: ubuntu-latest
-    env: "${{ matrix.env }}"
     continue-on-error: true
     
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix) }}
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
           # include:
           #   - name: "yaru"
           #     group: "yaru"
-            
-    container:
-      image: "manjarolinux/build"
-      # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup"
+    uses: .github/workflows/build.yml
+    with:
+      apply_cmd: ${{ matrix.apply_cmd }}
+      apply_script_file: ${{ matrix.apply_script_file }}
+      archdepends: ${{ matrix.archdepends }}
+      build_flags: ${{ matrix.build_flags }}
+      checkdepends: ${{ matrix.checkdepends }}
+      checkout: ${{ matrix.checkout }}
+      conflictdepends: ${{ matrix.conflictdepends }}
+      depends: ${{ matrix.depends }}
+      disable_mold: ${{ matrix.disable_mold }}
+      # env: ${{ matrix.env }}
+      gpg_key: ${{ matrix.gpg_key }}
+      gpg_key_server: ${{ matrix.gpg_key_server }}
+      gpg_url: ${{ matrix.gpg_url }}
+      group: ${{ matrix.group }}
+      local: ${{ matrix.local }}
+      meta: ${{ matrix.meta }}
+      name: ${{ matrix.name }}
+      need_swap: ${{ matrix.need_swap }}
+      official: ${{ matrix.official }}
+      postdepends: ${{ matrix.postdepends }}
+      python2: ${{ matrix.python2 }}
 
-    steps:
-      - uses: actions/checkout@v3
-  
-      - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat aria2
 
-      - name: Pacman Config
-        run: ./scripts/pacmanconf.sh
 
-      - name: makepkg Config
-        run: |
-          sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
-          sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
-          sed -i 's/--retry 3 --retry-delay 3/--retry 15 --retry-delay 10 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
-          echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
-          bat --color always --wrap=never /etc/makepkg.conf -l conf
+  build_:
+    name: "Build ${{ matrix.name }}"
+    needs: load_balancer
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    
+    strategy:
+        fail-fast: false
+        matrix:
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          # include:
+          #   - name: "yaru"
+          #     group: "yaru"
+    uses: .github/workflows/build.yml
+    with:
+      apply_cmd: ${{ matrix.apply_cmd }}
+      apply_script_file: ${{ matrix.apply_script_file }}
+      archdepends: ${{ matrix.archdepends }}
+      build_flags: ${{ matrix.build_flags }}
+      checkdepends: ${{ matrix.checkdepends }}
+      checkout: ${{ matrix.checkout }}
+      conflictdepends: ${{ matrix.conflictdepends }}
+      depends: ${{ matrix.depends }}
+      disable_mold: ${{ matrix.disable_mold }}
+      # env: ${{ matrix.env }}
+      gpg_key: ${{ matrix.gpg_key }}
+      gpg_key_server: ${{ matrix.gpg_key_server }}
+      gpg_url: ${{ matrix.gpg_url }}
+      group: ${{ matrix.group }}
+      local: ${{ matrix.local }}
+      meta: ${{ matrix.meta }}
+      name: ${{ matrix.name }}
+      need_swap: ${{ matrix.need_swap }}
+      official: ${{ matrix.official }}
+      postdepends: ${{ matrix.postdepends }}
+      python2: ${{ matrix.python2 }}
 
-      - name: Install basic dependencies
-        run: |
-          pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
-
-      - name: git config
-        run: git config --global protocol.file.allow always
-        
-      - name: Install python2
-        if: ${{ matrix.python2 }}
-        run: |
-          echo '#!/usr/bin/env bash' > /bin/pacignore
-          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
-          export DOWNGRADE_FROM_ALA=1
-          downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
-
-      - name: Setup mold linker
-        continue-on-error: true
-        if: ${{ ! matrix.disable_mold }}
-        uses: rui314/setup-mold@v1
-
-      - name: Create Swap file
-        if: matrix.need_swap
-        run: |
-          export SWAPFILE=/__w/swapfile
-          dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
-          chmod 0600 $SWAPFILE
-          mkswap -U clear $SWAPFILE
-          swapon --verbose $SWAPFILE
-          
-          swapon --show 
-          df -Th
-          free -h
-
-      - name: Create non root user
-        run: |
-            cp -v /etc/skel/.* ~ || true
-            # Wheel group is the sudo group in Arch Linux
-            useradd --create-home --groups wheel  user
-            echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-            chown -R user ..
-
-      - name: Install Paru
-        run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
-
-      - name: yay configuration
-        run: |
-          echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
-          
-          yay -Y --answerclean None --builddir $PWD --save
-          yay --show --currentconfig
-
-      - name: Install GPG Key
-        if: matrix.gpg_key
-        run: |
-          if [[ -n "${{ matrix.gpg_key_server }}" ]] ;  then
-            export args="--keyserver ${{ matrix.gpg_key_server }}"
-          fi
-
-          sudo -u user gpg $args --recv-keys "${{ matrix.gpg_key }}"
-          gpg $args --recv-keys "${{ matrix.gpg_key }}"
-          chown -R user:user ~
-
-      - name: Install GPG Key (From URL)
-        if: matrix.gpg_url
-        run: |
-          wget "${{ matrix.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
-          
-          sudo -u user gpg --import /tmp/gpg.key
-          gpg --import /tmp/gpg.key
-          chown -R user:user ~
-
-      - name: Install Arch Linux Dependencies
-        if: matrix.archdepends
-        run: |
-          echo '#!/usr/bin/env bash' > /bin/pacignore
-          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
-          export DOWNGRADE_FROM_ALA=1
-          rm -rfv /usr/share/libalpm/hooks/package-cleanup.hook
-
-          downgrade ${{ matrix.archdepends }} --ala-only -- $PACMAN_OPTIONS
-
-          for package in $(./scripts/split_package_name.py "${{ matrix.archdepends }}"); do
-            find /var/cache/pacman/pkg/ -iname "*$package*" -type f -exec mv -v {} . \;
-          done
-
-      - name: Install/Build Dependencies of ${{ matrix.name }}
-        if: matrix.depends || matrix.checkdepends
-        run: |
-          cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ matrix.depends }} ${{ matrix.checkdepends }}
-          EOF
-          
-          chmod a+x deps.sh
-          bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
-
-      - name: Build ${{ matrix.name }}
-        if: ${{ ! matrix.meta }}
-        run: |
-          export SCRIPTS_DIR=`pwd`/scripts
-
-          cat <<EOF > build.sh
-          #!/bin/bash
-          
-          if [[ -n "${{ matrix.official }}" ]] ;  then
-
-            git clone -q https://github.com/archlinux/svntogit-packages  --single-branch --depth 1 --branch "packages/${{ matrix.name }}" \
-            || \
-            git clone -q https://github.com/archlinux/svntogit-community --single-branch --depth 1 --branch "packages/${{ matrix.name }}"
-
-            cd svntogit-*/trunk
-
-            sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ matrix.name }}" || true
-          
-          elif [[ -n "${{ matrix.local }}" ]] ; then
-            cp -a "./packages/${{ matrix.name }}" .
-            cd "${{ matrix.name }}"
-          
-          else
-            git clone -q "https://aur.archlinux.org/${{ matrix.name }}.git"
-            cd "${{ matrix.name }}"
-          fi
-
-          if [[ -n "${{ matrix.checkout }}" ]] ;  then
-            git checkout "${{ matrix.checkout }}"
-          fi
-          
-          find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \; || true
-          
-          if [[ -n "${{ matrix.apply_script_file }}" ]] ;  then
-            echo "Applying Patch from ${{ matrix.apply_script_file }} file"
-            
-            chmod a+x "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
-            "${SCRIPTS_DIR}/${{ matrix.apply_script_file }}"
-          fi
-
-          if [[ -n "${{ matrix.apply_cmd }}" ]] ;  then
-            echo "Applying Patch from command:"
-            echo "${{ matrix.apply_cmd }}"
-            
-            ${{ matrix.apply_cmd }}
-          fi
-          
-          if [[ -n "${{ matrix.group }}" ]] ;  then
-            sed -i "s^\^pkgname=^groups=(${{ matrix.group }})\npkgname=^g" PKGBUILD
-          fi
-          
-          bat --color always --wrap=never PKGBUILD
-
-          paru -Ui --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ matrix.build_flags }}
-          
-          EOF
-          
-          chown -R user:user /github
-          chown -R user:user $HOME
-
-          chmod a+x build.sh
-          bat --color always --wrap=never build.sh
-          socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
-
-      - name: Conflict Dependencies of ${{ matrix.name }}
-        if: matrix.conflictdepends
-        run: |
-          cat <<EOF > deps.sh
-            function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
-            function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
-            function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
-
-            read -a packages <<< "${{ matrix.conflictdepends }}"
-            for package in "\${packages[@]}"; do
-              YELLOW "################################################################################"
-              if [[ -n "\$old_package" ]]; then
-                RED "****************************** Removing \$old_package ******************************"
-                pacman -R --color always --noconfirm --ask 4 "\$old_package" || true
-                RED "********************************************************************************"
-              fi
-              GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' "\$package" || true
-              export old_package="\$package"
-              GREEN "================================================================================"
-            done
-          EOF
-          
-          chmod a+x deps.sh
-          bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
-
-      - name: Post Dependencies of ${{ matrix.name }}
-        if: matrix.postdepends
-        run: |
-          cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ matrix.postdepends }}
-          EOF
-          
-          chmod a+x deps.sh
-          bat --color always --wrap=never deps.sh
-          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
-
-      - name: "Fix File Names [Replace : with - ]"
-        if: always()
-        run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
-
-      - name: "Copy all packages to root folder"
-        if: always()
-        run: |
-          find . -mindepth 3 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
-          echo "====================================================="
-          echo "Copy Top Level Packages"
-          find . -mindepth 2 -maxdepth 2 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
-
-      - run: ls -lRh --color=always
-        if: always()
-
-      - name: Upload Package
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: "${{ matrix.name }}"
-          path: "*.pkg.tar.zst"
-          retention-days: 3
 
 
   deploy:
-    needs: [load_balancer, build]
+    needs: [load_balancer, build, build_]
     runs-on: ubuntu-latest
     container:
       image: "manjarolinux/build"

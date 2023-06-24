@@ -1,0 +1,355 @@
+name: Reusable Build Workflow
+
+# use `--ask 4` in pacman to allow default yes in case of conflicts
+# https://unix.stackexchange.com/questions/274727/how-to-force-pacman-to-answer-yes-to-all-questions
+
+
+on:
+  workflow_call:
+    inputs:
+      apply_cmd:
+        type: string
+        required: false
+      apply_script_file:
+        type: string
+        required: false
+      archdepends:
+        type: string
+        required: false
+      build_flags:
+        type: string
+        required: false
+      checkdepends:
+        type: string
+        required: false
+      checkout:
+        type: string
+        required: false
+      conflictdepends:
+        type: string
+        required: false
+      depends:
+        type: string
+        required: false
+      disable_mold:
+        type: boolean
+        required: false
+        default: false
+      env:
+        type: string
+        required: true
+      gpg_key:
+        type: string
+        required: false
+      gpg_key_server:
+        type: string
+        required: false
+      gpg_url:
+        type: string
+        required: false
+      group:
+        type: string
+        required: false
+      local:
+        type: boolean
+        default: false
+      meta:
+        type: boolean
+        default: false
+      name:
+        type: string
+        required: true
+      need_swap:
+        type: boolean
+        default: false
+      official:
+        type: boolean
+        default: false
+      postdepends:
+        type: string
+        required: false
+      python2:
+        type: boolean
+        default: false
+
+
+env:
+  BAT_PAGER: ''
+  COLUMNS: '140' # Terminal Width
+  FORCE_COLOR : '1' # Force colors in console output
+  MYPY_FORCE_COLOR: '1'
+  CLICOLOR: 1
+  CLI_COLOR: 1
+  CLICOLOR_FORCE: 'yes'
+  CLI_COLOR_FORCE: 'yes'
+  force_color_prompt: 'yes'
+  color_prompt: 'yes'
+  TERM: 'xterm-256color'
+  GCC_COLORS: 'error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+  LS_COLORS: 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=01;30:ow=01;34:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'
+  COLORTERM: 'truecolor'
+  COLOR_TERM: 'truecolor'
+  CMAKE_COLOR_DIAGNOSTICS: 'true'
+  # CFLAGS: '-fdiagnostics-color=always'
+  # CCFLAGS: '-fdiagnostics-color=always'
+  # CXXFLAGS: '-fdiagnostics-color=always'
+  # CPPFLAGS: '-fdiagnostics-color=always'
+  VERBOSE: 1
+  NODE_OPTIONS: '--max_old_space_size=8192' # increase max allowed memory usage
+  REPO: aur-repo
+
+
+defaults:
+  run:
+    shell: bash -l -e -o pipefail {0}
+
+jobs:
+  build:
+    name: "Build ${{ inputs.name }}"
+    runs-on: ubuntu-latest
+    # env: "${{ inputs.env }}"
+    
+    container:
+      image: "manjarolinux/build"
+      # https://docs.docker.com/engine/reference/commandline/create/
+      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup"
+
+    steps:
+      - uses: actions/checkout@v3
+  
+      - name: Install bat
+        run: pacman -Sy --noconfirm --color always --needed bat aria2
+
+      - name: Pacman Config
+        run: ./scripts/pacmanconf.sh
+
+      - name: makepkg Config
+        run: |
+          sed -i 's/COMPRESSZST.*/COMPRESSZST=(zstd -c -z -q --threads=0 -19 -)/g' /etc/makepkg.conf
+          sed -i 's/CFLAGS="/CFLAGS="-fdiagnostics-color=always /g' /etc/makepkg.conf
+          sed -i 's/--retry 3 --retry-delay 3/--retry 15 --retry-delay 10 --retry-all-errors --retry-connrefused/g' /etc/makepkg.conf
+          echo 'PACKAGER="3omar-mostafa <3omar-mostafa@invalid-email.com>"' >> /etc/makepkg.conf
+          bat --color always --wrap=never /etc/makepkg.conf -l conf
+
+      - name: Install basic dependencies
+        run: |
+          pacman -Syu --noconfirm --color always
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
+
+      - name: git config
+        run: git config --global protocol.file.allow always
+        
+      - name: Install python2
+        if: ${{ inputs.python2 }}
+        run: |
+          echo '#!/usr/bin/env bash' > /bin/pacignore
+          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
+          export DOWNGRADE_FROM_ALA=1
+          downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
+
+      - name: Setup mold linker
+        continue-on-error: true
+        if: ${{ ! inputs.disable_mold }}
+        uses: rui314/setup-mold@v1
+
+      - name: Create Swap file
+        if: inputs.need_swap
+        run: |
+          export SWAPFILE=/__w/swapfile
+          dd if=/dev/zero of=$SWAPFILE bs=1M count=10240 status=progress
+          chmod 0600 $SWAPFILE
+          mkswap -U clear $SWAPFILE
+          swapon --verbose $SWAPFILE
+          
+          swapon --show 
+          df -Th
+          free -h
+
+      - name: Create non root user
+        run: |
+            cp -v /etc/skel/.* ~ || true
+            # Wheel group is the sudo group in Arch Linux
+            useradd --create-home --groups wheel  user
+            echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+            chown -R user ..
+
+      - name: Install Paru
+        run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
+
+      - name: yay configuration
+        run: |
+          echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
+          
+          yay -Y --answerclean None --builddir $PWD --save
+          yay --show --currentconfig
+
+      - name: Install GPG Key
+        if: inputs.gpg_key
+        run: |
+          if [[ -n "${{ inputs.gpg_key_server }}" ]] ;  then
+            export args="--keyserver ${{ inputs.gpg_key_server }}"
+          fi
+
+          sudo -u user gpg $args --recv-keys "${{ inputs.gpg_key }}"
+          gpg $args --recv-keys "${{ inputs.gpg_key }}"
+          chown -R user:user ~
+
+      - name: Install GPG Key (From URL)
+        if: inputs.gpg_url
+        run: |
+          wget "${{ inputs.gpg_url }}" -O /tmp/gpg.key && chmod a+r /tmp/gpg.key
+          
+          sudo -u user gpg --import /tmp/gpg.key
+          gpg --import /tmp/gpg.key
+          chown -R user:user ~
+
+      - name: Install Arch Linux Dependencies
+        if: inputs.archdepends
+        run: |
+          echo '#!/usr/bin/env bash' > /bin/pacignore
+          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
+          export DOWNGRADE_FROM_ALA=1
+          rm -rfv /usr/share/libalpm/hooks/package-cleanup.hook
+
+          downgrade ${{ inputs.archdepends }} --ala-only -- $PACMAN_OPTIONS
+
+          for package in $(./scripts/split_package_name.py "${{ inputs.archdepends }}"); do
+            find /var/cache/pacman/pkg/ -iname "*$package*" -type f -exec mv -v {} . \;
+          done
+
+      - name: Install/Build Dependencies of ${{ inputs.name }}
+        if: inputs.depends || inputs.checkdepends
+        run: |
+          cat <<EOF > deps.sh
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.depends }} ${{ inputs.checkdepends }}
+          EOF
+          
+          chmod a+x deps.sh
+          bat --color always --wrap=never deps.sh
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+
+      - name: Build ${{ inputs.name }}
+        if: ${{ ! inputs.meta }}
+        run: |
+          export SCRIPTS_DIR=`pwd`/scripts
+
+          cat <<EOF > build.sh
+          #!/bin/bash
+          
+          if [[ -n "${{ inputs.official }}" ]] ;  then
+
+            git clone -q https://github.com/archlinux/svntogit-packages  --single-branch --depth 1 --branch "packages/${{ inputs.name }}" \
+            || \
+            git clone -q https://github.com/archlinux/svntogit-community --single-branch --depth 1 --branch "packages/${{ inputs.name }}"
+
+            cd svntogit-*/trunk
+
+            sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ inputs.name }}" || true
+          
+          elif [[ -n "${{ inputs.local }}" ]] ; then
+            cp -a "./packages/${{ inputs.name }}" .
+            cd "${{ inputs.name }}"
+          
+          else
+            git clone -q "https://aur.archlinux.org/${{ inputs.name }}.git"
+            cd "${{ inputs.name }}"
+          fi
+
+          if [[ -n "${{ inputs.checkout }}" ]] ;  then
+            git checkout "${{ inputs.checkout }}"
+          fi
+          
+          find ../.. -ignore_readdir_race -type d -name .git -exec rm -rf {} \; || true
+          
+          if [[ -n "${{ inputs.apply_script_file }}" ]] ;  then
+            echo "Applying Patch from ${{ inputs.apply_script_file }} file"
+            
+            chmod a+x "${SCRIPTS_DIR}/${{ inputs.apply_script_file }}"
+            "${SCRIPTS_DIR}/${{ inputs.apply_script_file }}"
+          fi
+
+          if [[ -n "${{ inputs.apply_cmd }}" ]] ;  then
+            echo "Applying Patch from command:"
+            echo "${{ inputs.apply_cmd }}"
+            
+            ${{ inputs.apply_cmd }}
+          fi
+          
+          if [[ -n "${{ inputs.group }}" ]] ;  then
+            sed -i "s^\^pkgname=^groups=(${{ inputs.group }})\npkgname=^g" PKGBUILD
+          fi
+          
+          bat --color always --wrap=never PKGBUILD
+
+          paru -Ui --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }}
+          
+          EOF
+          
+          chown -R user:user /github
+          chown -R user:user $HOME
+
+          chmod a+x build.sh
+          bat --color always --wrap=never build.sh
+          socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+
+      - name: Conflict Dependencies of ${{ inputs.name }}
+        if: inputs.conflictdepends
+        run: |
+          cat <<EOF > deps.sh
+            function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
+            function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
+            function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
+
+            read -a packages <<< "${{ inputs.conflictdepends }}"
+            for package in "\${packages[@]}"; do
+              YELLOW "################################################################################"
+              if [[ -n "\$old_package" ]]; then
+                RED "****************************** Removing \$old_package ******************************"
+                pacman -R --color always --noconfirm --ask 4 "\$old_package" || true
+                RED "********************************************************************************"
+              fi
+              GREEN "==================================== Installing \$package ===================================="
+              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' "\$package" || true
+              export old_package="\$package"
+              GREEN "================================================================================"
+            done
+          EOF
+          
+          chmod a+x deps.sh
+          bat --color always --wrap=never deps.sh
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+
+      - name: Post Dependencies of ${{ inputs.name }}
+        if: inputs.postdepends
+        run: |
+          cat <<EOF > deps.sh
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.postdepends }}
+          EOF
+          
+          chmod a+x deps.sh
+          bat --color always --wrap=never deps.sh
+          socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
+
+      - name: "Fix File Names [Replace : with - ]"
+        if: always()
+        run: find . -type f -name '*:*' -execdir bash -c 'mv "$1" "${1//:/-}"' bash {} \;
+
+      - name: "Copy all packages to root folder"
+        if: always()
+        run: |
+          find . -mindepth 3 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
+          echo "====================================================="
+          echo "Copy Top Level Packages"
+          find . -mindepth 2 -maxdepth 2 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
+
+      - run: ls -lRh --color=always
+        if: always()
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: "${{ inputs.name }}"
+          path: "*.pkg.tar.zst"
+          retention-days: 3
+

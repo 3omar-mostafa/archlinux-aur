@@ -28,6 +28,18 @@
 // TODO:
 // Try to use `use-system-electron` aur package, OR `use-system-electron19` to have only one electron version
 
+// Include Packages from other repos:
+// From ArchStrike:
+//  - chipsec (need update)
+//  - angr (need update)
+//  - beef/beef-git
+//  - cewl
+//  - changeme
+//  - mentalist
+//  - mimikatz
+//  - objection
+// 
+
 [
   {
     "name": "010editor",
@@ -130,19 +142,14 @@
     "depends": "jdk17-openjdk nodejs-lts-hydrogen",
     "postdepends": "python-bloodhound",
   },
-
-//   Brave is provided by manjaro `brave-browser`
   {
     "name": "brave-bin",
     "description": "Web browser that blocks ads and trackers by default",
   },
-
-//   Bulky is provided by manjaro as `bulky`
-//   {
-//     "name": "bulky",
-//     "description": "Bulk File Renamer",
-//   },
-  
+  {
+    "name": "bulky",
+    "description": "Bulk File Renamer",
+  },  
   {
     "name": "burpsuite",
     "description": "An integrated platform for performing security testing of web applications",
@@ -198,6 +205,10 @@
     "description": "A pluggable transport that works alongside traditional proxy tools like OpenVPN to evade deep-packet-inspection based censorship",
   },
   {
+    "name": "cmospwd",
+    "description": "Decrypts password stored in CMOS used to access BIOS setup. Also check:biosbug.com, bios-pw.org",
+  },
+  {
     "name": "code-unblock-features",
     "description": "Unblock some features in Code OSS, to be like VSCode",
     "conflictdepends": "code-features code-icons code-marketplace",
@@ -216,6 +227,7 @@
   {
     "name": "coreboot-utils",
     "description": "Tools and utilities to work with coreboot firmware",
+    "gpg_key": "574CE6F6855CFDEB7D368E9D19796C2B3E4F7DF7",
   },
   {
     "name": "cpu-x",
@@ -282,13 +294,10 @@
     "name": "dosbox-x",
     "description": "x86 emulator with builtin DOS, with patches with more features",
   },
-
-//   downgrade is provided by manjaro `downgrade`  
-//   {
-//     "name": "downgrade",
-//     "description": "Bash script for downgrading one or more packages to a version in your cache or the A.L.A",
-//   },
-
+  {
+    "name": "downgrade",
+    "description": "Bash script for downgrading one or more packages to a version in your cache or the A.L.A",
+  },
   {
     "name": "downloaders",
     "description": "Collection of file downloaders",
@@ -308,8 +317,8 @@
   {
     "name": "droidcam",
     "description": "A tool for using your android device as a wireless/usb webcam",
-    // "postdepends": "droidcam-obs-plugin",
-    "postdepends": "droidcam-obs-plugin-bin",
+    "postdepends": "droidcam-obs-plugin",
+    // "postdepends": "droidcam-obs-plugin-bin",
   },
   {
     "name": "eagle",
@@ -443,7 +452,7 @@
     "description": "Censor private information from images",
     "checkdepends": "appstream appstream-glib",
   },
-  //   gnome-console is provided by manjaro `gnome-console`
+  // provided by arch
   // {
   //   "name": "gnome-console",
   //   "description": "A simple user-friendly terminal emulator for the GNOME desktop",
@@ -472,11 +481,10 @@
     "description": "Animate the icons of dash to dock",
     "depends": "zip",
   },
-    //   gnome-shell-extension-desktop-icons-ng is provided by manjaro `gnome-shell-extension-desktop-icons-ng`
-  // {
-  //   "name": "gnome-shell-extension-desktop-icons-ng",
-  //   "description": "A fork from the official desktop icons project, with several enhancements like Drag'n'Drop",
-  // },
+  {
+    "name": "gnome-shell-extension-desktop-icons-ng",
+    "description": "A fork from the official desktop icons project, with several enhancements like Drag'n'Drop",
+  },
   {
     "name": "gnome-shell-extension-fullscreen-notifications-git",
     "description": "Extension that enables all notifications in fullscreen mode",
@@ -489,12 +497,10 @@
     "name": "gnome-shell-extension-forge",
     "description": "Tiling and Window Manager for Gnome-Shell",
   },
-
-  //   gsconnect is provided by manjaro `gnome-shell-extension-gsconnect`
-  // {
-  //   "name": "gnome-shell-extension-gsconnect",
-  //   "description": "KDE Connect implementation with GNOME Shell integration",
-  // },
+  {
+    "name": "gnome-shell-extension-gsconnect",
+    "description": "KDE Connect implementation with GNOME Shell integration",
+  },
   {
     "name": "gnome-shell-extension-improvedosk",
     "description": "Makes GNOME's onscreen keyboard more useable",
@@ -540,7 +546,7 @@
     "name": "gnome-shell-extension-wintile",
     "description": "Windows 10 window tiling for GNOME",
   },
-  //   gnome-text-editor is provided by manjaro `gnome-text-editor`
+  // provided by arch
   // {
   //   "name": "gnome-text-editor",
   //   "description": "Simple text editor that focuses on session management",
@@ -565,14 +571,13 @@
     "name": "google-cloud-sdk",
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
   },
-  //   gradience is provided by manjaro `gradience`
-  // {
-  //   "name": "gradience",
-  //   "description": "Customize the look of Adwaita",
-  //   "depends": "adw-gtk3",
-  //   "checkdepends": "appstream appstream-glib",
-  //   // "postdepends": "gradience-plugins",
-  // },
+  {
+    "name": "gradience",
+    "description": "Customize the look of Adwaita",
+    "depends": "adw-gtk-theme adw-gtk3",
+    "checkdepends": "appstream appstream-glib",
+    // "postdepends": "gradience-plugins",
+  },
   {
     "name": "grub-customizer",
     "description": "Graphical grub2 settings manager",
@@ -587,6 +592,10 @@
     "name": "guiscrcpy",
     "description": "Open Source GUI based Android Screen Mirroring System",
     "checkdepends": "appstream appstream-glib",
+  },
+  {
+    "name": "hack-browser-data-git",
+    "description": "Tool whcih decrypts multiple browser data as passwords, bookmarks, cookies, history ...",
   },
   {
     "name": "hadoop",
@@ -687,11 +696,6 @@
     "meta": true,
   },
   {
-    // "name": "kafka", kafka is in manjaro repos now
-    "name": "python-kafka",
-    "description": "Python client for Apache Kafka(A high-throughput distributed messaging system)",
-  },
-  {
     "name": "kibana",
     "description": "Browser based analytics and search dashboard for Elasticsearch (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
@@ -704,6 +708,7 @@
     "name": "lens",
     "description": "Kubernetes IDE",
     "depends": "nodejs-lts-hydrogen",
+    "conflictdepends": "lens openlens-bin",
   },
   {
     "name": "librewolf-bin",
@@ -739,6 +744,11 @@
     "description": "A system information fetcher, with an emphasis on performance",
   },
   {
+    "name": "maltego",
+    "description": "An open source intelligence and forensics application",
+    "depends":"jdk17-openjdk",
+  },
+  {
     "name": "masterpdfeditor-free",
     "description": "A complete solution for viewing, creating and editing PDF files",
   },
@@ -747,11 +757,10 @@
     "description": "Command line client application for Mega.nz",
     "depends": "nodejs-lts-hydrogen",
   },
-  //   memtest86-efi is provided by manjaro `memtest86-efi`
-  // {
-  //   "name": "memtest86-efi",
-  //   "description": "A free, thorough, stand alone memory test as an EFI application",
-  // },
+  {
+    "name": "memtest86-efi",
+    "description": "A free, thorough, stand alone memory test as an EFI application",
+  },
   {
     "name": "metadata-cleaner",
     "description": "Python GTK application to view and clean metadata in files, using mat2",
@@ -823,6 +832,10 @@
   {
     "name": "noto-fonts-variable-ar",
     "description": "Google Noto TTF variable fonts for Arabic Scripts",
+  },
+  {
+    "name": "ntfsprogs-ntfs3",
+    "description": "NTFS filesystem utilities without NTFS-3G driver. For system with kernel >= 5.15",
   },
   {
     "name": "octave-plugins-all",
@@ -905,6 +918,14 @@
     "description": "The Swiss Army Knife of Screen Annotation Tools",
   },
   {
+    "name": "pev",
+    "description": "Command line based tool for Windows portable executable PE32+ file analysis",
+  },
+  {
+    "name": "picotool",
+    "description": "Tool for inspecting RP2040 binaries and interacting with RaspberryPi devices",
+  },
+  {
     "name": "pocsuite3",
     "description": "Open-sourced remote vulnerability testing framework",
   },
@@ -914,6 +935,11 @@
     "apply_script_file": "postman/postman.sh",
     "postdepends": "newman",
   },
+  // TODO: has some dependency errors
+  // {
+  //   "name": "powershell-empire",
+  //   "description": "Empire is a PowerShell and Python 3.x post-exploitation framework",
+  // },
   {
     "name": "procmon",
     "description": "Trace syscall activity tool",
@@ -946,6 +972,16 @@
   {
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
+    "postdepends": "python-objection",
+  },
+  {
+    "name": "python-kafka",
+    // "name": "kafka", kafka is in arch repos now
+    "description": "Python client for Apache Kafka(A high-throughput distributed messaging system)",
+  },
+  {
+    "name": "python-oletools",
+    "description": "tools to analyze security characteristics of MS Office and OLE files",
   },
   {
     "name": "python-scikit-image",
@@ -989,6 +1025,10 @@
     "depends": "python-pypresence python-pywebview"
   },
   {
+    "name": "readpe",
+    "description": "PE file analysis toolkit",
+  },
+  {
     "name": "rehex",
     "description": "A cross-platform hex editor, with binary templates (similar to 010 Editor).",
   },
@@ -1009,8 +1049,13 @@
     "description": "Jetbrains Ruby/Rails IDE",
     "group": "jetbrains-ides",
   },
+  {
+    "name": "ruffle-git",
+    "description": "A Flash Player emulator written in Rust",
+    "depends": "rust",
+  },
 
-//   rustscan is provided by arch as `rustscan`
+//   provided by arch
 //   {
 //     "name": "rustscan",
 //     "description": "A modern port scanner",
@@ -1077,21 +1122,24 @@
     "name": "stegseek",
     "description": "Lightning fast steghide cracker",
   },
-  //   sticky is provided by manjaro `sticky`
-  // {
-  //   "name": "sticky",
-  //   "description": "A sticky notes app for the Linux desktop",
-  // },
-
-  //   surfshark-gui-bin is provided by manjaro `surfshark-gui-bin`
-  // {
-  //   "name": "surfshark-gui-bin",
-  //   "description": "Surfshark VPN client"
-  // },
+  {
+    "name": "sticky",
+    "description": "A sticky notes app for the Linux desktop",
+  },
+  {
+    "name": "surfshark-gui-bin",
+    "description": "Surfshark VPN client"
+  },
   {
     "name": "system-monitoring-center",
     "description": "System performance and usage monitoring tool",
     "checkdepends": "appstream appstream-glib",
+  },
+  {
+    "name": "tblock",
+    "description": "An anti-capitalist ad-blocker that uses the hosts file",
+    "conflictdepends": "tblock tblock-openrc tblock-dinit tblock-runit",
+    "postdepends": "tblock-gui",
   },
   {
     "name": "teamviewer",
@@ -1102,14 +1150,11 @@
     "description": "Open source version of audacity without telemetry",
     "depends": "wxgtk3"
   },
-
-  //   timeshift is provided by manjaro `timeshift`
-  // {
-  //   "name": "timeshift",
-  //   "description": "A system restore utility for Linux",
-  //   "checkdepends": "appstream appstream-glib",
-  // },
-  
+  {
+    "name": "timeshift",
+    "description": "A system restore utility for Linux",
+    "checkdepends": "appstream appstream-glib",
+  },
   {
     "name": "timeswitch",
     "description": "Power off, reboot, suspend or send a notification on timer.",
@@ -1119,13 +1164,12 @@
     "description": "Anonymous browsing using Firefox and Tor",
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
   },
-  //   touche is provided by manjaro `touche`
-  // {
-  //   "name": "touche",
-  //   "description": "Linux multi-touch gesture recognizer",
-  //   "postdepends": "gnome-shell-extension-x11gestures",
-  //   "checkdepends": "appstream appstream-glib",
-  // },
+  {
+    "name": "touche",
+    "description": "Linux multi-touch gesture recognizer",
+    "postdepends": "gnome-shell-extension-x11gestures",
+    "checkdepends": "appstream appstream-glib",
+  },
   {
     "name": "trufflehog",
     "description": "Tool for finding secrets like private keys and credentials",
@@ -1134,11 +1178,10 @@
     "name": "ttf-amiri",
     "description": "A Classical Arabic Naskh typeface poineered by Amiria/Bulaq Press in Cairo",
   },
-  //   ttf-meslo-nerd-font-powerlevel10k is provided by manjaro `ttf-meslo-nerd-font-powerlevel10k`
-  // {
-  //   "name": "ttf-meslo-nerd-font-powerlevel10k",
-  //   "description": "Meslo Nerd Font patched for Powerlevel10k",
-  // },
+  {
+    "name": "ttf-meslo-nerd-font-powerlevel10k",
+    "description": "Meslo Nerd Font patched for Powerlevel10k",
+  },
   {
     "name": "ttf-ms-win10",
     "description": "Microsoft Windows 10 TrueType fonts",
@@ -1163,6 +1206,11 @@
     "name": "uber-apk-signer-bin",
     "description": "A cli tool that helps signing and zip aligning APKs with certificates",
     "depends":"jdk17-openjdk",
+  },
+  {
+    "name": "uefi-firmware-parser",
+    "description": "Parse BIOS/Intel ME/UEFI firmware related structures: Volumes, FileSystems, Files, etc",
+    "local": true,
   },
   {
     "name": "uefitool",
@@ -1251,31 +1299,22 @@
     "name": "wxhexeditor",
     "description": "A free hex editor / disk editor",
   },
-
-//   xapp-appimage-thumbnailer is provided by manjaro as `xapp-appimage-thumbnailer`
-//   {
-//     "name": "xapp-appimage-thumbnailer",
-//     "description": "Appimage thumbnailer",
-//   },
-
-//   xapp-epub-thumbnailer is provided by manjaro as `xapp-epub-thumbnailer`
-//   {
-//     "name": "xapp-epub-thumbnailer",
-//     "description": "EPUB books thumbnailer",
-//   },
-
-//   xapp-mp3-thumbnailer is provided by manjaro as `xapp-mp3-thumbnailer`
-//   {
-//     "name": "xapp-mp3-thumbnailer",
-//     "description": "MP3 Cover thumbnailer",
-//   },
-
-//   xapp-raw-thumbnailer is provided by manjaro as `xapp-raw-thumbnailer`
-//   {
-//     "name": "xapp-raw-thumbnailer",
-//     "description": "RAW image thumbnailer",
-//   },
-
+  {
+    "name": "xapp-appimage-thumbnailer",
+    "description": "Appimage thumbnailer",
+  },
+  {
+    "name": "xapp-epub-thumbnailer",
+    "description": "EPUB books thumbnailer",
+  },
+  {
+    "name": "xapp-mp3-thumbnailer",
+    "description": "MP3 Cover thumbnailer",
+  },
+  {
+    "name": "xapp-raw-thumbnailer",
+    "description": "RAW image thumbnailer",
+  },
   {
     "name": "xnviewmp",
     "description": "An efficient multimedia viewer, browser and converter",
@@ -1290,13 +1329,11 @@
     "depends": "util-linux-libs",
     "disable_mold": true,
   },
-  //   xviewer is provided by manjaro `xviewer` and `xviewer-plugins`
-  // {
-  //   "name": "xviewer",
-  //   "description": "A simple and easy to use image viewer",
-  //   "depends": "xviewer-plugins",
-  // },
-
+  {
+    "name": "xviewer",
+    "description": "A simple and easy to use image viewer",
+    "depends": "xviewer-plugins",
+  },
   {
     "name": "yaru",
     "description": "Yaru default ubuntu gnome shell theme",
