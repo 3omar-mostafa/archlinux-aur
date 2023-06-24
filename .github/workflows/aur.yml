@@ -107,8 +107,6 @@ jobs:
   build:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
-    runs-on: ubuntu-latest
-    continue-on-error: true
     
     strategy:
         fail-fast: false
@@ -146,8 +144,6 @@ jobs:
   build_:
     name: "Build ${{ matrix.name }}"
     needs: load_balancer
-    runs-on: ubuntu-latest
-    continue-on-error: true
     
     strategy:
         fail-fast: false
