@@ -139,7 +139,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix_2) }}
           # include:
           #   - name: "yaru"
           #     group: "yaru"
