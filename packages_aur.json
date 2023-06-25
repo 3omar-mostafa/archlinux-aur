@@ -596,6 +596,7 @@
   {
     "name": "hack-browser-data-git",
     "description": "Tool whcih decrypts multiple browser data as passwords, bookmarks, cookies, history ...",
+    "meta": true,
   },
   {
     "name": "hadoop",

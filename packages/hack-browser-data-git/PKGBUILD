@@ -1,0 +1,30 @@
+# Maintainer: Mykyta Poturai <mykyta.poturai@tutanota.com>
+pkgname=hack-browser-data-git
+pkgrel=1
+pkgver=r358.3eaa2dd
+pkgdesc="hack-browser-data is an open-source tool that could help you decrypt data ( password|bookmark|cookie|history|credit card|downloads link ) from the browser."
+arch=(x86_64)
+url="https://github.com/moonD4rk/HackBrowserData"
+license=('MIT')
+depends=("glibc")
+makedepends=("git" "go")
+source=("git+${url}.git#branch=master")
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/HackBrowserData"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/HackBrowserData"
+    go get -v -t -d ./...
+	go get gopkg.in/check.v1
+    go build -v ./...
+}
+
+package() {
+	cd "$srcdir/HackBrowserData"
+    install -D -m755 "$srcdir/HackBrowserData/hack-browser-data" "$pkgdir/usr/bin/hack-browser-data"
+}
+
