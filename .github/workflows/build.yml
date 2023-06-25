@@ -103,7 +103,7 @@ defaults:
 
 jobs:
   build:
-    name: "Build ${{ inputs.name }}"
+    name: "${{ inputs.name }}"
     runs-on: ubuntu-latest
     # env: "${{ inputs.env }}"
     
@@ -236,11 +236,9 @@ jobs:
           
           if [[ -n "${{ inputs.official }}" ]] ;  then
 
-            git clone -q https://github.com/archlinux/svntogit-packages  --single-branch --depth 1 --branch "packages/${{ inputs.name }}" \
-            || \
-            git clone -q https://github.com/archlinux/svntogit-community --single-branch --depth 1 --branch "packages/${{ inputs.name }}"
+            git clone -q "https://gitlab.archlinux.org/archlinux/packaging/packages/${{inputs.name}}" --depth 1
 
-            cd svntogit-*/trunk
+            cd ${{inputs.name}}
 
             sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ inputs.name }}" || true
           
