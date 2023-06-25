@@ -1165,7 +1165,8 @@
   {
     "name": "tor-browser",
     "description": "Anonymous browsing using Firefox and Tor",
-    "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
+    "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290",
+    "gpg_key_server": "keys.openpgp.org",
   },
   {
     "name": "touche",
