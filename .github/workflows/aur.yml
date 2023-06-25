@@ -69,10 +69,10 @@ jobs:
             # Due to github actions matrix limits
             # Split packages to multiple files, each containing max of 250 packages
             # Generates: packages_aur_00.json, packages_aur_01.json ...
-            cat packages_aur.json | jq -c '_nwise(250)' | split -d -l 1 - packages_aur_ --additional-suffix=.json --suffix-length=2
+            cat packages_aur.json | jq -c '_nwise(2)' | split -d -l 1 - packages_aur_ --additional-suffix=.json --suffix-length=3
             
-            echo "matrix_1=$(cat packages_aur_00.json)" >> $GITHUB_OUTPUT
-            echo "matrix_2=$(cat packages_aur_01.json)" >> $GITHUB_OUTPUT
+            echo "matrix_1=$(cat packages_aur_000.json)" >> $GITHUB_OUTPUT
+            echo "matrix_2=$(cat packages_aur_001.json)" >> $GITHUB_OUTPUT
 
 
         - name: View Packages
@@ -96,16 +96,16 @@ jobs:
 
 
   build:
-    name: "Build ${{ matrix.name }}"
+    name: ""
     needs: load_balancer
     
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
-          include:
-            - name: "peass"
-            - name: "pe-bear"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          # include:
+            # - name: "peass"
+            # - name: "pe-bear"
     uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
@@ -133,16 +133,16 @@ jobs:
 
 
   build_:
-    name: "Build ${{ matrix.name }}"
+    name: ""
     needs: load_balancer
     
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
-          include:
-            - name: "yaru"
-              group: "yaru"
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          # include:
+          #   - name: "yaru"
+          #     group: "yaru"
     uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
