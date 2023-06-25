@@ -34,9 +34,9 @@ on:
       disable_mold:
         type: string
         required: false
-      # env:
-      #   type: string
-      #   required: true
+      env:
+        type: string
+        required: true
       gpg_key:
         type: string
         required: false
@@ -105,7 +105,7 @@ jobs:
   build:
     name: "${{ inputs.name }}"
     runs-on: ubuntu-latest
-    # env: "${{ inputs.env }}"
+    env: "${{ fromJson(inputs.env) }}"
     
     container:
       image: "manjarolinux/build"

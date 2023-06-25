@@ -117,7 +117,7 @@ jobs:
       conflictdepends: ${{ matrix.conflictdepends }}
       depends: ${{ matrix.depends }}
       disable_mold: ${{ matrix.disable_mold }}
-      # env: ${{ matrix.env }}
+      env: ${{ toJson(matrix.env) }}
       gpg_key: ${{ matrix.gpg_key }}
       gpg_key_server: ${{ matrix.gpg_key_server }}
       gpg_url: ${{ matrix.gpg_url }}
@@ -154,7 +154,7 @@ jobs:
       conflictdepends: ${{ matrix.conflictdepends }}
       depends: ${{ matrix.depends }}
       disable_mold: ${{ matrix.disable_mold }}
-      # env: ${{ matrix.env }}
+      env: ${{ toJson(matrix.env) }}
       gpg_key: ${{ matrix.gpg_key }}
       gpg_key_server: ${{ matrix.gpg_key_server }}
       gpg_url: ${{ matrix.gpg_url }}
