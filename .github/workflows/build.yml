@@ -32,9 +32,8 @@ on:
         type: string
         required: false
       disable_mold:
-        type: boolean
+        type: string
         required: false
-        default: false
       # env:
       #   type: string
       #   required: true
@@ -51,26 +50,25 @@ on:
         type: string
         required: false
       local:
-        type: boolean
-        default: false
+        type: string
       meta:
-        type: boolean
-        default: false
+        type: string
+        required: false
       name:
         type: string
         required: true
       need_swap:
-        type: boolean
-        default: false
+        type: string
+        required: false
       official:
-        type: boolean
-        default: false
+        type: string
+        required: false
       postdepends:
         type: string
         required: false
       python2:
-        type: boolean
-        default: false
+        type: string
+        required: false
 
 
 env:

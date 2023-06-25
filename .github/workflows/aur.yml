@@ -116,19 +116,19 @@ jobs:
       checkout: ${{ matrix.checkout }}
       conflictdepends: ${{ matrix.conflictdepends }}
       depends: ${{ matrix.depends }}
-      # disable_mold: ${{ matrix.disable_mold }}
+      disable_mold: ${{ matrix.disable_mold }}
       # env: ${{ matrix.env }}
       gpg_key: ${{ matrix.gpg_key }}
       gpg_key_server: ${{ matrix.gpg_key_server }}
       gpg_url: ${{ matrix.gpg_url }}
       group: ${{ matrix.group }}
-      # local: ${{ matrix.local }}
-      # meta: ${{ matrix.meta }}
+      local: ${{ matrix.local }}
+      meta: ${{ matrix.meta }}
       name: ${{ matrix.name }}
-      # need_swap: ${{ matrix.need_swap }}
-      # official: ${{ matrix.official }}
+      need_swap: ${{ matrix.need_swap }}
+      official: ${{ matrix.official }}
       postdepends: ${{ matrix.postdepends }}
-      # python2: ${{ matrix.python2 }}
+      python2: ${{ matrix.python2 }}
 
 
 
@@ -153,19 +153,19 @@ jobs:
       checkout: ${{ matrix.checkout }}
       conflictdepends: ${{ matrix.conflictdepends }}
       depends: ${{ matrix.depends }}
-      # disable_mold: ${{ matrix.disable_mold }}
+      disable_mold: ${{ matrix.disable_mold }}
       # env: ${{ matrix.env }}
       gpg_key: ${{ matrix.gpg_key }}
       gpg_key_server: ${{ matrix.gpg_key_server }}
       gpg_url: ${{ matrix.gpg_url }}
       group: ${{ matrix.group }}
-      # local: ${{ matrix.local }}
-      # meta: ${{ matrix.meta }}
+      local: ${{ matrix.local }}
+      meta: ${{ matrix.meta }}
       name: ${{ matrix.name }}
-      # need_swap: ${{ matrix.need_swap }}
-      # official: ${{ matrix.official }}
+      need_swap: ${{ matrix.need_swap }}
+      official: ${{ matrix.official }}
       postdepends: ${{ matrix.postdepends }}
-      # python2: ${{ matrix.python2 }}
+      python2: ${{ matrix.python2 }}
 
 
 
