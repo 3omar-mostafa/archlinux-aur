@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pacman-mirrors --api --set-branch unstable
 pacman-mirrors --fasttrack
 pacman -Syyu --noconfirm --color always
 
