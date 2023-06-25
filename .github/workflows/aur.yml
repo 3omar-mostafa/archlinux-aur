@@ -153,7 +153,7 @@ jobs:
       checkout: ${{ matrix.checkout }}
       conflictdepends: ${{ matrix.conflictdepends }}
       depends: ${{ matrix.depends }}
-      disa/ble_mold: ${{ matrix.disable_mold }}
+      # disable_mold: ${{ matrix.disable_mold }}
       # env: ${{ matrix.env }}
       gpg_key: ${{ matrix.gpg_key }}
       gpg_key_server: ${{ matrix.gpg_key_server }}
