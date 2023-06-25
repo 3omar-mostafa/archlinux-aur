@@ -102,10 +102,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
-          # include:
-          #   - name: "yaru"
-          #     group: "yaru"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          include:
+            - name: "peass"
+            - name: "pe-bear"
     uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
@@ -139,10 +139,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
-          # include:
-          #   - name: "yaru"
-          #     group: "yaru"
+          # include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          include:
+            - name: "yaru"
+              group: "yaru"
     uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
