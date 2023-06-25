@@ -134,9 +134,6 @@ jobs:
           pacman -Syu --noconfirm --color always
           pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
 
-      - name: git config
-        run: git config --global protocol.file.allow always
-        
       - name: Install python2
         if: ${{ inputs.python2 }}
         run: |
@@ -170,6 +167,12 @@ jobs:
             useradd --create-home --groups wheel  user
             echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
             chown -R user ..
+
+      - name: git config
+        run: |
+          git config --global protocol.file.allow always
+          sudo git config --global protocol.file.allow always
+          sudo -u user git config --global protocol.file.allow always
 
       - name: Install Paru
         run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
@@ -238,18 +241,15 @@ jobs:
 
             git clone -q "https://gitlab.archlinux.org/archlinux/packaging/packages/${{inputs.name}}" --depth 1
 
-            cd ${{inputs.name}}
-
             sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ inputs.name }}" || true
           
           elif [[ -n "${{ inputs.local }}" ]] ; then
             cp -a "./packages/${{ inputs.name }}" .
-            cd "${{ inputs.name }}"
-          
           else
             git clone -q "https://aur.archlinux.org/${{ inputs.name }}.git"
-            cd "${{ inputs.name }}"
           fi
+          
+          cd "${{ inputs.name }}"
 
           if [[ -n "${{ inputs.checkout }}" ]] ;  then
             git checkout "${{ inputs.checkout }}"
