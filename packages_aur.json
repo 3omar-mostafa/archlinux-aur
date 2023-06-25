@@ -1337,7 +1337,8 @@
   {
     "name": "yaru",
     "description": "Yaru default ubuntu gnome shell theme",
-    "group": "yaru"
+    "group": "yaru",
+    "depends": "inkscape xorg-server-xvfb",
   },
   {
     "name": "zoom",
