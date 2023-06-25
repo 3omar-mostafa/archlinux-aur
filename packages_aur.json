@@ -1300,20 +1300,9 @@
     "description": "A free hex editor / disk editor",
   },
   {
-    "name": "xapp-appimage-thumbnailer",
-    "description": "Appimage thumbnailer",
-  },
-  {
-    "name": "xapp-epub-thumbnailer",
-    "description": "EPUB books thumbnailer",
-  },
-  {
-    "name": "xapp-mp3-thumbnailer",
-    "description": "MP3 Cover thumbnailer",
-  },
-  {
-    "name": "xapp-raw-thumbnailer",
-    "description": "RAW image thumbnailer",
+    "name": "xapp-thumbnailers",
+    "description": "Thumbnailers for Appimage,EPUB books,MP3, RAW images ...",
+    "group": "xapp-thumbnailers",
   },
   {
     "name": "xnviewmp",
