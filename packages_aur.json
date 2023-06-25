@@ -973,6 +973,7 @@
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
     "postdepends": "python-objection",
+    "gpg_key": "0087A89D911FACE7A2AC31B5AE1F25096C0CB06B",
   },
   {
     "name": "python-kafka",
@@ -1050,9 +1051,11 @@
     "group": "jetbrains-ides",
   },
   {
-    "name": "ruffle-git",
+    "name": "ruffle",
     "description": "A Flash Player emulator written in Rust",
     "depends": "rust",
+    "conflictdepends": "ruffle-git ruffle-nightly-bin",
+    "meta": true,
   },
 
 //   provided by arch
@@ -1270,6 +1273,7 @@
   {
     "name": "wfuzz",
     "description": "Utility to bruteforce (fuzz) web applications to find their not linked resources",
+    "local": true,
   },
   {
     "name": "wget2",

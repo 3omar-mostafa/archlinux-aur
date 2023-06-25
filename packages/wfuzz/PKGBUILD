@@ -1,0 +1,52 @@
+# Maintainer: Cedric Girard <cgirard.archlinux@valinor.fr>
+# Maintainer: Denis Kasak <dkasak AT termina DOT org DOT uk>
+#Contributor: Olivier Le Moal <mail at olivierlemoal dot fr>
+#Contributor: Dawid Wrobel <cromo@klej.net>
+#Contributor: Sébastien Duquette <ekse.0x@gmail.com>
+#Contributor: onny <onny@project-insanity.org>
+
+pkgname=wfuzz
+pkgver=3.1.0
+pkgrel=2
+pkgdesc="Utility to bruteforce web applications to find their not linked resources"
+url="https://github.com/xmendez/wfuzz"
+arch=('any')
+license=('GPL')
+depends=('python-pycurl' 'python-pyparsing' 'python-future' 'python-chardet' 'python-six')
+makedepends=('python-setuptools' 'python-sphinx' 'git')
+source=("https://github.com/xmendez/wfuzz/archive/v$pkgver.tar.gz"
+        $pkgname-setuptools-66.patch::https://patch-diff.githubusercontent.com/raw/xmendez/wfuzz/pull/347.patch)
+sha256sums=('60798e56274a377f8770d162935a040d4d6e27919bfbb46cf13a7a0a34896be9'
+            'a02b49f3fdda01972825025124aaa72e0e9f9efd06d5b3257163c81c5125fd76')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  git apply ../$pkgname-setuptools-66.patch
+}
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}/docs"
+    python conf.py
+    make SPHINXOPTS='-Q -j auto' man html
+}
+
+package_wfuzz() {
+    optdepends=(
+        'wfuzz-wordlists: Wfuzz Wordlists'
+    )
+
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    install -Dt "$pkgdir/usr/share/man/man1" docs/_build/man/*.1
+
+    install -Dm644 *_bash_completion "$pkgdir/etc/bash_completion.d/${pkgname}"
+
+    python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1
+}
+
+package_wfuzz-wordlists() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    install -dm755 "$pkgdir/usr/share/${pkgname}/wordlists"
+    cp -prt "$pkgdir/usr/share/${pkgname}/wordlists" wordlist/*
+}
