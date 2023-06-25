@@ -69,7 +69,7 @@ jobs:
             # Due to github actions matrix limits
             # Split packages to multiple files, each containing max of 250 packages
             # Generates: packages_aur_00.json, packages_aur_01.json ...
-            cat packages_aur.json | jq -c '_nwise(2)' | split -d -l 1 - packages_aur_ --additional-suffix=.json --suffix-length=3
+            cat packages_aur.json | jq -c '_nwise(250)' | split -d -l 1 - packages_aur_ --additional-suffix=.json --suffix-length=3
             
             echo "matrix_1=$(cat packages_aur_000.json)" >> $GITHUB_OUTPUT
             echo "matrix_2=$(cat packages_aur_001.json)" >> $GITHUB_OUTPUT
@@ -96,7 +96,7 @@ jobs:
 
 
   build:
-    name: "Build"
+    name: "Build ${{ matrix.name }}"
     needs: load_balancer
     
     strategy:
@@ -133,7 +133,7 @@ jobs:
 
 
   build_:
-    name: "Build"
+    name: "Build ${{ matrix.name }}"
     needs: load_balancer
     
     strategy:

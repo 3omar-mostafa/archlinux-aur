@@ -103,7 +103,7 @@ defaults:
 
 jobs:
   build:
-    name: "${{ inputs.name }}"
+    name: "build"
     runs-on: ubuntu-latest
     env: "${{ fromJson(inputs.env) }}"
     
