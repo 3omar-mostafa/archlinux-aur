@@ -1030,10 +1030,13 @@
     "gpg_key": "1F521FF0F87E9E1CDE46B8A9F4928C4DD24D4DF8"
   },
   {
-    "name": "r-file-recovey",
-    "description": "Undelete and data recovery software",
-    "meta": true,
-    "conflictdepends": "r-linux r-studio-for-linux-bin rtt-rstudio",
+    "name": "r-linux",
+    "description": "Undelete and data recovery software (free version)",
+    "local": true,
+  },
+  {
+    "name": "rtt-rstudio",
+    "description": "Undelete and data recovery software (non-free version)",
   },
   {
     "name": "raider-file-shredder",
@@ -1141,6 +1144,7 @@
     "name": "spiderfoot",
     "description": "SpiderFoot is an open source intelligence (OSINT) automation tool",
     "python2": true,
+    "depends": "python-setuptools-scm",
   },
   {
     "name": "steghide",
