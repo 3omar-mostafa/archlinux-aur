@@ -28,17 +28,6 @@
 // TODO:
 // Try to use `use-system-electron` aur package, OR `use-system-electron19` to have only one electron version
 
-// Include Packages from other repos:
-// From ArchStrike:
-//  - chipsec (need update)
-//  - angr (need update)
-//  - beef/beef-git
-//  - cewl
-//  - changeme
-//  - mentalist
-//  - mimikatz
-//  - objection
-// 
 
 [
   {
@@ -71,6 +60,11 @@
     "name": "android-studio",
     "description": "The official Android IDE (Stable branch)",
     "postdepends": "android-emulator",
+  },  
+  {
+    "name": "angr",
+    "description": "The next-generation binary analysis platform",
+    "local": true,
   },
   {
     "name": "anydesk-bin",
@@ -133,6 +127,11 @@
     "python2": true,
   },
   {
+    "name": "beef-git",
+    "description": "Pentesting framework that focuses on web-browser exploitation",
+    "local": true,
+  },
+  {
     "name": "binfmt-java",
     "description": "Allow running .jar files directly as executable",
   },
@@ -166,8 +165,18 @@
     "gpg_key": "A4C465FEA0C552561A392A61E91335D77E3E87CB",
   },
   {
+    "name": "cewl",
+    "description": "A custom word list generator",
+    "local": true,
+  },
+  {
     "name": "cheat",
     "description": "Allows you to create and view interactive cheatsheets on the command-line",
+  },
+  {
+    "name": "chipsec",
+    "description": "A framework for analyzing security of PC platforms including hardware, system firmware including BIOS/UEFI and the configuration of platform components.",
+    "local": true,
   },
   {
     "name": "chisel-tunnel",
@@ -759,6 +768,11 @@
     "depends": "nodejs-lts-hydrogen",
   },
   {
+    "name": "mentalist",
+    "description": "graphical tool for custom wordlist generation",
+    "local": true,
+  },
+  {
     "name": "memtest86-efi",
     "description": "A free, thorough, stand alone memory test as an EFI application",
   },
@@ -766,6 +780,11 @@
     "name": "metadata-cleaner",
     "description": "Python GTK application to view and clean metadata in files, using mat2",
     "checkdepends": "appstream appstream-glib mypy python-pycodestyle python-pydocstyle python-tomli reuse",
+  },
+  {
+    "name": "mimikatz",
+    "description": "A little tool to play with Windows security",
+    "local": true,
   },
   {
     "name": "modelsim-intel-starter",

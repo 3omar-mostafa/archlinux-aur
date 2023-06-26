@@ -1,0 +1,28 @@
+# Maintainer: ArchStrike <team@archstrike.org>
+
+pkgname=angr
+pkgver=9.2.56
+pkgrel=1
+pkgdesc="The next-generation binary analysis platform from UC Santa Barbara's Seclab!"
+url="https://github.com/angr/angr"
+depends=('python-ailment' 'python-ana' 'python-archinfo' 'python-bintrees' 'python-cachetools'
+         'python-capstone' 'python-cffi' 'python-claripy' 'python-cle' 'python-cooldict'
+         'python-cppheaderparser' 'python-dpkt-git' 'python-gitpython' 'python-itanium_demangler'
+         'python-mulpyplexer' 'python-networkx' 'python-progressbar' 'python-protobuf'
+         'python-psutil' 'python-pycparser' 'python-pyelftools' 'python-pygit2' 'python-pyvex'
+         'python-rpyc' 'python-sortedcontainers' 'python-unicorn')
+makedepends=('python-setuptools' 'python-pip' 'python-wheel')
+license=('BSD')
+arch=('any')
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('SKIP')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  python setup.py install --root="${pkgdir}" -O1 --skip-build
+}

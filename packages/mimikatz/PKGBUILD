@@ -1,0 +1,18 @@
+# Maintainer: ArchStrike <team@archstrike.org>
+
+pkgname=mimikatz
+pkgver=2.2.0.20220919
+pkgrel=1
+arch=('any')
+pkgdesc="A little tool to play with Windows security"
+url="https://github.com/gentilkiwi/mimikatz"
+license=('custom')
+options=(!strip)
+source=("${url}/archive/${pkgver/0\.2/0-2}.tar.gz")
+sha512sums=('SKIP')
+
+package() {
+  cd "${pkgname}-${pkgver/0.2/0-2}"
+  install -dm755 "${pkgdir}/usr/share/${pkgname}"
+  cp -a --no-preserve=ownership ./* "${pkgdir}/usr/share/${pkgname}"
+}
