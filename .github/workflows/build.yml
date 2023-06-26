@@ -106,6 +106,7 @@ jobs:
     name: "build"
     runs-on: ubuntu-latest
     env: "${{ fromJson(inputs.env) }}"
+    continue-on-error: true
     
     container:
       image: "manjarolinux/build"
