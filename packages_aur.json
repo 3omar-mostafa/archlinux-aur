@@ -366,6 +366,10 @@
     "checkdepends": "appstream appstream-glib",
   },
   {
+    "name": "f3-qt",
+    "description": "Fight Flash Fraud, tool that tests flash cards capacity and performance to see if they live up to claimed specifications",
+  },
+  {
     "name": "fatcat",
     "description": "FAT filesystems explore, extract, repair, and forensic tool",
     "apply_script_file": "fatcat/fatcat.sh",
