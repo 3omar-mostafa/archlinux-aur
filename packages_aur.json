@@ -418,6 +418,7 @@
   {
     "name": "freetube",
     "description": "An open source desktop YouTube player built with privacy in mind",
+    "depends": "electron20-bin",
   },
   {
     "name": "gdm-settings",
@@ -993,7 +994,7 @@
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
     "postdepends": "python-objection",
-    "gpg_key": "0087A89D911FACE7A2AC31B5AE1F25096C0CB06B",
+    "apply_cmd": "curl https://github.com/leonjza.gpg | gpg --import"
   },
   {
     "name": "python-kafka",
