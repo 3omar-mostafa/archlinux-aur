@@ -96,7 +96,7 @@ jobs:
 
 
   build:
-    name: "Build ${{ matrix.name }}"
+    name: "${{ matrix.name }}"
     needs: load_balancer
     
     strategy:
@@ -133,7 +133,7 @@ jobs:
 
 
   build_:
-    name: "Build ${{ matrix.name }}"
+    name: "${{ matrix.name }}"
     needs: load_balancer
     
     strategy:

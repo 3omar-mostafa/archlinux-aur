@@ -110,7 +110,7 @@
   {
     "name": "balena-etcher",
     "description": "Flash OS images to SD cards & USB drives, safely and easily",
-    "depends": "nodejs-lts-hydrogen electron13-bin",
+    "depends": "nodejs-lts-hydrogen electron19-bin",
     "python2": true,
   },  
   {
@@ -125,6 +125,12 @@
     "depends": "jdk17-openjdk",
     "group": "beats",
     "python2": true,
+  },
+  {
+    "name": "beats-oss",
+    "description": "Data shippers, send data from multi-systems to OpenSearch Elasticsearch OSS (ELK Stack)",
+    "depends": "jdk17-openjdk",
+    "group": "beats-oss",
   },
   {
     "name": "beef-git",
@@ -177,6 +183,7 @@
     "name": "chipsec",
     "description": "A framework for analyzing security of PC platforms including hardware, system firmware including BIOS/UEFI and the configuration of platform components.",
     "local": true,
+    "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
   },
   {
     "name": "chisel-tunnel",
@@ -338,8 +345,6 @@
     "description": "Distributed RESTful search engine built on top of Lucene (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
     "depends": "jdk17-openjdk",
-    "meta": true,
-    "conflictdepends": "elasticsearch elasticsearch-xpack",
     "python2": true,
   },
   {
@@ -395,6 +400,7 @@
   {
     "name": "fig",
     "description": "Adds IDE-style autocomplete to your existing terminal",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "findex",
@@ -634,6 +640,7 @@
     "conflictdepends": "detect-it-easy-bin xmachoviewer-bin xelfviewer-bin xpeviewer-bin xapkdetector-bin",
     "postdepends": "elfcat",
     "meta": true,
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "httpdirfs",
@@ -750,8 +757,7 @@
     "description": "Tool for managing events and logs (ELK Stack)",
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
     "depends": "jdk17-openjdk",
-    "meta": true,
-    "conflictdepends": "logstash logstash-xpack python-logstash",
+    "postdepends": "python-logstash",
     "python2": true,
   },
   {
@@ -892,9 +898,12 @@
   {
     "name": "openfoam",
     "description": "OpenFOAM is the leading free, open source software for computational fluid dynamics (CFD)",
-    "meta": true,
-    "conflictdepends": "openfoam openfoam-com",
     "postdepends": "python-pyfoam adol-c",
+  },
+  {
+    "name": "openfoam-com",
+    "description": "OpenFOAM is the leading free, open source software for computational fluid dynamics (CFD)",
+    "disable_mold": true,
   },
   {
     "name": "openrazer",
@@ -998,7 +1007,8 @@
     "name": "python-frida-tools",
     "description": "Dynamic instrumentation toolkit for developers, reverse-engineers, which injects javaScript to explore native apps",
     "postdepends": "python-objection",
-    "apply_cmd": "curl https://github.com/leonjza.gpg | gpg --import"
+    "apply_cmd": "curl https://github.com/leonjza.gpg | gpg --import",
+    "build_flags": "--nocheck",
   },
   {
     "name": "python-kafka",
@@ -1033,10 +1043,12 @@
     "name": "r-linux",
     "description": "Undelete and data recovery software (free version)",
     "local": true,
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "rtt-rstudio",
     "description": "Undelete and data recovery software (non-free version)",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "raider-file-shredder",
