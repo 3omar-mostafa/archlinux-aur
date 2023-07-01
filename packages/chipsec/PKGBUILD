@@ -2,7 +2,7 @@
 # Contributor: CHIPSEC team <chipsec@intel.com>
 
 pkgname=chipsec
-pkgver=1.11.0
+pkgver=1.11.1
 pkgrel=1
 pkgdesc="A framework for analyzing security of PC platforms including hardware, system firmware including BIOS/UEFI and the configuration of platform components."
 arch=('i686' 'x86_64' )
