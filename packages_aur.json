@@ -1131,6 +1131,10 @@
     "description": "Hunt down social media accounts by username across social networks",
   },
   {
+    "name": "sliver",
+    "description": "Opensource C2 (Command and Control) framework",
+  },
+  {
     "name": "smbmap",
     "description": "Enumerate samba share drives across an entire domain",
   },
