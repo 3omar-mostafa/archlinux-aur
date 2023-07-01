@@ -306,7 +306,7 @@ jobs:
                 RED "********************************************************************************"
               fi
               GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' "\$package" || true
+              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} "\$package" || true
               export old_package="\$package"
               GREEN "================================================================================"
             done
@@ -320,7 +320,7 @@ jobs:
         if: inputs.postdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.postdepends }}
+            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} ${{ inputs.postdepends }}
           EOF
           
           chmod a+x deps.sh
