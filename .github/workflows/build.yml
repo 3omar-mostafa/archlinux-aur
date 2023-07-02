@@ -320,7 +320,7 @@ jobs:
         if: inputs.postdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} ${{ inputs.postdepends }}
+            sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} ${{ inputs.postdepends }}
           EOF
           
           chmod a+x deps.sh
