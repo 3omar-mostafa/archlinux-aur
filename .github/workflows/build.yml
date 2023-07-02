@@ -111,7 +111,7 @@ jobs:
     container:
       image: "manjarolinux/build"
       # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup"
+      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup --volume /lib/modules:/lib/modules"
 
     steps:
       - uses: actions/checkout@v3

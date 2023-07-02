@@ -16,6 +16,13 @@ source=("${url}/archive/${pkgver}.tar.gz"
 sha512sums=('SKIP'
             'SKIP')
 
+prepare() {
+  ls -l /lib/modules/
+  KVER=$(uname -r)
+  echo "Kernel Version = $KVER"
+  ls -l /lib/modules/$KVER/build/
+}
+
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   python setup.py build
