@@ -1,5 +1,6 @@
 # Maintainer: Mykyta Poturai <mykyta.poturai@tutanota.com>
 pkgname=hack-browser-data-git
+provides=('hack-browser-data')
 pkgrel=1
 pkgver=r358.3eaa2dd
 pkgdesc="hack-browser-data is an open-source tool that could help you decrypt data ( password|bookmark|cookie|history|credit card|downloads link ) from the browser."
@@ -20,7 +21,7 @@ build() {
 	cd "$srcdir/HackBrowserData"
     go get -v -t -d ./...
 	go get gopkg.in/check.v1
-    go build -v ./...
+    go build -v cmd/hack-browser-data
 }
 
 package() {
