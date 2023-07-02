@@ -1133,6 +1133,8 @@
   {
     "name": "sliver",
     "description": "Opensource C2 (Command and Control) framework",
+    "meta": true,
+    "conflictdepends": "sliver sliver-bin",
   },
   {
     "name": "smbmap",
