@@ -60,7 +60,7 @@ jobs:
               if 'env' not in package:
                 package['env'] = env
 
-            only_include_packages = ['chipsec', 'gnome-shell-extension-forge']
+            only_include_packages = ['chipsec', 'ferdium-electron']
             
             if only_include_packages:
               packages = [p for p in packages if p['name'] in only_include_packages]
