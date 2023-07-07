@@ -8,7 +8,7 @@ pkgdesc="A framework for analyzing security of PC platforms including hardware, 
 arch=('i686' 'x86_64' )
 url='https://github.com/chipsec/chipsec'
 license=('GPL2')
-depends=('python' 'nasm' 'linux-headers' 'dkms')
+depends=('python' 'nasm' 'dkms')
 makedepends=('python-setuptools' 'gcc' 'libelf' 'make')
 install="${pkgname}.install"
 source=("${url}/archive/${pkgver}.tar.gz"
@@ -20,13 +20,13 @@ prepare() {
   ls -l /lib/modules/
   KVER=$(uname -r)
   echo "Kernel Version = $KVER"
-  ls -l /lib/modules/*/build/
-  ls -l /lib/modules/$KVER/build/
+  ls -l /lib/modules/*/build/ || true
+  ls -l /lib/modules/$KVER/build/ || true
 }
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  python setup.py build
+  python setup.py build skip-driver
 }
 
 package() {
