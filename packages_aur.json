@@ -400,7 +400,7 @@
   {
     "name": "fig",
     "description": "Adds IDE-style autocomplete to your existing terminal",
-    "build_flags": "--mflags '--skipchecksums'",
+    "build_flags": "--mflags '--skipinteg'",
   },
   {
     "name": "findex",
@@ -640,7 +640,7 @@
     "conflictdepends": "detect-it-easy-bin xmachoviewer-bin xelfviewer-bin xpeviewer-bin xapkdetector-bin",
     "postdepends": "elfcat",
     "meta": true,
-    "build_flags": "--mflags '--skipchecksums'",
+    "build_flags": "--mflags '--skipinteg'",
   },
   {
     "name": "httpdirfs",
@@ -1043,12 +1043,12 @@
     "name": "r-linux",
     "description": "Undelete and data recovery software (free version)",
     "local": true,
-    "build_flags": "--mflags '--skipchecksums'",
+    "build_flags": "--mflags '--skipinteg'",
   },
   {
     "name": "rtt-rstudio",
     "description": "Undelete and data recovery software (non-free version)",
-    "build_flags": "--mflags '--skipchecksums'",
+    "build_flags": "--mflags '--skipinteg'",
   },
   {
     "name": "raider-file-shredder",
