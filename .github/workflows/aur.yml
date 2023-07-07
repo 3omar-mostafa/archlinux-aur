@@ -60,6 +60,11 @@ jobs:
               if 'env' not in package:
                 package['env'] = env
 
+            only_include_packages = ['hack-browser-data-git']
+            
+            if only_include_packages:
+              packages = [p for p in packages if p['name'] in only_include_packages]
+
             json.dump(packages, open('packages_aur.json', 'w'))
 
             EOF
@@ -102,11 +107,10 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-          # include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
-          include:
-            - name: "hack-browser-data-git"
-              local: true
-              env: ${{toJson(env)}}
+          include: ${{ fromJson(needs.load_balancer.outputs.matrix_1) }}
+          # include:
+            # - name: "peass"
+            # - name: "pe-bear"
     uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
