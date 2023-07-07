@@ -10,7 +10,6 @@ url='https://github.com/chipsec/chipsec'
 license=('GPL2')
 depends=('python' 'nasm' 'dkms')
 makedepends=('python-setuptools' 'gcc' 'libelf' 'make')
-install="${pkgname}.install"
 source=("${url}/archive/${pkgver}.tar.gz"
         "setup.patch")
 sha512sums=('SKIP'
