@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * sun,tue,thu'
   workflow_dispatch:
-  # push:
+  push:
 
 env:
   BAT_PAGER: ''
