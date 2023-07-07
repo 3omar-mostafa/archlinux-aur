@@ -12,8 +12,10 @@ depends=('python' 'nasm' 'dkms')
 makedepends=('python-setuptools' 'gcc' 'libelf' 'make')
 install="${pkgname}.install"
 source=("${url}/archive/${pkgver}.tar.gz"
-        "chipsec.install")
+        "chipsec.install"
+        "setup.patch")
 sha512sums=('SKIP'
+            'SKIP'
             'SKIP')
 
 prepare() {
