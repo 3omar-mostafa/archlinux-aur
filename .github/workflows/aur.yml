@@ -106,7 +106,7 @@ jobs:
           include:
             - name: "hack-browser-data-git"
               local: true
-              env: ${{ toJson(env) }}
+              env: ${{ toJson(github.env) }}
     uses: ./.github/workflows/build.yml
     with:
       apply_cmd: ${{ matrix.apply_cmd }}
