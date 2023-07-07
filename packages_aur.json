@@ -516,6 +516,7 @@
   {
     "name": "gnome-shell-extension-forge",
     "description": "Tiling and Window Manager for Gnome-Shell",
+    "local": true,
   },
   {
     "name": "gnome-shell-extension-gsconnect",
