@@ -12,13 +12,12 @@ depends=('python' 'nasm' 'dkms')
 makedepends=('python-setuptools' 'gcc' 'libelf' 'make')
 install="${pkgname}.install"
 source=("${url}/archive/${pkgver}.tar.gz"
-        "chipsec.install"
         "setup.patch")
 sha512sums=('SKIP'
-            'SKIP'
             'SKIP')
 
 prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
   patch -Np1 --ignore-whitespace -i "$srcdir/setup.patch"
   ls -l /lib/modules/
   KVER=$(uname -r)

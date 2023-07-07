@@ -21,7 +21,7 @@ sha256sums=('60798e56274a377f8770d162935a040d4d6e27919bfbb46cf13a7a0a34896be9'
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  git apply ../$pkgname-setuptools-66.patch
+  git apply "$srcdir/$pkgname-setuptools-66.patch"
 }
 
 build() {
