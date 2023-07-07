@@ -386,7 +386,7 @@
   {
     "name": "ferdium-electron",
     "description": "A messaging browser that allows you to combine your favorite messaging services into one application",
-    "depends": "systemd-sysvcompat libjpeg-turbo libtiff shared-mime-info gdk-pixbuf2 lzo pixman cairo fribidi libdatrie libthai pango librsvg gtk-update-icon-cache adwaita-cursors adwaita-icon-theme desktop-file-utils iso-codes libcloudproviders lcms2 libcolord libdaemon avahi libcups libpciaccess libdrm libunwind libxdamage libxshmfence libxxf86vm libedit llvm-libs lm_sensors vulkan-icd-loader default-cursors wayland libomxil-bellagio mesa libglvnd libepoxy libxcomposite libxcursor libxinerama xkeyboard-config libxkbcommon libxrandr json-glib duktape libproxy glib-networking libsoup3 libstemmer tracker3 gtk3 nspr nss woff2 dav1d libogg flac snappy alsa-topology-conf alsa-ucm-conf alsa-lib aom gsm libsamplerate opus jack2 lame libass libraw1394 libavc1394 libbluray libvorbis mpg123 libsndfile libbs2b libiec61883 giflib gperftools highway imath openexr libjxl libmfx libmodplug libasyncns libpulse portaudio libopenmpt rav1e libsoxr libssh libtheora libva libvdpau vid.stab libvpx libwebp l-smash x264 x265 libxv xvidcore zimg ocl-icd opencore-amr openjpeg2 libusb hidapi sdl2 speexdsp speex srt svt-av1 v4l-utils vmaf ffmpeg minizip re2 libxslt electron25 asar pnpm nodejs-lts-gallium",
+    "depends": "systemd-sysvcompat nodejs-lts-hydrogen",
   },
   {
     "name": "feroxbuster",
