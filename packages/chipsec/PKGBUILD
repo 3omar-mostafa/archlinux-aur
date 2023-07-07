@@ -17,6 +17,7 @@ sha512sums=('SKIP'
             'SKIP')
 
 prepare() {
+  patch -Np1 --ignore-whitespace -i "$srcdir/setup.patch"
   ls -l /lib/modules/
   KVER=$(uname -r)
   echo "Kernel Version = $KVER"
