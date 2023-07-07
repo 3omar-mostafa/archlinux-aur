@@ -51,6 +51,7 @@ on:
         required: false
       local:
         type: string
+        required: false
       meta:
         type: string
         required: false
