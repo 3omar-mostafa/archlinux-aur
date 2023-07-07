@@ -21,7 +21,7 @@ build() {
 	cd "$srcdir/HackBrowserData"
     go get -v -t -d ./...
 	go get gopkg.in/check.v1
-    go build -v cmd/hack-browser-data
+    go build -v ./cmd/hack-browser-data
 }
 
 package() {
