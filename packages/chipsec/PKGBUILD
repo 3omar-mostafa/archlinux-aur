@@ -18,11 +18,6 @@ sha512sums=('SKIP'
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   patch -Np1 --ignore-whitespace -i "$srcdir/setup.patch"
-  ls -l /lib/modules/
-  KVER=$(uname -r)
-  echo "Kernel Version = $KVER"
-  ls -l /lib/modules/*/build/ || true
-  ls -l /lib/modules/$KVER/build/ || true
 }
 
 build() {
