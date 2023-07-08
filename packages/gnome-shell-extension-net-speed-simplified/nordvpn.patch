@@ -1,0 +1,9 @@
+diff --git a/extension.js b/extension.js
+index f994ebd..1de57d3 100644
+--- a/extension.js
++++ b/extension.js
+@@ -333,3 +333,4 @@ function parseStat() {
+                 !fields[0].match(/^tun[0-9]+/) &&
+                 !fields[0].match(/^tap[0-9]+/) &&
++                !fields[0].match(/^nord[a-z]*[0-9]*/) &&
+                 !fields[0].match(/^wg[0-9]+/) &&
