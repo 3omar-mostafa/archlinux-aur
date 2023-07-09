@@ -17,19 +17,33 @@ sha512sums=('SKIP'
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
+  
   patch -Np1 --ignore-whitespace -i "$srcdir/setup.patch"
+  
+  # Kernel modules in arch linux is using .zst extension instead of .xz
+  sed -i 's/.xz/.zst/g' helper/linux/linuxhelper.py
 }
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  python setup.py build_ext --skip-driver
+  python setup.py build
 }
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   install -dm755 "${pkgdir}/usr/share/doc/${pkgname}"
+  install -dm755 "${pkgdir}/usr/src/${pkgname}-${pkgver}/amd64"
+  install -dm755 "${pkgdir}/usr/src/${pkgname}-${pkgver}/i386"
+  install -dm755 "${pkgdir}/usr/src/${pkgname}-${pkgver}/include"
+  
+  install -Dm644 drivers/linux/chipsec_km.c "${pkgdir}/usr/src/${pkgname}-${pkgver}/chipsec_km.c"
   install -Dm644 drivers/linux/dkms.conf "${pkgdir}/usr/src/${pkgname}-${pkgver}/dkms.conf"
+  install -Dm644 drivers/linux/Makefile "${pkgdir}/usr/src/${pkgname}-${pkgver}/Makefile"
+  install -Dm644 drivers/linux/amd64/cpu.asm "${pkgdir}/usr/src/${pkgname}-${pkgver}/amd64/cpu.asm"
+  install -Dm644 drivers/linux/i386/cpu.asm "${pkgdir}/usr/src/${pkgname}-${pkgver}/i386/cpu.asm"
+  install -Dm644 drivers/linux/include/chipsec.h "${pkgdir}/usr/src/${pkgname}-${pkgver}/include/chipsec.h"
+  
   sed -e "s/VERSION.*$@/VERSION=${pkgver}/" -i "${pkgdir}"/usr/src/${pkgname}-${pkgver}/dkms.conf
 
   python setup.py install --prefix=/usr --root="${pkgdir}" -O1
