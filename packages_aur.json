@@ -910,6 +910,7 @@
     "name": "openpose",
     "description": "Real-time multi-person keypoint detection library for pose estimation",
     "depends": "freeglut libglvnd",
+    "build_flags": "--nocheck",
   },
   {
     "name": "openrazer",
@@ -1202,7 +1203,7 @@
     "description": "All-In-One Software for Remote Support and Online Meetings",
   },
   {
-    "name": "tenacity-git",
+    "name": "tenacity",
     "description": "Open source version of audacity without telemetry",
     "depends": "wxgtk3"
   },
