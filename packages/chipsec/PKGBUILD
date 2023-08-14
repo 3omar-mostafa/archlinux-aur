@@ -2,7 +2,7 @@
 # Contributor: CHIPSEC team <chipsec@intel.com>
 
 pkgname=chipsec
-pkgver=1.11.1
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="A framework for analyzing security of PC platforms including hardware, system firmware including BIOS/UEFI and the configuration of platform components."
 arch=('i686' 'x86_64' )
@@ -21,7 +21,7 @@ prepare() {
   patch -Np1 --ignore-whitespace -i "$srcdir/setup.patch"
   
   # Kernel modules in arch linux is using .zst extension instead of .xz
-  sed -i 's/.xz/.zst/g' helper/linux/linuxhelper.py
+  sed -i 's/.xz/.zst/g' chipsec/helper/linux/linuxhelper.py
 }
 
 build() {

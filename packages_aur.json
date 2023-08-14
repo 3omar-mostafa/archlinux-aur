@@ -164,11 +164,12 @@
   {
     "name": "capa-bin",
     "description": "The FLARE team's open-source tool to identify capabilities in executable files",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "cassandra",
     "description": "Apache Cassandra NoSQL database",
-    "gpg_key": "A4C465FEA0C552561A392A61E91335D77E3E87CB",
+    "gpg_key": "7464AAD9068241C50BA6A26232F35CB2F546D93E",
   },
   {
     "name": "cewl",
@@ -362,7 +363,8 @@
   {
     "name": "expressvpn",
     "description": "Proprietary VPN client for Linux",
-    "gpg_url": "https://www.expressvpn.com/expressvpn_release_public_key_0xAFF2A1415F6A3A38.asc",
+    // "gpg_url": "https://www.expressvpn.com/expressvpn_release_public_key_0xAFF2A1415F6A3A38.asc",
+    "gpg_key": "1D0B09AD6C93FEE93FDDBD9DAFF2A1415F6A3A38",
   },
   {
     "name": "extension-manager",
