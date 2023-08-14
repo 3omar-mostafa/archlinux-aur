@@ -433,6 +433,10 @@
     "depends": "electron20-bin",
   },
   {
+    "name": "galaxybudsclient-bin",
+    "description": "Unofficial manager for the Samsung Galaxy Buds, Buds+, Buds Live and Buds Pro",
+  },
+  {
     "name": "gdm-settings",
     "description": "A settings app for Gnome's Login Manager (GDM)",
     "checkdepends": "appstream appstream-glib",
@@ -799,6 +803,12 @@
     "name": "mimikatz",
     "description": "A little tool to play with Windows security",
     "local": true,
+  },
+  {
+    "name": "mission-center",
+    "description": "Monitor your CPU, Memory, Disk, Network and GPU usage",
+    "depends": "rust",
+    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "modelsim-intel-starter",
