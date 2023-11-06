@@ -3,7 +3,7 @@
 pkgname=gnome-shell-extension-forge
 _pkgname=forge
 _gnomever=44
-pkgver=71
+pkgver=75
 pkgrel=1
 pkgdesc="Tiling window manager for Gnome-Shell"
 arch=('any')

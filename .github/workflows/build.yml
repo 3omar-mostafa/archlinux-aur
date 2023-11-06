@@ -110,15 +110,12 @@ jobs:
     continue-on-error: true
     
     container:
-      image: "manjarolinux/build"
+      image: "archlinux/archlinux:multilib-devel"
       # https://docs.docker.com/engine/reference/commandline/create/
-      options: "--privileged --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup --volume /lib/modules:/lib/modules"
+      options: "--privileged  --user root --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup --volume /lib/modules:/lib/modules"
 
     steps:
       - uses: actions/checkout@v3
-  
-      - name: Install bat
-        run: pacman -Sy --noconfirm --color always --needed bat aria2
 
       - name: Pacman Config
         run: ./scripts/pacmanconf.sh
@@ -134,15 +131,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo yay bat procps-ng socat at-spi2-core downgrade
-
-      - name: Install python2
-        if: ${{ inputs.python2 }}
-        run: |
-          echo '#!/usr/bin/env bash' > /bin/pacignore
-          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
-          export DOWNGRADE_FROM_ALA=1
-          downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo procps-ng socat at-spi2-core
 
       - name: Setup mold linker
         continue-on-error: true
@@ -176,8 +165,8 @@ jobs:
           sudo git config --global protocol.file.allow always
           sudo -u user git config --global protocol.file.allow always
 
-      - name: Install Paru
-        run: sudo -E -u user yay -Sy --color always --noconfirm --cleanafter paru-bin
+      - name: Install Aur Dependencies
+        run: sudo -E -u user ./scripts/install_aur_deps.sh
 
       - name: yay configuration
         run: |
@@ -185,6 +174,15 @@ jobs:
           
           yay -Y --answerclean None --builddir $PWD --save
           yay --show --currentconfig
+
+
+      - name: Install python2
+        if: ${{ inputs.python2 }}
+        run: |
+          echo '#!/usr/bin/env bash' > /bin/pacignore
+          PACMAN_OPTIONS="--noconfirm --color always --ask 4 --overwrite '*'"
+          export DOWNGRADE_FROM_ALA=1
+          downgrade 'python2==2.7.18-5' 'python2-setuptools==2:44.1.1-2' --ala-only -- $PACMAN_OPTIONS
 
       - name: Install GPG Key
         if: inputs.gpg_key
@@ -230,7 +228,7 @@ jobs:
           chmod a+x deps.sh
           bat --color always --wrap=never deps.sh
           socat EXEC:'bash -l -e -o pipefail ./deps.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
-
+        
       - name: Build ${{ inputs.name }}
         if: ${{ ! inputs.meta }}
         run: |
@@ -283,9 +281,9 @@ jobs:
           
           EOF
           
-          chown -R user:user /github
-          chown -R user:user $HOME
-
+          chmod -R o=u /github
+          chmod -R o=u $HOME
+          
           chmod a+x build.sh
           bat --color always --wrap=never build.sh
           socat EXEC:'sudo -E -u user bash -l -e -o pipefail ./build.sh',pty,setsid,ctty,stderr,rawer,login,echo=0 FD:1
@@ -335,6 +333,7 @@ jobs:
       - name: "Copy all packages to root folder"
         if: always()
         run: |
+          rm -rf packages scripts
           find . -mindepth 3 -iname '*.pkg.tar.zst' -exec cp -v {} . \;
           echo "====================================================="
           echo "Copy Top Level Packages"

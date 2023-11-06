@@ -1209,6 +1209,7 @@
     "description": "An anti-capitalist ad-blocker that uses the hosts file",
     "conflictdepends": "tblock tblock-openrc tblock-dinit tblock-runit",
     "postdepends": "tblock-gui",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "teamviewer",
@@ -1229,7 +1230,7 @@
     "description": "Power off, reboot, suspend or send a notification on timer.",
   },
   {
-    "name": "tor-browser",
+    "name": "tor-browser-bin",
     "description": "Anonymous browsing using Firefox and Tor",
     "gpg_key": "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290",
     "gpg_key_server": "keys.openpgp.org",

@@ -1,7 +1,7 @@
 pkgname=gnome-shell-extension-net-speed-simplified
 _pkgname=netspeedsimplified
-pkgver=39
-pkgrel=2
+pkgver=41
+pkgrel=1
 pkgdesc="A Net Speed extension With Loads of Customization. Fork of simplenetspeed"
 arch=('any')
 url="https://www.github.com/prateekmedia/netspeedsimplified"
@@ -9,7 +9,7 @@ license=('GPL')
 depends=('gnome-shell')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         "nordvpn.patch")
-sha256sums=('f651f87d1ea3a65e31fecb82f162a3e24ee328f1bdea533ca23e06efb939bc98'
+sha256sums=('SKIP'
             '1b0fcca42cf59cf1b0cbff00a996d1b6f30813c585bddca09efbba1e9b040869')
 
 prepare() {
