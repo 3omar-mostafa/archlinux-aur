@@ -42,6 +42,10 @@
     "meta": true,
   },
   {
+    "name": "aflplusplus",
+    "description": "afl++ is afl with community patches (American Fuzzy Lop++)"
+  },
+  {
     "name": "android-apktool",
     "description": "A tool for reverse engineering Android apk files",
   },
@@ -195,6 +199,10 @@
     "description": "Standalone server that implements the W3C WebDriver standard (for google-chrome)",
   },
   {
+    "name": "cisco-anyconnect",
+    "description": "Cisco AnyConnect Secure Mobility Client",
+  },
+  {
     "name": "clamav-unofficial-sigs",
     "description": "ClamAV Unofficial Signatures",
   },
@@ -338,6 +346,10 @@
     // "postdepends": "droidcam-obs-plugin-bin",
   },
   {
+    "name": "dropbox",
+    "description": "A free service that lets you bring your photos, docs, and videos anywhere and share them easily",
+  },
+  {
     "name": "eagle",
     "description": "Powerful suite for schematic capture and printed circuit board (PCB) design",
   },
@@ -452,6 +464,10 @@
   {
     "name": "gextractwinicons",
     "description": "Extract cursors and icons from MS Windows compatible resource files",
+  },
+  {
+    "name": "github-copilot-cli",
+    "description": "A CLI experience for letting GitHub Copilot help you on the command line",
   },
   {
     "name": "github-desktop",
@@ -599,18 +615,22 @@
     "description": "A set of command-line tools for the Google Cloud Platform. Includes gcloud, gsutil, and bq",
   },
   {
+    "name": "google-chrome",
+    "description": "The popular web browser by Google (Stable Channel)",
+  },
+  {
     "name": "gradience",
     "description": "Customize the look of Adwaita",
     "depends": "adw-gtk-theme adw-gtk3",
     "checkdepends": "appstream appstream-glib",
     // "postdepends": "gradience-plugins",
   },
-  {
-    "name": "grub-customizer",
-    "description": "Graphical grub2 settings manager",
-    "meta": true,
-    "archdepends": "grub-customizer==5.2.3-1",
-  },
+  // {
+  //   "name": "grub-customizer",
+  //   "description": "Graphical grub2 settings manager",
+  //   "meta": true,
+  //   "archdepends": "grub-customizer==5.2.4-1",
+  // },
   {
     "name": "grub-hook",
     "description": "Pacman hook to update GRUB after a kernel update",
@@ -642,6 +662,13 @@
     "description": "A system information and benchmark tool",
   },
   {
+    "name": "helm",
+    "description": "The Kubernetes Package Manager utilities",
+    "meta": true,
+    "depends": "helm-secrets",
+    "conflictdepends": "helm-diff helmsman"
+  },
+  {
     "name": "horsicq-packages",
     "description": "horsicq packages for parsing Windows/Linux/MacOS/Android files",
     "conflictdepends": "detect-it-easy-bin xmachoviewer-bin xelfviewer-bin xpeviewer-bin xapkdetector-bin",
@@ -668,6 +695,12 @@
   {
     "name": "imgcat",
     "description": "Output images as RGB ANSI graphics on the terminal (like cat, but for images)",
+  },
+  {
+    "name": "impression",
+    "description": "A straight-forward modern application to create bootable drives.",
+    "depends": "rust",
+    "checkdepends":"appstream appstream-glib",
   },
   {
     "name": "inception",
@@ -737,6 +770,7 @@
     "name": "lens",
     "description": "Kubernetes IDE",
     "depends": "nodejs-lts-hydrogen",
+    "meta": true,
     "conflictdepends": "lens openlens-bin",
   },
   {
@@ -748,6 +782,10 @@
   {
     "name": "linux-wifi-hotspot",
     "description": "Feature-rich wifi hotspot creator",
+  },
+  {
+    "name": "lgogdownloader",
+    "description": "Open source downloader for GOG.com games, uses the GOG.com API",
   },
   {
     "name": "logisim",
@@ -791,6 +829,10 @@
     "local": true,
   },
   {
+    "name": "menulibre",
+    "description": "An advanced menu editor that provides modern features in a clean, easy-to-use interface",
+  },
+  {
     "name": "memtest86-efi",
     "description": "A free, thorough, stand alone memory test as an EFI application",
   },
@@ -798,6 +840,12 @@
     "name": "metadata-cleaner",
     "description": "Python GTK application to view and clean metadata in files, using mat2",
     "checkdepends": "appstream appstream-glib mypy python-pycodestyle python-pydocstyle python-tomli reuse",
+  },
+  {
+    "name": "micromamba",
+    "description": "C++ tiny version of mamba, the fast conda package installer",
+    "meta": true,
+    "conflictdepends": "micromamba micromamba-bin",
   },
   {
     "name": "mimikatz",
@@ -882,6 +930,10 @@
     "description": "NTFS filesystem utilities without NTFS-3G driver. For system with kernel >= 5.15",
   },
   {
+    "name": "nvm",
+    "description": "Node Version Manager - Simple bash script to manage multiple active node.js versions",
+  },
+  {
     "name": "octave-plugins-all",
     "description": "A meta package which depends on all other octave packages",
     "local": true,
@@ -892,6 +944,14 @@
     "description": "Component-based simulation package designed for modeling communication networks",
     "depends":"jdk17-openjdk python-matplotlib osgearth",
     "need_swap": true,
+  },
+  {
+    "name": "onedriver",
+    "description": "Native Linux filesystem for Microsoft OneDrive",
+  },
+  {
+    "name": "opa",
+    "description": "Command-line utility and REPL for Open Policy Agent (OPA)",
   },
   {
     "name": "opendrop",
@@ -932,6 +992,10 @@
     "group": "openrazer",
   },
   {
+    "name": "openseachest",
+    "description": "Seagate utilities useful for performing various operations on SATA, SAS, NVMe, and USB storage devices."
+  },
+  {
     "name": "openstego",
     "description": "Steganography application that provides data hiding and watermarking functionality",
   },
@@ -940,6 +1004,12 @@
     "description": "Vulnerability scanning Daemon",
     "depends": "nodejs-lts-hydrogen json-glib libbsd",
     "postdepends": "gsa gvmd",
+  },
+  {
+    "name": "overskride",
+    "description": "A simple yet powerful bluetooth client",
+    "depends": "rust",
+    "checkdepends":"appstream appstream-glib",
   },
   {
     "name": "pam_usb",
@@ -1008,6 +1078,8 @@
     "description": "Official ProtonVPN",
     "gpg_key": "6A5571928D2222D83BC7456E4EDE055B645F044F",
     "gpg_key_server": "keys.openpgp.org",
+    "meta": true,
+    "conflictdepends": "protonvpn proton-vpn-gtk-app",
   },
   {
     "name": "pycharm-professional",
@@ -1089,6 +1161,11 @@
     "description": "PE file analysis toolkit",
   },
   {
+    "name": "redisinsight",
+    "description": "GUI for Redis, allowing you to interact with your databases, monitor, and manage your data",
+    "depends": "nodejs-lts-hydrogen",
+  },
+  {
     "name": "rehex",
     "description": "A cross-platform hex editor, with binary templates (similar to 010 Editor).",
   },
@@ -1123,6 +1200,15 @@
 //     "description": "A modern port scanner",
 //   },
 
+  {
+    "name": "samsung-unified-driver",
+    "description": "Samsung Unified Linux Driver for printers and scanners.",
+  },
+  {
+    "name": "scala",
+    "description": "A Java-interoperable language with object-oriented and functional features",
+    "depends": "jdk17-openjdk scala-docs scala-sources",
+  },
   {
     "name": "seclists",
     "description": "A collection of multiple types of lists used during security assessments, collected in one place",
@@ -1194,6 +1280,17 @@
   {
     "name": "sticky",
     "description": "A sticky notes app for the Linux desktop",
+  },
+  {
+    "name": "stress-ng",
+    "description": "Software to stress test a computer system in various selectable ways",
+    "depends": "intel-ipsec-mb",
+  },
+  {
+    "name": "stripe-cli",
+    "description": "Stripe is popular payment gateway provider",
+    "meta": true,
+    "conflictdepends": "stripe-cli stripe-cli-bin",
   },
   {
     "name": "surfshark-gui-bin",
@@ -1323,6 +1420,11 @@
     "local": true,
   },
   {
+    "name": "vscodium",
+    "description": "Free/Libre Open Source Software Binaries of VSCode",
+    "postdepends": "vscodium-features vscodium-marketplace",
+  },
+  {
     "name": "vt-cli",
     "description": "VirusTotal Command Line Interface",
   },
@@ -1391,6 +1493,12 @@
     "disable_mold": true,
   },
   {
+    "name": "xbox-drivers",
+    "description": "Xbox controllers drivers",
+    "meta": true,
+    "conflictdepends": "xpadneo-dkms xone-dkms",
+  },
+  {
     "name": "xviewer",
     "description": "A simple and easy to use image viewer",
     "depends": "xviewer-plugins",
@@ -1402,11 +1510,15 @@
     "depends": "inkscape xorg-server-xvfb",
   },
   {
+    "name": "zenmap",
+    "description": "Graphical Nmap frontend and results viewer",
+  },
+  {
     "name": "zoom",
     "description": "Video Conferencing and Web Conferencing Service",
   },
   {
-    "name": "zsh-autocomplete-git",
+    "name": "zsh-autocomplete",
     "description": "IDE-style type-ahead completion for Zsh",
   },
   {
