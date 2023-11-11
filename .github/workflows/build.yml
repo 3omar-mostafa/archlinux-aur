@@ -158,6 +158,8 @@ jobs:
             useradd --create-home --groups wheel  user
             echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
             chown -R user ..
+            chmod -R o=u /github
+            chmod -R o=u $HOME
 
       - name: git config
         run: |
@@ -280,9 +282,6 @@ jobs:
           paru -Ui --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }}
           
           EOF
-          
-          chmod -R o=u /github
-          chmod -R o=u $HOME
           
           chmod a+x build.sh
           bat --color always --wrap=never build.sh

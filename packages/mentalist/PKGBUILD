@@ -8,7 +8,7 @@ pkgdesc="graphical tool for custom wordlist generation"
 url="https://github.com/sc0tfree/mentalist"
 license=('MIT')
 depends=('python' 'tk')
-makedepends=('python-setuptools')
+makedepends=('python-pip' 'python-setuptools' 'python-build' 'python-wheel')
 source=("$url/archive/v$pkgver.tar.gz")
 sha512sums=('092ec75ea7045a6aa2143b82fcfd1b67d45d1d3f7bd1e37594e21b32401ca2f0df9af5eb0eae43c13dd04d7c81c0ae3d6145bc459ba0645b1dacc6e476176ac7')
 

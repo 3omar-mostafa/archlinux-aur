@@ -188,7 +188,8 @@
     "name": "chipsec",
     "description": "A framework for analyzing security of PC platforms including hardware, system firmware including BIOS/UEFI and the configuration of platform components.",
     "local": true,
-    "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
+    // "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers", // manjaro
+    "depends": "linux-headers",
   },
   {
     "name": "chisel-tunnel",
@@ -348,6 +349,7 @@
   {
     "name": "dropbox",
     "description": "A free service that lets you bring your photos, docs, and videos anywhere and share them easily",
+    "gpg_key": "1C61A2656FB57B7E4DE0F4C1FC918B335044912E",
   },
   {
     "name": "eagle",
@@ -359,6 +361,8 @@
     "gpg_url": "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
     "depends": "jdk17-openjdk",
     "python2": true,
+    "meta": true,
+    "conflictdepends": "elasticsearch elasticsearch-bin",
   },
   {
     "name": "erdtree",
@@ -705,6 +709,7 @@
   {
     "name": "inception",
     "description": "A FireWire physical memory manipulation and hacking tool exploiting IEEE 1394 SBP-2 DMA",
+    "depends": "python-setuptools",
   },
   {
     "name": "insomnia",
@@ -983,11 +988,13 @@
     "description": "Real-time multi-person keypoint detection library for pose estimation",
     "depends": "freeglut libglvnd",
     "build_flags": "--nocheck",
+    "need_swap": true,
   },
   {
     "name": "openrazer",
     "description": "Drivers for razer devices",
-    "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers",
+    // "depends": "linux`uname -r | awk -F. '{print $1$2}'`-headers", // manjaro
+    "depends": "linux-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
     "group": "openrazer",
   },
@@ -1008,7 +1015,7 @@
   {
     "name": "overskride",
     "description": "A simple yet powerful bluetooth client",
-    "depends": "rust",
+    "depends": "rust libpulse",
     "checkdepends":"appstream appstream-glib",
   },
   {
@@ -1113,7 +1120,8 @@
   {
     "name": "python-scikit-image",
     "description": "Image processing routines for SciPy",
-    "checkdepends":"python-matplotlib python-pooch python-pyqt5 python-pytest python-pytest-cov python-pytest-flake8 python-pytest-localserver",
+    "depends": "jdk17-openjdk",
+    "checkdepends":"python-astropy python-dask python-imread python-matplotlib python-numpydoc python-pooch python-pyqt5 python-pytest python-pytest-cov python-pytest-flake8 python-pytest-localserver python-pywavelets python-scikit-learn python-simpleitk python-nose",
   },
   {
     "name": "python-selenium",
@@ -1207,7 +1215,8 @@
   {
     "name": "scala",
     "description": "A Java-interoperable language with object-oriented and functional features",
-    "depends": "jdk17-openjdk scala-docs scala-sources",
+    "meta": true,
+    "depends": "jdk17-openjdk scala scala-docs scala-sources",
   },
   {
     "name": "seclists",
@@ -1284,7 +1293,7 @@
   {
     "name": "stress-ng",
     "description": "Software to stress test a computer system in various selectable ways",
-    "depends": "intel-ipsec-mb",
+    // "depends": "intel-ipsec-mb",
   },
   {
     "name": "stripe-cli",
@@ -1420,9 +1429,9 @@
     "local": true,
   },
   {
-    "name": "vscodium",
+    "name": "vscodium-bin",
     "description": "Free/Libre Open Source Software Binaries of VSCode",
-    "postdepends": "vscodium-features vscodium-marketplace",
+    "postdepends": "vscodium-bin-features vscodium-bin-marketplace",
   },
   {
     "name": "vt-cli",
@@ -1449,6 +1458,7 @@
     "name": "wget2",
     "description": "Updated version of the popular wget URL retrieval tool",
     "gpg_key": "1CB27DBC98614B2D5841646D08302DB6A2670428",
+    "checkdepends": "libmicrohttpd",
   },
   {
     "name": "whatsapp-for-linux",
@@ -1501,7 +1511,7 @@
   {
     "name": "xviewer",
     "description": "A simple and easy to use image viewer",
-    "depends": "xviewer-plugins",
+    "postdepends": "xviewer-plugins",
   },
   {
     "name": "yaru",
