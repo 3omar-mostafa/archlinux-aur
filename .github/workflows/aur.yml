@@ -189,7 +189,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel curl wget tree zip github-cli asp p7zip python-lxml python-beautifulsoup4
+          pacman -Sy --noconfirm --color always --needed base-devel curl wget tree zip github-cli p7zip python-lxml python-beautifulsoup4
 
       - name: Create Version Env
         run: |
@@ -300,6 +300,7 @@ jobs:
 
       - name: Generate index.html
         run: |
+          pacman -Sy --noconfirm --color always --needed cmake make
           export SCRIPTS_DIR="$PWD/scripts/apindex"
           $SCRIPTS_DIR/build.sh
           cd "${REPO}"
@@ -366,7 +367,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel python-json5 asp
+          pacman -Sy --noconfirm --color always --needed base-devel python-json5
 
       - name: Config Repo
         run: |
