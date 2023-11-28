@@ -131,7 +131,7 @@ jobs:
       - name: Install basic dependencies
         run: |
           pacman -Syu --noconfirm --color always
-          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils asp xterm git sudo procps-ng socat at-spi2-core
+          pacman -Sy --noconfirm --color always --needed base-devel glibc curl wget coreutils xterm git sudo procps-ng socat at-spi2-core
 
       - name: Setup mold linker
         continue-on-error: true
