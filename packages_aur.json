@@ -109,7 +109,6 @@
   {
     "name": "authenticator",
     "description": "2FA code generator for GNOME",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "balena-etcher",
@@ -244,7 +243,6 @@
   {
     "name": "commit",
     "description": "Commit message editor for GNOME",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "conan",
@@ -259,7 +257,6 @@
     "name": "cpu-x",
     "description": "A Free software that gathers information on CPU, motherboard and more",
     "depends": "glfw-x11",
-    "checkdepends": "mawk nawk",
   },
   {
     "name": "crackmapexec",
@@ -301,7 +298,6 @@
   {
     "name": "dialect",
     "description": "A translation app for GNOME",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "dirb",
@@ -330,7 +326,6 @@
     "meta": true,
     "gpg_key": "5680CA389D365A88", // for gallery-dl
     "depends": "yt-dlp-drop-in",
-    "checkdepends": "python-nose python-pytest python-bottle",
     "conflictdepends": "gallery-dl twitch-dl cyberdrop-dl edx-dl coursera-dl lynda-dl cyberdropdownloader soundcloud-dl music-dl instaloader zoomdl",
   },
   {
@@ -386,7 +381,6 @@
     "name": "extension-manager",
     "description": "A native tool for browsing, installing, and managing GNOME Shell Extensions",
     "depends": "python-gobject",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "f3-qt",
@@ -455,7 +449,6 @@
   {
     "name": "gdm-settings",
     "description": "A settings app for Gnome's Login Manager (GDM)",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "gedit-plugin-markdown_preview",
@@ -496,13 +489,11 @@
   {
     "name": "gnome-obfuscate",
     "description": "Censor private information from images",
-    "checkdepends": "appstream appstream-glib",
   },
   // provided by arch
   // {
   //   "name": "gnome-console",
   //   "description": "A simple user-friendly terminal emulator for the GNOME desktop",
-  //   "checkdepends": "appstream appstream-glib",
   // },
 
   {
@@ -626,7 +617,6 @@
     "name": "gradience",
     "description": "Customize the look of Adwaita",
     "depends": "adw-gtk-theme adw-gtk3",
-    "checkdepends": "appstream appstream-glib",
     // "postdepends": "gradience-plugins",
   },
   // {
@@ -642,7 +632,6 @@
   {
     "name": "guiscrcpy",
     "description": "Open Source GUI based Android Screen Mirroring System",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "hack-browser-data-git",
@@ -704,7 +693,6 @@
     "name": "impression",
     "description": "A straight-forward modern application to create bootable drives.",
     "depends": "rust",
-    "checkdepends":"appstream appstream-glib",
   },
   {
     "name": "inception",
@@ -754,7 +742,6 @@
     "name": "junction",
     "description": "Application/browser chooser",
     "depends": "python-gobject",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "jupyter",
@@ -844,7 +831,6 @@
   {
     "name": "metadata-cleaner",
     "description": "Python GTK application to view and clean metadata in files, using mat2",
-    "checkdepends": "appstream appstream-glib mypy python-pycodestyle python-pydocstyle python-tomli reuse",
   },
   {
     "name": "micromamba",
@@ -861,7 +847,6 @@
     "name": "mission-center",
     "description": "Monitor your CPU, Memory, Disk, Network and GPU usage",
     "depends": "rust",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "modelsim-intel-starter",
@@ -905,7 +890,6 @@
   {
     "name": "networkmanager",
     "description": "Network Management daemon",
-    "checkdepends": "python-dbus",
     "official": true,
     "apply_script_file": "networkmanager/networkmanager.sh",
     "build_flags": "--nocheck",
@@ -961,7 +945,6 @@
   {
     "name": "opendrop",
     "description": "An open Apple AirDrop implementation",
-    "checkdepends": "python-pytest-runner",
     "python2": true,
     "build_flags": "--nocheck",
   },
@@ -1016,7 +999,6 @@
     "name": "overskride",
     "description": "A simple yet powerful bluetooth client",
     "depends": "rust libpulse",
-    "checkdepends":"appstream appstream-glib",
   },
   {
     "name": "pam_usb",
@@ -1073,7 +1055,6 @@
   {
     "name": "procmon",
     "description": "Trace syscall activity tool",
-    "checkdepends": "iperf3 netperf",
     "env" : {
       "CC": "/usr/bin/clang",
       "CXX": "/usr/bin/clang++",
@@ -1121,12 +1102,10 @@
     "name": "python-scikit-image",
     "description": "Image processing routines for SciPy",
     "depends": "jdk17-openjdk",
-    "checkdepends":"python-astropy python-dask python-imread python-matplotlib python-numpydoc python-pooch python-pyqt5 python-pytest python-pytest-cov python-pytest-flake8 python-pytest-localserver python-pywavelets python-scikit-learn python-simpleitk python-nose",
   },
   {
     "name": "python-selenium",
     "description": "Selenium is browser automation testing framework",
-    "checkdepends": "python-pytest",
   },
   {
     "name": "pwncat",
@@ -1153,7 +1132,6 @@
     "name": "raider-file-shredder",
     "description": "Securely delete your files",
     "depends": "python-gobject",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "rar",
@@ -1225,7 +1203,6 @@
   {
     "name": "secrets",
     "description": "Password manager for GNOME",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "semgrep-bin",
@@ -1308,7 +1285,6 @@
   {
     "name": "system-monitoring-center",
     "description": "System performance and usage monitoring tool",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "tblock",
@@ -1329,7 +1305,6 @@
   {
     "name": "timeshift",
     "description": "A system restore utility for Linux",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "timeswitch",
@@ -1345,7 +1320,6 @@
     "name": "touche",
     "description": "Linux multi-touch gesture recognizer",
     "postdepends": "gnome-shell-extension-x11gestures",
-    "checkdepends": "appstream appstream-glib",
   },
   {
     "name": "trufflehog",
@@ -1458,7 +1432,6 @@
     "name": "wget2",
     "description": "Updated version of the popular wget URL retrieval tool",
     "gpg_key": "1CB27DBC98614B2D5841646D08302DB6A2670428",
-    "checkdepends": "libmicrohttpd",
   },
   {
     "name": "whatsapp-for-linux",

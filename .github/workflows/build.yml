@@ -170,14 +170,6 @@ jobs:
       - name: Install Aur Dependencies
         run: sudo -E -u user ./scripts/install_aur_deps.sh
 
-      - name: yay configuration
-        run: |
-          echo "Epoch Version label is not prefered and causes error while uploading because files contains ':'"
-          
-          yay -Y --answerclean None --builddir $PWD --save
-          yay --show --currentconfig
-
-
       - name: Install python2
         if: ${{ inputs.python2 }}
         run: |
@@ -224,7 +216,7 @@ jobs:
         if: inputs.depends || inputs.checkdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -E -u user yay -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.depends }} ${{ inputs.checkdepends }}
+            sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.depends }} ${{ inputs.checkdepends }}
           EOF
           
           chmod a+x deps.sh
@@ -279,7 +271,7 @@ jobs:
           
           bat --color always --wrap=never PKGBUILD
 
-          paru -Ui --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }}
+          paru -B --noinstall --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }} .
           
           EOF
           
@@ -297,16 +289,11 @@ jobs:
 
             read -a packages <<< "${{ inputs.conflictdepends }}"
             for package in "\${packages[@]}"; do
-              YELLOW "################################################################################"
-              if [[ -n "\$old_package" ]]; then
-                RED "****************************** Removing \$old_package ******************************"
-                pacman -R --color always --noconfirm --ask 4 "\$old_package" || true
-                RED "********************************************************************************"
-              fi
               GREEN "==================================== Installing \$package ===================================="
-              sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} "\$package" || true
-              export old_package="\$package"
+              sudo -E -u user paru -Sy --noinstall --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} "\$package" || true
               GREEN "================================================================================"
+              YELLOW "################################################################################"
+              RED "********************************************************************************"
             done
           EOF
           
@@ -318,7 +305,7 @@ jobs:
         if: inputs.postdepends
         run: |
           cat <<EOF > deps.sh
-            sudo -E -u user paru -Sy --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} ${{ inputs.postdepends }}
+            sudo -E -u user paru -Sy --noinstall --color always --noconfirm --needed --builddir . --nocleanafter --useask --ask 4 --overwrite '*' ${{ inputs.build_flags }} ${{ inputs.postdepends }}
           EOF
           
           chmod a+x deps.sh
