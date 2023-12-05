@@ -981,6 +981,7 @@
     "depends": "linux-headers",
     "apply_cmd": "export PATH=/usr/bin:$PATH",
     "group": "openrazer",
+    "build_flags": "--install",
   },
   {
     "name": "openseachest",
@@ -1461,6 +1462,7 @@
     "name": "xapp-thumbnailers",
     "description": "Thumbnailers for Appimage,EPUB books,MP3, RAW images ...",
     "group": "xapp-thumbnailers",
+    "build_flags": "--install",
   },
   {
     "name": "xnviewmp",
