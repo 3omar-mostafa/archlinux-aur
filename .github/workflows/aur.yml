@@ -389,6 +389,7 @@ jobs:
                 echo "$package" >> failed_to_install.txt
               else
                 pacman -R --color always --noconfirm --ask 4 "$package" >/dev/null
+                paccache -r -k 0 -q # clean pacman cache to free space
               fi
 
               echo -e "\e[1m\e[33m =========================================================================================== \e[0m"
