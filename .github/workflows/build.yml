@@ -271,7 +271,7 @@ jobs:
           
           bat --color always --wrap=never PKGBUILD
 
-          paru -B --noinstall --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }} .
+          paru -B --verbose --debug --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }} .
           
           EOF
           
