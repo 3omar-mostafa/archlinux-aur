@@ -178,6 +178,7 @@
     "name": "cewl",
     "description": "A custom word list generator",
     "local": true,
+    "conflictdepends": "cewl-git"
   },
   {
     "name": "cheat",
@@ -496,10 +497,10 @@
   //   "description": "A simple user-friendly terminal emulator for the GNOME desktop",
   // },
 
-  {
-    "name": "gnome-search-provider-emoji-shortcodes",
-    "description": "GNOME Search Provider for Emoji Shortcodes",
-  },
+  // {
+  //   "name": "gnome-search-provider-emoji-shortcodes",
+  //   "description": "GNOME Search Provider for Emoji Shortcodes",
+  // },
   {
     "name": "gnome-search-providers-jetbrains",
     "description": "Add Jetbrains IDE projects to Gnome Search",
@@ -559,10 +560,10 @@
     "description": "A Net Speed monitor With Loads of Customization",
     "local": true,
   },
-  {
-    "name": "gnome-shell-extension-night-light-slider",
-    "description": "Manage GNOME night light temperature intensity from the panel",
-  },
+  // {
+  //   "name": "gnome-shell-extension-night-light-slider",
+  //   "description": "Manage GNOME night light temperature intensity from the panel",
+  // },
   {
     "name": "gnome-shell-extension-pip-on-top-git",
     "description": "Makes Picture-in-Picture windows stay on top. Compatible with Firefox and Clapper media player",
@@ -769,7 +770,7 @@
     "name": "librewolf-bin",
     "description": "Community-maintained fork of Firefox, focused on privacy, security and freedom",
     "gpg_key": "662E3CDD6FE329002D0CA5BB40339DD82B12EF16",
-    "postdepends": "arkenfox-user.js librewolf-extension-localcdn librewolf-extension-dark-reader librewolf-ublock-origin librewolf-extension-bitwarden",
+    "postdepends": "arkenfox-user.js librewolf-extension-localcdn librewolf-extension-darkreader librewolf-ublock-origin librewolf-extension-bitwarden",
   },
   {
     "name": "linux-wifi-hotspot",
