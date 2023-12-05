@@ -1492,6 +1492,7 @@
     "description": "Yaru default ubuntu gnome shell theme",
     "group": "yaru",
     "depends": "inkscape xorg-server-xvfb",
+    "build_flags": "--install",
   },
   {
     "name": "zenmap",
