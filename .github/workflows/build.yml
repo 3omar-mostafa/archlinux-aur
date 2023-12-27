@@ -96,6 +96,7 @@ env:
   VERBOSE: 1
   NODE_OPTIONS: '--max_old_space_size=8192' # increase max allowed memory usage
   REPO: aur-repo
+  GIT_DISCOVERY_ACROSS_FILESYSTEM: 1
   AUR_HELPER_CMD: paru
 
 
@@ -164,9 +165,21 @@ jobs:
 
       - name: git config
         run: |
+
           git config --global protocol.file.allow always
+          git config --global init.defaultBranch main
+          git config --global user.name 3omar-mostafa
+          git config --global user.email "3omar-mostafa@invalid-email.com"
+
           sudo git config --global protocol.file.allow always
+          sudo git config --global init.defaultBranch main
+          sudo git config --global user.name 3omar-mostafa
+          sudo git config --global user.email "3omar-mostafa@invalid-email.com"
+
           sudo -u user git config --global protocol.file.allow always
+          sudo -u user git config --global init.defaultBranch main
+          sudo -u user git config --global user.name 3omar-mostafa
+          sudo -u user git config --global user.email "3omar-mostafa@invalid-email.com"
 
       - name: Install Aur Dependencies
         run: sudo -E -u user ./scripts/install_aur_deps.sh
@@ -271,6 +284,7 @@ jobs:
           fi
           
           bat --color always --wrap=never PKGBUILD
+
 
           ${{ env.AUR_HELPER_CMD }} -Bi --noconfirm --color always --nocleanafter --noredownload --useask --ask 4 --overwrite '*' --builddir . ${{ inputs.build_flags }} .
           

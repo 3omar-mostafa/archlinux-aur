@@ -1301,7 +1301,8 @@
   {
     "name": "tenacity",
     "description": "Open source version of audacity without telemetry",
-    "depends": "wxgtk3"
+    "depends": "wxgtk3",
+    "build_flags": "--mflags '--skipchecksums'",
   },
   {
     "name": "timeshift",
@@ -1381,6 +1382,7 @@
   {
     "name": "uno-calculator-bin",
     "description": "Windows Calculator",
+    "depends": "jq",
   },
   // Needs access
   // {
