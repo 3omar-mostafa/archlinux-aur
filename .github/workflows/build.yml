@@ -248,8 +248,6 @@ jobs:
           if [[ -n "${{ inputs.official }}" ]] ;  then
 
             git clone -q "https://gitlab.archlinux.org/archlinux/packaging/packages/${{inputs.name}}" --depth 1
-
-            sudo -E pacman -Rcns --noconfirm --color always --ask 4 "${{ inputs.name }}" || true
           
           elif [[ -n "${{ inputs.local }}" ]] ; then
             cp -a "./packages/${{ inputs.name }}" .

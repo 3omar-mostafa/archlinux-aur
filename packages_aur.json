@@ -891,6 +891,7 @@
   {
     "name": "networkmanager",
     "description": "Network Management daemon",
+    "depends": "networkmanager",
     "official": true,
     "apply_script_file": "networkmanager/networkmanager.sh",
     "build_flags": "--nocheck",
