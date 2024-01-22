@@ -416,6 +416,10 @@
     "build_flags": "--mflags '--skipinteg'",
   },
   {
+    "name": "figma-linux",
+    "description": "The collaborative interface design tool. Unofficial Figma desktop client for Linux",
+  },
+  {
     "name": "findex",
     "description": "Highly customizable application finder with high performance. Written in Rust and uses GTK",
     "conflictdepends": "findex-bin findex-git",
@@ -703,7 +707,7 @@
   {
     "name": "insomnia",
     "description": "API Client and Design Platform for GraphQL and REST",
-    "conflictdepends": "insomnia insomnia-electron",
+    "conflictdepends": "insomnia insomnia-electron insomnium",
     "need_swap": true,
     "meta": true,
   },
@@ -765,6 +769,11 @@
     "depends": "nodejs-lts-hydrogen",
     "meta": true,
     "conflictdepends": "lens openlens-bin",
+  },
+  {
+    "name": "libfprint-tod",
+    "description": "Library for fingerprint readers - TOD version",
+    "postdepends": "libfprint-2-tod1-goodix libfprint-2-tod1-synatudor-git libfprint-2-tod1-broadcom",
   },
   {
     "name": "librewolf-bin",
@@ -1064,12 +1073,10 @@
     }
   },
   {
-    "name": "protonvpn",
+    "name": "proton-vpn-gtk-app",
     "description": "Official ProtonVPN",
     "gpg_key": "6A5571928D2222D83BC7456E4EDE055B645F044F",
     "gpg_key_server": "keys.openpgp.org",
-    "meta": true,
-    "conflictdepends": "protonvpn proton-vpn-gtk-app",
   },
   {
     "name": "pycharm-professional",
@@ -1298,6 +1305,12 @@
   {
     "name": "teamviewer",
     "description": "All-In-One Software for Remote Support and Online Meetings",
+  },
+  {
+    "name": "teams",
+    "description": "Microsoft Teams client for Linux",
+    "meta": true,
+    "conflictdepends": "teams teams-for-linux",
   },
   {
     "name": "tenacity",
