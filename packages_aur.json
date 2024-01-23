@@ -775,6 +775,7 @@
     "description": "Library for fingerprint readers - TOD version",
     "conflictdepends": "libfprint-2-tod1-goodix libfprint-2-tod1-synatudor-git libfprint-2-tod1-broadcom",
     "meta": true,
+    "disable_mold": true,
   },
   {
     "name": "librewolf-bin",
