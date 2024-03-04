@@ -117,7 +117,7 @@ jobs:
       options: "--privileged  --user root --attach STDIN --attach STDOUT --attach STDERR --interactive --tty --cgroupns=host --volume /sys/fs/cgroup:/sys/fs/cgroup --volume /lib/modules:/lib/modules"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Pacman Config
         run: ./scripts/pacmanconf.sh
@@ -342,7 +342,7 @@ jobs:
         if: always()
 
       - name: Upload Package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: "${{ inputs.name }}"

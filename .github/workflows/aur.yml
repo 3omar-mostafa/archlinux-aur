@@ -41,7 +41,7 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
 
         - name: Set Output packages
           id: set-packages
@@ -181,7 +181,7 @@ jobs:
       image: "archlinux/archlinux:multilib-devel"
       options: "--privileged=true --tty=true"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Pacman Config
         run: ./scripts/pacmanconf.sh
@@ -199,7 +199,7 @@ jobs:
             echo "Version: ${version}"
 
       - name: Download All Packages
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: "${{ env.REPO }}"
 
@@ -359,7 +359,7 @@ jobs:
       options: "--privileged=true --tty=true"
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Pacman Config
         run: ./scripts/pacmanconf.sh
