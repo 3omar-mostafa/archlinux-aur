@@ -162,7 +162,6 @@
     "name": "burpsuite",
     "description": "An integrated platform for performing security testing of web applications",
     "depends": "jre17-openjdk",
-    "apply_script_file": "burpsuite/burpsuite.sh",
   },
   {
     "name": "capa-bin",
@@ -1033,6 +1032,10 @@
   {
     "name": "peass",
     "description": "Privilege Escalation Awesome Scripts SUITE for Windows and Linux: LinPEAS and WinPEAS",
+  },
+  {
+    "name": "peazip-qt5",
+    "description": "Free file archiver utility, open, extract RAR TAR ZIP archives",
   },
   {
     "name": "pe-bear",
