@@ -305,6 +305,8 @@ jobs:
             
           done
 
+          cd "${REPO}"
+
           INFO "Upload Database files"
           for package in * ; do
             for attempt in {1..15} ; do
