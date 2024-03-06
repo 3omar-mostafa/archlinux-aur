@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * tue'
   workflow_dispatch:
-  push:
+  # push:
 
 env:
   BAT_PAGER: ''
@@ -60,7 +60,7 @@ jobs:
               if 'env' not in package:
                 package['env'] = env
 
-            only_include_packages = ['extension-manager', 'fatcat', 'brave-bin', 'bulky']
+            only_include_packages = []
             
             if only_include_packages:
               packages = [p for p in packages if p['name'] in only_include_packages]
@@ -175,7 +175,7 @@ jobs:
 
 
   deploy:
-    needs: [load_balancer, build]
+    needs: [load_balancer, build, build_]
     runs-on: ubuntu-latest
     container:
       image: "archlinux/archlinux:multilib-devel"
