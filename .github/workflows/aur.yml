@@ -175,7 +175,7 @@ jobs:
 
 
   deploy:
-    needs: [load_balancer, build, build_]
+    needs: [load_balancer, build]
     runs-on: ubuntu-latest
     container:
       image: "archlinux/archlinux:multilib-devel"
