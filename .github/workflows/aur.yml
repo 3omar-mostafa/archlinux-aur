@@ -214,11 +214,11 @@ jobs:
       - name: Download All Packages
         shell: bash -l {0}
         run: |
-          function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
-          function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
-          function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
-          function BLUE()   { echo -e "\e[1m\e[34m\${1}\e[0m"; }
-          function INFO()   { echo -e "\e[1m\e[34m ============== \${1} ============== \e[0m"; }
+          function RED()    { echo -e "\e[1m\e[31m${1}\e[0m"; }
+          function GREEN()  { echo -e "\e[1m\e[32m${1}\e[0m"; }
+          function YELLOW() { echo -e "\e[1m\e[33m${1}\e[0m"; }
+          function BLUE()   { echo -e "\e[1m\e[34m${1}\e[0m"; }
+          function INFO()   { echo -e "\e[1m\e[34m ============== ${1} ============== \e[0m"; }
 
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
@@ -226,11 +226,11 @@ jobs:
 
           for p in {a..z}; do
             
-            INFO "Downloading Packages"
+            INFO "Downloading Packages starting with '${p}'"
             gh run download ${{ github.run_id }} --repo ${{ github.repository }} --pattern ${p}'*' --dir "./${REPO}"
             status_code=$?
             if [[ $status_code -ne 0 ]] ; then
-              RED "============== No packages starting with ' ${p}' =============="
+              RED "============== No packages starting with '${p}' =============="
               continue
             fi
 
@@ -259,7 +259,7 @@ jobs:
             done
 
             INFO "Upload Release files"
-            for package in * ; do
+            for package in *.pkg.tar.* ; do
               for attempt in {1..15} ; do
                 if [[ "$attempt" -ne 1 ]] ; then
                   echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
@@ -303,6 +303,44 @@ jobs:
 
             YELLOW "================================== Repeating the cycle again =================================="
             
+          done
+
+          INFO "Upload Database files"
+          for package in * ; do
+            for attempt in {1..15} ; do
+              if [[ "$attempt" -ne 1 ]] ; then
+                echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
+              fi
+
+              gh release upload "$tag_name" --repo "${{ github.repository }}" --clobber "$package"
+              status_code=$?
+
+              remaining_api=$(gh api /rate_limit --jq '.resources.core.remaining')
+
+              if [[ $status_code -eq 0 ]] ; then
+                echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
+                break
+              else
+                echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
+                if [[ "$attempt" -eq 10 || "$remaining_api" -le 1 ]] ; then
+                  reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
+                  current_time=$(date --utc '+%s')
+                  echo " [DEBUG] reset_time: $reset_time"
+                  echo " [DEBUG] current_time: $current_time"
+                  time_to_reset=$(( $reset_time - $current_time ))
+
+                  echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
+                  sleep $time_to_reset
+                fi
+
+                if [[ "$attempt" -eq 10 ]] ; then
+                  echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
+                fi
+              fi
+              
+              sleep $(( 2 * $attempt ))
+            done
+            sleep 1
           done
 
       - name: Generate Checksum for packages (Part 3)
