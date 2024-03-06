@@ -212,6 +212,7 @@ jobs:
           echo "| ------ | -------- |" >> /tmp/checksums.sha256
         
       - name: Download All Packages
+        shell: bash -l {0}
         run: |
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
@@ -221,6 +222,11 @@ jobs:
             
             echo "Downloading Packages"
             gh run download ${{ github.run_id }} --repo ${{ github.repository }} --pattern ${p}'*' --dir "./${REPO}"
+            status_code=$?
+            if [[ $status_code -ne 0 ]] ; then
+              echo -e "No packages starting with ' ${p}'"
+              continue
+            fi
 
             echo "List Downloaded Packages"
             tree "./${REPO}" --du -h
