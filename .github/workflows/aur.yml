@@ -214,45 +214,51 @@ jobs:
       - name: Download All Packages
         shell: bash -l {0}
         run: |
+          function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
+          function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
+          function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
+          function YELLOW() { echo -e "\e[1m\e[34m\${1}\e[0m"; }
+          function INFO()   { echo -e "\e[1m\e[34m\ ============== ${1} ============== \e[0m"; }
+
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
           gh release create "$tag_name" --title "Release v$tag_name" --repo ${{ github.repository }}
 
           for p in {a..z}; do
             
-            echo "Downloading Packages"
+            INFO "Downloading Packages"
             gh run download ${{ github.run_id }} --repo ${{ github.repository }} --pattern ${p}'*' --dir "./${REPO}"
             status_code=$?
             if [[ $status_code -ne 0 ]] ; then
-              echo -e "No packages starting with ' ${p}'"
+              RED "============== No packages starting with ' ${p}' =============="
               continue
             fi
 
-            echo "List Downloaded Packages"
+            INFO "List Downloaded Packages"
             tree "./${REPO}" --du -h
 
-            echo "Move all packages to root folder"
+            INFO "Move all packages to root folder"
             find . -iname '*.pkg.tar.zst' -exec mv -v {} "./${REPO}" \;
 
-            echo "Delete Empty Directories"
-            find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
+            INFO "Delete Empty Directories"
+            find . -ignore_readdir_race -type d -exec sh -c 'rmdir -v {} >/dev/null 2>/dev/null'  \; || true
 
-            echo "Delete Python 2 Packages"
+            INFO "Delete Python 2 Packages"
             find . -iname 'python2*' -exec rm -rfv {} \; || true
 
 
             cd "${REPO}"
 
 
-            echo "Generate database files"
+            INFO "Generate database files"
             repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
 
-            echo "Generate Checksum for packages (Part 2)"
+            INFO "Generate Checksum for packages (Part 2)"
             for file in *.pkg.tar.*; do
               echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
             done
 
-            echo "Upload Release files"
+            INFO "Upload Release files"
             for package in *.pkg.tar.* ; do
               for attempt in {1..15} ; do
                 if [[ "$attempt" -ne 1 ]] ; then
@@ -290,10 +296,12 @@ jobs:
               sleep 1
             done
 
-            echo "Deleting packages"
+            INFO "Deleting packages"
             rm -rvf *.pkg.tar.*
 
             cd ..
+
+            INFO "Repeating the cycle again"
             
           done
 
@@ -301,7 +309,7 @@ jobs:
         run: |
           echo -e "\n\n</details>" >> /tmp/checksums.sha256
           cat /tmp/checksums.sha256
-          gh release edit "$tag_name" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
+          gh release edit "${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
 
       - name: Generate index.html
         run: |
