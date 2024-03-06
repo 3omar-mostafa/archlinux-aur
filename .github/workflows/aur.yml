@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '0 0 * * tue'
   workflow_dispatch:
-  # push:
+  push:
 
 env:
   BAT_PAGER: ''
@@ -60,7 +60,7 @@ jobs:
               if 'env' not in package:
                 package['env'] = env
 
-            only_include_packages = []
+            only_include_packages = ['extension-manager', 'fatcat', 'brave-bin', 'bulky']
             
             if only_include_packages:
               packages = [p for p in packages if p['name'] in only_include_packages]
@@ -198,105 +198,104 @@ jobs:
 
             echo "Version: ${version}"
 
-      - name: Download All Packages
-        uses: actions/download-artifact@v4
-        with:
-          path: "${{ env.REPO }}"
+      # - name: Download All Packages
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     path: "${{ env.REPO }}"
 
-      - name: "List packages tree"
-        run: tree "./${REPO}" --du -h
-
-      - name: "Move all packages to root folder"
-        run: find . -iname '*.pkg.tar.zst' -exec mv -v {} "./${REPO}" \;
-
-      - name: "Delete Empty Directories"
-        continue-on-error: true
-        run: find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
-
-      - name: "Delete Python 2 Packages"
-        run: find . -iname 'python2*' -exec rm -rfv {} \; || true
-
-      - name: Generate database files
+      - name: Generate Checksum for packages (Part 1)
         run: |
-          cd "${REPO}"
-          repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
-
-      - name: Generate Checksum for packages
-        run: |
-          cd "${REPO}"
           echo "## SHA256 Checksum" > /tmp/checksums.sha256
           echo "<details><summary>Click to expand</summary>" >> /tmp/checksums.sha256
           echo -e "\n\n" >> /tmp/checksums.sha256
           echo "| SHA256 | Filename |" >> /tmp/checksums.sha256
           echo "| ------ | -------- |" >> /tmp/checksums.sha256
-          for file in *; do
-            echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
-          done
-          echo -e "\n\n</details>" >> /tmp/checksums.sha256
-          cat /tmp/checksums.sha256
-
-      - name: Release Packages Files
-        shell: bash -l {0}
+        
+      - name: Download All Packages
         run: |
-          cd ./${{ env.REPO }}
-
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
+          gh release create "$tag_name" --title "Release v$tag_name" --repo ${{ github.repository }}
 
-          gh release create "$tag_name" --title "Release v${{ env.VERSION }}" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
-          status_code=$?
-
-          if [[ $status_code -ne 0 ]] ; then
-            echo -e "\e[1m\e[31m ============== Release '$tag_name' already exists ============== \e[0m"
+          for p in {a..z}; do
             
-            assets_count=$(gh release view "$tag_name" --repo ${{ github.repository }} --json assets --jq '.[]|length')
-            files_count=$(ls -1 | wc -l)
+            echo "Downloading Packages"
+            gh run download ${{ github.run_id }} --repo ${{ github.repository }} --pattern ${p}'*' --dir "./${REPO}"
 
-            echo "[DEBUG] assets_count = $assets_count    files_count = $files_count"
-            
-            if [[ $assets_count == $files_count ]] ; then
-              exit 0
-            fi
+            echo "List Downloaded Packages"
+            tree "./${REPO}" --du -h
 
-            gh release edit "$tag_name" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
-          fi
+            echo "Move all packages to root folder"
+            find . -iname '*.pkg.tar.zst' -exec mv -v {} "./${REPO}" \;
 
-          for package in * ; do
-            for attempt in {1..15} ; do
-              if [[ "$attempt" -ne 1 ]] ; then
-                echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
-              fi
+            echo "Delete Empty Directories"
+            find . -ignore_readdir_race -type d -exec rmdir -v {} \; || true
 
-              gh release upload "$tag_name" --repo "${{ github.repository }}" --clobber "$package"
-              status_code=$?
+            echo "Delete Python 2 Packages"
+            find . -iname 'python2*' -exec rm -rfv {} \; || true
 
-              remaining_api=$(gh api /rate_limit --jq '.resources.core.remaining')
 
-              if [[ $status_code -eq 0 ]] ; then
-                echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
-                break
-              else
-                echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
-                if [[ "$attempt" -eq 10 || "$remaining_api" -le 1 ]] ; then
-                  reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
-                  current_time=$(date --utc '+%s')
-                  echo " [DEBUG] reset_time: $reset_time"
-                  echo " [DEBUG] current_time: $current_time"
-                  time_to_reset=$(( $reset_time - $current_time ))
+            cd "${REPO}"
 
-                  echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
-                  sleep $time_to_reset
-                fi
 
-                if [[ "$attempt" -eq 10 ]] ; then
-                  echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
-                fi
-              fi
-              
-              sleep $(( 2 * $attempt ))
+            echo "Generate database files"
+            repo-add "${REPO}.db.tar.gz" *.pkg.tar.*
+
+            echo "Generate Checksum for packages (Part 2)"
+            for file in *.pkg.tar.*; do
+              echo "| `sha256sum $file | cut -f1 -d' '` | $file |" >> /tmp/checksums.sha256
             done
-            sleep 1
+
+            echo "Upload Release files"
+            for package in *.pkg.tar.* ; do
+              for attempt in {1..15} ; do
+                if [[ "$attempt" -ne 1 ]] ; then
+                  echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
+                fi
+
+                gh release upload "$tag_name" --repo "${{ github.repository }}" --clobber "$package"
+                status_code=$?
+
+                remaining_api=$(gh api /rate_limit --jq '.resources.core.remaining')
+
+                if [[ $status_code -eq 0 ]] ; then
+                  echo -e "\e[1m\e[32m Uploaded '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
+                  break
+                else
+                  echo -e "\e[1m\e[31m Failed to upload '$package' \e[0m \e[1m\e[33m [Remaining API $remaining_api] \e[0m"
+                  if [[ "$attempt" -eq 10 || "$remaining_api" -le 1 ]] ; then
+                    reset_time=$(gh api /rate_limit --jq '.resources.core.reset')
+                    current_time=$(date --utc '+%s')
+                    echo " [DEBUG] reset_time: $reset_time"
+                    echo " [DEBUG] current_time: $current_time"
+                    time_to_reset=$(( $reset_time - $current_time ))
+
+                    echo " [DEBUG] Will sleep until ratelimit reset, i.e. ${time_to_reset} sec. ($(( $time_to_reset / 60 )) min.)"
+                    sleep $time_to_reset
+                  fi
+
+                  if [[ "$attempt" -eq 10 ]] ; then
+                    echo -e "\e[1m\e[31m ============== Failed to Release '$package' ============== \e[0m"
+                  fi
+                fi
+                
+                sleep $(( 2 * $attempt ))
+              done
+              sleep 1
+            done
+
+            echo "Deleting packages"
+            rm -rvf *.pkg.tar.*
+
+            cd ..
+            
           done
+
+      - name: Generate Checksum for packages (Part 3)
+        run: |
+          echo -e "\n\n</details>" >> /tmp/checksums.sha256
+          cat /tmp/checksums.sha256
+          gh release edit "$tag_name" --repo ${{ github.repository }} --notes-file /tmp/checksums.sha256
 
       - name: Generate index.html
         run: |
@@ -314,16 +313,6 @@ jobs:
 
       # There was an issue while deploying non writable files
       - run: chmod -R a+rw .
-
-      - name: :List files
-        if: always()
-        env:
-          LS_COLORS: 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=01;30:ow=01;34:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'
-        run: ls -lRh --color=always
-
-      - run: du -sh ${{ env.REPO }} ; du -sh ${{ env.REPO }}/* | sort -rh
-        continue-on-error: true
-        if: always()
 
       - name: Prepare Cloudflare deploy
         run: |
