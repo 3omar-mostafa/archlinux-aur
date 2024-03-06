@@ -391,10 +391,10 @@
     "description": "FAT filesystems explore, extract, repair, and forensic tool",
     "apply_script_file": "fatcat/fatcat.sh",
   },
-  // {
-  //   "name": "fawkes-bin",
-  //   "description": "Image cloaking tool for personal privacy",
-  // },
+  {
+    "name": "fawkes-bin",
+    "description": "Image cloaking tool for personal privacy",
+  },
   {
     "name": "ferdium-electron",
     "description": "A messaging browser that allows you to combine your favorite messaging services into one application",
@@ -859,10 +859,10 @@
     "description": "Monitor your CPU, Memory, Disk, Network and GPU usage",
     "depends": "rust",
   },
-  // {
-  //   "name": "modelsim-intel-starter",
-  //   "description": "ModelSim-Intel FPGA Starter Edition",
-  // },
+  {
+    "name": "modelsim-intel-starter",
+    "description": "ModelSim-Intel FPGA Starter Edition",
+  },
   {
     "name": "mongodb-bin",
     "description": "A high-performance, open source, schema-free document-oriented database",
