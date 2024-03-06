@@ -217,8 +217,8 @@ jobs:
           function RED()    { echo -e "\e[1m\e[31m\${1}\e[0m"; }
           function GREEN()  { echo -e "\e[1m\e[32m\${1}\e[0m"; }
           function YELLOW() { echo -e "\e[1m\e[33m\${1}\e[0m"; }
-          function YELLOW() { echo -e "\e[1m\e[34m\${1}\e[0m"; }
-          function INFO()   { echo -e "\e[1m\e[34m\ ============== ${1} ============== \e[0m"; }
+          function BLUE()   { echo -e "\e[1m\e[34m\${1}\e[0m"; }
+          function INFO()   { echo -e "\e[1m\e[34m ============== \${1} ============== \e[0m"; }
 
           echo ${{ github.token }} | gh auth login --with-token
           tag_name="${{ env.VERSION }}"
@@ -259,7 +259,7 @@ jobs:
             done
 
             INFO "Upload Release files"
-            for package in *.pkg.tar.* ; do
+            for package in * ; do
               for attempt in {1..15} ; do
                 if [[ "$attempt" -ne 1 ]] ; then
                   echo -e "\e[1m\e[33m Attempt#$attempt Trying to upload '$package' \e[0m"
@@ -301,7 +301,7 @@ jobs:
 
             cd ..
 
-            INFO "Repeating the cycle again"
+            YELLOW "================================== Repeating the cycle again =================================="
             
           done
 
