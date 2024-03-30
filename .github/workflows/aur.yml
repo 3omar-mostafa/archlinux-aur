@@ -224,7 +224,7 @@ jobs:
           tag_name="${{ env.VERSION }}"
           gh release create "$tag_name" --title "Release v$tag_name" --repo ${{ github.repository }}
 
-          for p in {a..z}; do
+          for p in {0..9} {a..z}; do
             
             INFO "Downloading Packages starting with '${p}'"
             gh run download ${{ github.run_id }} --repo ${{ github.repository }} --pattern ${p}'*' --dir "./${REPO}"
