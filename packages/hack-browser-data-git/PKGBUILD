@@ -9,7 +9,7 @@ url="https://github.com/moonD4rk/HackBrowserData"
 license=('MIT')
 depends=("glibc")
 makedepends=("git" "go")
-source=("git+${url}.git#branch=master")
+source=("git+${url}.git#branch=main")
 md5sums=('SKIP')
 
 pkgver() {

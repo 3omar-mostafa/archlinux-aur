@@ -440,6 +440,7 @@
   {
     "name": "fred",
     "description": "Digital forensics tool for viewing and reporting on Windows registry files",
+    "disable_mold": true,
   },
   {
     "name": "freetube",
