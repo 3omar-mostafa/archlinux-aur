@@ -17,7 +17,7 @@ diff --git a/src/libnm-core-impl/nm-setting-ip-config.c b/src/libnm-core-impl/nm
 index ab760c4..61bf992 100644
 --- a/src/libnm-core-impl/nm-setting-ip-config.c
 +++ b/src/libnm-core-impl/nm-setting-ip-config.c
-@@ -5167,9 +5167,7 @@ nm_setting_ip_config_get_dhcp_hostname(NMSettingIPConfig *setting)
+@@ -5196,9 +5196,7 @@ nm_setting_ip_config_get_dhcp_hostname(NMSettingIPConfig *setting)
  gboolean
  nm_setting_ip_config_get_dhcp_send_hostname(NMSettingIPConfig *setting)
  {
@@ -28,12 +28,12 @@ index ab760c4..61bf992 100644
  }
  
  /**
-@@ -6442,7 +6440,7 @@ nm_setting_ip_config_class_init(NMSettingIPConfigClass *klass)
+@@ -6647,7 +6647,7 @@ nm_setting_ip_config_class_init(NMSettingIPConfigClass *klass)
          g_param_spec_boolean(NM_SETTING_IP_CONFIG_DHCP_SEND_HOSTNAME,
                               "",
                               "",
 -                             TRUE,
 +                             FALSE,
-                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                              G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
  
      /**
