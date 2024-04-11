@@ -2,7 +2,7 @@ diff --git a/PKGBUILD b/PKGBUILD
 index d742f51..b052049 100644
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -70,3 +70,4
+@@ -70,3 +70,4 @@
  prepare() {
    cd NetworkManager
 +  patch -Np1 --ignore-whitespace -i "{{NM_PATCH_DIR}}/networkmanager.patch"
