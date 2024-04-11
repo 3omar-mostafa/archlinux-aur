@@ -5,7 +5,7 @@ pacman-key --init
 
 pacman -Syyu --noconfirm --color always
 
-pacman -Sy --noconfirm --color always --needed bat pacman-contrib
+pacman -Sy --noconfirm --color always --needed bat pacman-contrib python-packaging
 
 curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 # pacman-mirrors --api --set-branch unstable
