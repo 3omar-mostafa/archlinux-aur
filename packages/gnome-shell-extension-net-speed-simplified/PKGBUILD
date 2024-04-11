@@ -1,6 +1,6 @@
 pkgname=gnome-shell-extension-net-speed-simplified
 _pkgname=netspeedsimplified
-pkgver=41
+pkgver=42
 pkgrel=1
 pkgdesc="A Net Speed extension With Loads of Customization. Fork of simplenetspeed"
 arch=('any')
