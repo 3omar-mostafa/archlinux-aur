@@ -908,6 +908,12 @@
     "build_flags": "--nocheck",
   },
   {
+    "name": "nextdns",
+    "description": "NextDNS DNS/53 to DoH Proxy",
+    "meta": true,
+    "conflictdepends": "nextdns nextdns-bin",
+  },
+  {
     "name": "ngrok",
     "description": "A tunneling, reverse proxy for developing and understanding networked, HTTP services",
   },
@@ -934,6 +940,10 @@
   {
     "name": "nvm",
     "description": "Node Version Manager - Simple bash script to manage multiple active node.js versions",
+  },
+  {
+    "name": "oauth2-proxy",
+    "description": "A reverse proxy that provides authentication with Google, Keycloak, GitHub or other providers",
   },
   {
     "name": "octave-plugins-all",
@@ -1182,6 +1192,10 @@
 //    "local": true,
 //    "need_swap": true,
 //  },
+  {
+    "name": "rr",
+    "description": "Record and Replay framework: lightweight recording and deterministic debugging (Time Travel Debug)",
+  },
   {
     "name": "rubymine",
     "description": "Jetbrains Ruby/Rails IDE",
